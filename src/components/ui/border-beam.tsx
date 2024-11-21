@@ -13,12 +13,12 @@ interface BorderBeamProps {
 
 export const BorderBeam = ( {
     className,
-    size = 200,
-    duration = 15,
+    size = 400,
+    duration = 8,
     anchor = 90,
-    borderWidth = 1.5,
-    colorFrom = "#004B45",
-    colorTo = "#9c40ff",
+    borderWidth = 2,
+    colorFrom = "#338877",
+    colorTo = "#4692cb",
     delay = 0,
 }: BorderBeamProps ) => {
     return (

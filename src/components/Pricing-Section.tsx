@@ -58,7 +58,7 @@ export default function Pricing() {
                         clipPath:
                             'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
                     }}
-                    className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#4fd1c5] to-[#2b6cb0] opacity-30"
+                    className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#68e9dc] to-[#3177c3] opacity-30"
                 />
             </div>
             <div className="mx-auto max-w-4xl text-center">
@@ -76,13 +76,13 @@ export default function Pricing() {
                     <div
                         key={tier.id}
                         className={classNames(
-                            tier.featured ? 'relative bg-teal-900 h-[44rem] shadow-2xl' : 'bg-white/60 h-[40rem] sm:mx-8 lg:mx-0',
+                            tier.featured ? 'relative bg-teal-900 h-[45rem] shadow-2xl' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
                             tier.featured
                                 ? ''
                                 : tierIdx === 0
                                     ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none'
                                     : 'sm:rounded-t-none lg:rounded-bl-none lg:rounded-tr-3xl',
-                            'rounded-3xl p-8 ring-1 ring-teal-900/10 sm:p-10 h-full flex flex-col justify-between',
+                            'rounded-3xl p-8 ring-1 ring-teal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
                         )}
                     >
                         <div>

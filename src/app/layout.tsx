@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import Pricing from "@/components/Pricing-Section";
-
-const geistSans = localFont( {
-    src: "./fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
-    weight: "100 900",
-} );
-const geistMono = localFont( {
-    src: "./fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
-    weight: "100 900",
-} );
+import HeaderSection from "@/components/Header-Section1";
+import DetailsSection from "@/components/Details-Section";
+import Header from "@/components/ui/header";
+import Footer from "@/components/ui/footer";
+import BackToTopButton from "@/components/ui/backToTop";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -27,10 +19,12 @@ export default function RootLayout( {
     return (
         <html lang="en">
             <body>
-                <Pricing />
-
+                <Header />
+                <HeaderSection />
+                <DetailsSection />
                 {children}
-                <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+                <BackToTopButton />
+                <Footer />
             </body>
         </html>
     );
