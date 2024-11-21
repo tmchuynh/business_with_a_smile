@@ -25,10 +25,22 @@ export default function RootLayout( {
 }> ) {
     return (
         <html lang="en">
-            <body
-                className={`${ geistSans.variable } ${ geistMono.variable } antialiased`}
-            >
+            <body>
+                <div className="bg-deepTeal-500 text-white p-6 rounded-md shadow-lg">
+                    <h1 className="text-richRed-500 text-2xl font-bold">Elegant Design</h1>
+                    <p className="text-softNeutral-400 mt-4">
+                        Combine the richness of muted tones with vibrant accents.
+                    </p>
+                    <button className="mt-4 bg-accentGold-500 hover:bg-accentGold-600 text-white font-semibold py-2 px-4 rounded">
+                        Learn More
+                    </button>
+                </div>
+
+
+
+
                 {children}
+                <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
             </body>
         </html>
     );
