@@ -16,6 +16,10 @@ import {
 export function DatePickerDemo() {
     const [date, setDate] = React.useState<Date>();
 
+    const formatDate = ( date: Date | undefined ) => {
+        return date ? format( date, "PPP" ) : "Pick a date";
+    };
+
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -25,9 +29,10 @@ export function DatePickerDemo() {
                         "w-[280px] justify-start text-left font-normal",
                         !date && "text-muted-foreground"
                     )}
+                    aria-label="Select a date"
                 >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format( date, "PPP" ) : <span>Pick a date</span>}
+                    {formatDate( date )}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">

@@ -33,7 +33,7 @@ export const Timeline: React.FC<TimelineProps> = ( { items } ) => {
                             <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                         )}
                     </div>
-                    <div className="mt-3 sm:pe-8">
+                    <div className="mt-3 sm:pl-8">
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                             {item.title}
                         </h3>

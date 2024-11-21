@@ -13,8 +13,8 @@ interface BoxRevealProps {
 export const BoxReveal = ( {
     children,
     width = "fit-content",
-    boxColor,
-    duration,
+    boxColor = "#004B45",
+    duration = 0.5,
 }: BoxRevealProps ) => {
     const mainControls = useAnimation();
     const slideControls = useAnimation();
@@ -34,6 +34,7 @@ export const BoxReveal = ( {
 
     return (
         <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
+            {/* Main content with fade-in and slide-up effect */}
             <motion.div
                 variants={{
                     hidden: { opacity: 0, y: 75 },
@@ -41,11 +42,12 @@ export const BoxReveal = ( {
                 }}
                 initial="hidden"
                 animate={mainControls}
-                transition={{ duration: duration ? duration : 0.5, delay: 0.25 }}
+                transition={{ duration, delay: 0.25 }}
             >
                 {children}
             </motion.div>
 
+            {/* Sliding box background animation */}
             <motion.div
                 variants={{
                     hidden: { left: 0 },
@@ -53,7 +55,7 @@ export const BoxReveal = ( {
                 }}
                 initial="hidden"
                 animate={slideControls}
-                transition={{ duration: duration ? duration : 0.5, ease: "easeIn" }}
+                transition={{ duration, ease: "easeIn" }}
                 style={{
                     position: "absolute",
                     top: 4,
@@ -61,7 +63,8 @@ export const BoxReveal = ( {
                     left: 0,
                     right: 0,
                     zIndex: 20,
-                    background: boxColor ? boxColor : "#5046e6",
+                    background: boxColor,
+                    borderRadius: "0.75rem",
                 }}
             />
         </div>

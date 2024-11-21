@@ -3,14 +3,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+// Define alert variants for different styles
 const alertVariants = cva(
     "relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
     {
         variants: {
             variant: {
-                default: "bg-background text-foreground",
+                default: "bg-softNeutral-50 text-softNeutral-900 border-softNeutral-200",
                 destructive:
-                    "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+                    "border-richRed-500/50 text-richRed-500 dark:border-richRed-700 dark:text-richRed-400 [&>svg]:text-richRed-500",
+                success:
+                    "border-mutedGreen-500/50 text-mutedGreen-500 dark:border-mutedGreen-700 dark:text-mutedGreen-400 [&>svg]:text-mutedGreen-500",
+                info:
+                    "border-deepBlue-500/50 text-deepBlue-500 dark:border-deepBlue-700 dark:text-deepBlue-400 [&>svg]:text-deepBlue-500",
             },
         },
         defaultVariants: {
@@ -19,6 +24,7 @@ const alertVariants = cva(
     }
 );
 
+// Alert component that accepts variant props to dynamically set the style
 const Alert = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
@@ -32,6 +38,7 @@ const Alert = React.forwardRef<
 ) );
 Alert.displayName = "Alert";
 
+// AlertTitle component for the alert's heading
 const AlertTitle = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLHeadingElement>
@@ -44,6 +51,7 @@ const AlertTitle = React.forwardRef<
 ) );
 AlertTitle.displayName = "AlertTitle";
 
+// AlertDescription component for the alert's description
 const AlertDescription = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLParagraphElement>

@@ -14,16 +14,21 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
     return (
         <ol className="space-y-4 w-72">
             {steps.map( ( step ) => {
+                // Mapping step states to colors based on the new color scheme
                 const stateStyles = {
-                    completed: "text-green-700 border-green-300 bg-green-50 dark:bg-gray-800 dark:border-green-800 dark:text-green-400",
-                    current: "text-blue-700 bg-blue-100 border-blue-300 dark:bg-gray-800 dark:border-blue-800 dark:text-blue-400",
-                    upcoming: "text-gray-900 bg-gray-100 border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400",
+                    completed:
+                        "text-mutedGreen-700 border-mutedGreen-300 bg-mutedGreen-50 dark:bg-mutedGreen-800 dark:border-mutedGreen-800 dark:text-mutedGreen-400", // Muted Green
+                    current:
+                        "text-deepTeal-700 bg-deepTeal-100 border-deepTeal-300 dark:bg-deepTeal-800 dark:border-deepTeal-700 dark:text-deepTeal-400", // Deep Teal
+                    upcoming:
+                        "text-softNeutral-900 bg-softNeutral-100 border-softNeutral-300 dark:bg-softNeutral-800 dark:border-softNeutral-700 dark:text-softNeutral-400", // Soft Neutral
                 };
 
+                // Icons based on state
                 const icon = {
                     completed: (
                         <svg
-                            className="w-4 h-4"
+                            className="w-5 h-5 text-mutedGreen-700 dark:text-mutedGreen-400"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -40,7 +45,7 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                     ),
                     current: (
                         <svg
-                            className="rtl:rotate-180 w-4 h-4"
+                            className="w-5 h-5 text-deepTeal-700 dark:text-deepTeal-400"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -55,19 +60,30 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                             />
                         </svg>
                     ),
-                    upcoming: null,
+                    upcoming: (
+                        <svg
+                            className="w-5 h-5 text-softNeutral-500 dark:text-softNeutral-400"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 16 16"
+                        >
+                            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                    ),
                 };
 
                 return (
-                    <li key={step.id}>
+                    <li key={step.id} className="relative">
                         <div
                             className={`w-full p-4 border rounded-lg ${ stateStyles[step.state] }`}
                             role="alert"
+                            aria-live="assertive"
                         >
                             <div className="flex items-center justify-between">
                                 <span className="sr-only">{step.title}</span>
                                 <h3 className="font-medium">{`${ step.id }. ${ step.title }`}</h3>
-                                {icon[step.state]}
+                                <div className="ml-2">{icon[step.state]}</div>
                             </div>
                         </div>
                     </li>
