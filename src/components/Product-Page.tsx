@@ -2,22 +2,9 @@
 
 import React from "react";
 import { Specifications } from "./ui/Specifications";
-import { Laptop, Shield, Cloud, Phone } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import ProductDetails from "./ui/product-details";
-import { CalloutsGrid } from "./ui/CalloutsGrid";
+import { PhotoGrid } from "./ui/photo-grid";
 
-const productImages = [
-    { src: "/images/product-1.jpg", alt: "Product image 1" },
-    { src: "/images/product-2.jpg", alt: "Product image 2" },
-];
-
-const features = [
-    { name: "Fast Performance", description: "Get work done faster with optimized performance.", icon: Laptop },
-    { name: "Top-notch Security", description: "Enhanced security features to protect your data.", icon: Shield },
-    { name: "Cloud Integration", description: "Seamlessly integrate with cloud services.", icon: Cloud },
-    { name: "Mobile Friendly", description: "Fully responsive design for all screen sizes.", icon: Phone },
-];
 
 const productDetails: Product = {
     name: "SuperProduct 3000",
@@ -48,11 +35,14 @@ const productDetails: Product = {
         { name: "Fast Performance", description: "Get work done faster with optimized performance." },
         { name: "Top-notch Security", description: "Enhanced security features to protect your data." },
         { name: "Cloud Integration", description: "Seamlessly integrate with cloud services." },
+        { name: "Cloud Integration", description: "Seamlessly integrate with cloud services." },
+        { name: "Cloud Integration", description: "Seamlessly integrate with cloud services." },
+        { name: "Cloud Integration", description: "Seamlessly integrate with cloud services." },
         { name: "Mobile Friendly", description: "Fully responsive design for all screen sizes." },
     ],
 };
 
-const callouts = [
+const photos = [
     {
         name: "Fast Performance",
         description: "Achieve faster load times and seamless performance across your projects.",
@@ -103,17 +93,14 @@ export default function ProductPage() {
             {/* Product Details Section */}
             <ProductDetails product={productDetails} />
 
-            <CalloutsGrid title="Key Features" callouts={callouts} />
+            <PhotoGrid title="Key Features" photos={photos} />
 
             {/* Specifications Section */}
             <Specifications
                 title="Product Specifications"
                 description="Everything you need to know about the SuperProduct 3000"
                 features={productDetails.features}
-                images={productImages}
             />
-
-
         </div>
     );
 }

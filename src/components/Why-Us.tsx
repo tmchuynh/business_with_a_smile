@@ -1,6 +1,6 @@
 import { Phone, Globe, CheckCircle } from 'lucide-react';
 
-export default function FeatureSection() {
+export default function OurFeatures() {
     const features = [
         {
             name: 'Tailored Solutions',

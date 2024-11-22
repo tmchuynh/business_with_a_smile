@@ -48,7 +48,7 @@ const services = [
     },
 ];
 
-export default function Services() {
+export default function ImportanceOfWebDesign() {
     return (
         <section className="bg-white py-16 px-16 relative isolate w-11/12 mx-auto">
             <div className="text-center mb-12">

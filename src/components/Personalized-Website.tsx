@@ -1,6 +1,6 @@
 import { CheckIcon, LockIcon, ShieldIcon, CloudIcon, ServerIcon, KeyIcon, DatabaseIcon, WifiIcon } from 'lucide-react';
 
-const serviceFeatures = [
+const reasons = [
     {
         title: 'Showcase Your Unique Brand Identity',
         description:
@@ -52,7 +52,7 @@ const serviceFeatures = [
 ];
 
 
-export default function DetailsSection() {
+export default function PersonalizedWebsite() {
     return (
         <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -68,7 +68,7 @@ export default function DetailsSection() {
 
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                     <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-                        {serviceFeatures.map( ( feature, index ) => (
+                        {reasons.map( ( feature, index ) => (
                             <div key={index} className="relative pl-16">
                                 <dt className="text-base font-semibold text-gray-900">
                                     <div className="absolute left-0 top-0 flex items-center justify-center rounded-lg bg-teal-600 p-2">
