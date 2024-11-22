@@ -1,29 +1,18 @@
-import ContactForm from "@/components/Contact-Form";
-import DetailsSection from "@/components/Details-Section";
-import FeatureSection from "@/components/Featured-Section";
 import HeaderSection from "@/components/Header-Section1";
-import PaymentOptions from "@/components/Payment-Options";
-import PortfolioSection from "@/components/Portfolio";
-import Pricing from "@/components/Pricing-Section";
-import ProductPage from "@/components/Product-Page";
-import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
-
+import ImportanceOfWebDesign from "@/components/Importance-of-Web-Design";
+import OurFeatures from "@/components/Why-Us";
+import PersonalizedWebsite from "@/components/Personalized-Website";
 
 
 export default function Home() {
     return (
         <>
             <HeaderSection />
-            <DetailsSection />
-            <FeatureSection />
-            <Services />
+            <PersonalizedWebsite />
+            <OurFeatures />
+            <ImportanceOfWebDesign />
             <Testimonials />
-            <Pricing />
-            <PaymentOptions />
-            <PortfolioSection />
-            <ProductPage />
-            <ContactForm />
         </>
     );
 }
