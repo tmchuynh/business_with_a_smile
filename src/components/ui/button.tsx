@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md w-full my-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-md px-3.5 py-3 text-center text-sm font-semibold sm:mt-6 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "flex items-center justify-center gap-2 whitespace-nowrap rounded-md w-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-md px-3.5 py-3 text-center text-sm font-semibold disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     {
         variants: {
             variant: {
                 default:
                     "bg-deepTeal-600 text-white shadow-md hover:bg-deepTeal-500 focus-visible:outline-deepTeal-600",
                 destructive:
-                    "bg-richRed-500 text-softNeutral-50 shadow-sm hover:bg-richRed-700",
+                    "bg-richRed-500 text-softNeutral-50 hover:bg-richRed-700 shadow-md",
                 outline:
-                    "text-deepTeal-600 ring-1 ring-inset ring-deepTeal-200 shadow-md hover:ring-deepTeal-300 focus-visible:outline-deepTeal-600",
+                    "text-deepTeal-600 ring-1 ring-inset ring-deepTeal-200 shadow-sm hover:ring-deepTeal-300 focus-visible:outline-deepTeal-600",
                 secondary:
-                    "bg-deepBlue-500 text-softNeutral-50 shadow-sm hover:bg-deepBlue-600",
+                    "bg-deepBlue-500 text-softNeutral-50 hover:bg-deepBlue-600 shadow-md",
                 ghost:
                     "hover:bg-accentGold-100 hover:text-accentGold-500 hover:bg-transparent",
                 link:
                     "text-deepTeal-500 underline-offset-4 hover:underline",
                 success:
-                    "bg-green-600 text-softNeutral-50 shadow-sm hover:bg-green-700",
+                    "bg-green-600 text-softNeutral-50 hover:bg-green-700 shadow-md",
                 neutral:
-                    "bg-softNeutral-200 text-softNeutral-800 shadow-sm hover:bg-softNeutral-100",
+                    "bg-softNeutral-200 text-softNeutral-800 hover:bg-softNeutral-100 shadow-md",
             },
             size: {
                 default: "h-9 px-4 py-5 w-full",
