@@ -4,8 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, BarChart, MessageSquare, Lock, Plug, Repeat } from "lucide-react"; // Importing Lucide icons
 
 const solutions = [
-    { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: BarChart },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: MessageSquare },
+    { name: 'Portfolio', description: 'Get a better understanding of your traffic', href: '/portfolio', icon: BarChart },
+    { name: 'Services', description: 'Speak directly to your customers', href: '/services', icon: MessageSquare },
     { name: 'Security', description: "Your customers' data will be safe and secure", href: '#', icon: Lock },
     { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: Plug },
     { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: Repeat },
@@ -49,7 +49,7 @@ export default function Header() {
 
                 {/* Navigation Links */}
                 <nav className="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
-                    <a href="#" className="hover:text-teal-600">Home</a>
+                    <a href="/" className="hover:text-teal-600">Home</a>
                     <a href="#about" className="hover:text-teal-600">About</a>
 
                     {/* Solutions Dropdown */}
@@ -59,15 +59,15 @@ export default function Header() {
                             onClick={toggleDropdown}
                             className="inline-flex items-center gap-x-1 text-sm font-semibold"
                         >
-                            <span>Solutions</span>
+                            <span>About</span>
                             <ChevronDown aria-hidden="true" className="h-5 w-5" />
                         </button>
 
                         {dropdownOpen && (
                             <div ref={dropdownRef} className="absolute left-1/2 z-10 mt-5 w-96 -translate-x-1/2 bg-white shadow-lg rounded-lg p-2">
-                                {solutions.map( ( item ) => (
+                                {solutions.map( ( item, index ) => (
                                     <a href={item.href} className="font-semibold text-gray-900">
-                                        <div key={item.name} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                                        <div key={`${ item.name }_${ index }`} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
                                             <div className="mt-1 flex items-center justify-center rounded-lg bg-teal-100 group-hover:bg-teal-200 p-2 h-10 w-10">
                                                 <item.icon aria-hidden="true" className="text-teal-600 group-hover:text-teal-700" />
                                             </div>
@@ -82,8 +82,8 @@ export default function Header() {
                         )}
                     </div>
 
-                    <a href="#services" className="hover:text-teal-600">Services</a>
-                    <a href="#contact" className="hover:text-teal-600">Contact</a>
+                    <a href="/pricing" className="hover:text-teal-600">Pricing</a>
+                    <a href="/contact" className="hover:text-teal-600">Contact</a>
                 </nav>
 
                 {/* Call to Action Button for smaller screens */}
