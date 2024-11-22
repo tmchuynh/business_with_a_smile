@@ -64,7 +64,7 @@ export default function Testimonials() {
                         {firstHalf.map( ( testimonial, index ) => (
                             <div
                                 key={`${ testimonial.name }_${ index }`}
-                                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all ease-in-out"
+                                className="bg-white p-8 rounded-lg shadow-md"
                             >
                                 <div className="text-left mb-6">
                                     <h3 className="text-xl font-semibold text-deepTeal-600">{testimonial.name}</h3>
@@ -91,7 +91,7 @@ export default function Testimonials() {
                         {secondHalf.map( ( testimonial, index ) => (
                             <div
                                 key={`${ testimonial.name }_${ index }`}
-                                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all ease-in-out"
+                                className="bg-white p-8 rounded-lg shadow-md"
                             >
                                 <div className="text-left mb-6">
                                     <h3 className="text-xl font-semibold text-deepTeal-600">{testimonial.name}</h3>

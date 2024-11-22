@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -15,10 +14,6 @@ import {
 
 export function DatePickerDemo() {
     const [date, setDate] = React.useState<Date>();
-
-    const formatDate = ( date: Date | undefined ) => {
-        return date ? format( date, "PPP" ) : "Pick a date";
-    };
 
     return (
         <Popover>

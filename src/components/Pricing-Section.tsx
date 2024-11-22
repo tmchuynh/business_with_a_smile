@@ -4,23 +4,22 @@ import { Button } from './ui/button';
 
 const tiers = [
     {
-        name: 'Blog Website',
+        name: 'Content Website',
         id: 'tier-blog',
         href: '#',
-        priceStartingAt: '$1,200',
-        description: 'Perfect for writers, content creators, or businesses focused on content marketing.',
+        priceStartingAt: '$1,000',
+        description: 'Perfect for writers, content creators, or businesses focused on content marketing (ie. graphic designers, photographers, etc.).',
         features: [
-            'Up to 10 pages',
+            'Up to 5 pages',
             'Responsive blog design',
             'SEO-optimized blog post templates',
-            'Content management system (e.g., WordPress)',
             'Social sharing features',
-            '2 revision cycles',
+            '1 revision cycle',
         ],
         featured: false,
     },
     {
-        name: 'Business/Portfolio Website',
+        name: 'Professional Business Website',
         id: 'tier-business',
         href: '#',
         priceStartingAt: '$2,000',

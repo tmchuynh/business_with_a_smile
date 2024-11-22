@@ -1,3 +1,4 @@
+import ContactForm from "@/components/Contact-Form";
 import DetailsSection from "@/components/Details-Section";
 import FeatureSection from "@/components/Featured-Section";
 import HeaderSection from "@/components/Header-Section1";
@@ -22,6 +23,7 @@ export default function Home() {
             <PaymentOptions />
             <PortfolioSection />
             <ProductPage />
+            <ContactForm />
         </>
     );
 }

@@ -1,165 +1,309 @@
 "use client";
 
-import { useState } from 'react';
+import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/components/hooks/use-toast";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "./ui/calendar";
+import { cn, formatDate } from "@/lib/utils";
+
+// Define the site_styles array for the dropdown options
+const site_styles = [
+    {
+        name: "Professional + Elegant",
+        icon: () => <span className="text-deepTeal-700">🖤</span>,
+        description: "A clean and sleek look for a more refined aesthetic."
+    },
+    {
+        name: "Bold + Fierce",
+        icon: () => <span className="text-red-700">🔥</span>,
+        description: "Embrace boldness with a fierce and powerful design."
+    },
+    {
+        name: "Classic + Modern",
+        icon: () => <span className="text-indigo-700">🎨</span>,
+        description: "A perfect blend of timeless elegance and contemporary style."
+    },
+    {
+        name: "Colorful + Friendly",
+        icon: () => <span className="text-yellow-500">🌈</span>,
+        description: "Vibrant and welcoming, ideal for a joyful atmosphere."
+    },
+    {
+        name: "Monotone + Welcoming",
+        icon: () => <span className="text-gray-700">⚪</span>,
+        description: "A minimalist approach with a welcoming, neutral tone."
+    },
+];
+
+const website_demand = [
+    {
+        name: "Content-Based Website",
+        icon: () => <span className="text-deepTeal-700">🖤</span>,
+        description: "A clean and sleek look for a more refined aesthetic."
+    },
+    {
+        name: "Professional Business Website",
+        icon: () => <span className="text-red-700">🔥</span>,
+        description: "Embrace boldness with a fierce and powerful design."
+    },
+    {
+        name: "Custom Website",
+        icon: () => <span className="text-indigo-700">🎨</span>,
+        description: "A perfect blend of timeless elegance and contemporary style."
+    },
+];
+
+// Define the schema for the form using zod
+const FormSchema = z.object( {
+    name: z
+        .string()
+        .min( 2, { message: "Full name must be at least 2 characters." } )
+        .max( 100, { message: "Full name cannot exceed 100 characters." } ),
+
+    email: z
+        .string()
+        .email( { message: "Please enter a valid email address." } )
+        .min( 5, { message: "Email address must be at least 5 characters." } ),
+
+    style: z
+        .string(),
+
+    website: z
+        .string(),
+
+    dueDate: z
+        .string(),
+
+    demand: z
+        .string(),
+
+    message: z
+        .string()
+        .min( 10, { message: "Message must be at least 10 characters." } )
+        .max( 1000, { message: "Message cannot exceed 1000 characters." } ),
+} );
 
 export default function ContactForm() {
-    const [formData, setFormData] = useState( {
-        name: '',
-        email: '',
-        phone: '',
-        website: '',
-        urgency: 'Low',
-        dueDate: '',
-        projectDetails: '',
+
+    const [date, setDate] = React.useState<Date>();
+
+
+    // 1. Define the form using `useForm` hook
+    const form = useForm<z.infer<typeof FormSchema>>( {
+        resolver: zodResolver( FormSchema ),
+        defaultValues: {
+            name: "",
+            email: "",
+            message: "",
+            website: "",
+            dueDate: "",
+            style: "",
+        },
     } );
 
-    // Handle form input changes
-    const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
-        const { name, value } = e.target;
-        setFormData( ( prevData ) => ( { ...prevData, [name]: value } ) );
-    };
-
-    // Handle form submission
-    const handleSubmit = ( e: React.FormEvent ) => {
-        e.preventDefault();
-        // Handle form submission logic
-        console.log( formData );
-    };
+    // 2. Define a submit handler
+    function onSubmit( data: z.infer<typeof FormSchema> ) {
+        toast( {
+            title: "You submitted the following values:",
+            description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">{JSON.stringify( data, null, 2 )}</code>
+                </pre>
+            ),
+        } );
+    }
 
     return (
-        <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-teal-600">Contact Us</h2>
-                <p className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
-                    Tell us about your project
+        <section className="bg-white py-16 px-16 relative isolate w-11/12 mx-auto">
+            <div className="text-center mb-12">
+                <h2 className="text-base font-semibold text-teal-600">Bring Your Vision to Life</h2>
+                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
+                    Contact Us
+                </p>
+                <p className="mt-4 text-lg text-gray-600">
+                    Ready to take the next step? Reach out to us today, and let’s turn your ideas into reality. Whether you’re looking for a fresh website design, expert advice, or innovative solutions, we’re here to help you succeed.
                 </p>
             </div>
-            <div className="mx-auto mt-16 max-w-xl">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Personal Information Section */}
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-                                Full Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                                placeholder="John Doe"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-                                Email Address
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                                placeholder="example@email.com"
-                                required
-                            />
-                        </div>
-                    </div>
+            <div className="my-16 mx-auto max-w-2xl">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit( onSubmit )} className="space-y-8">
+                        {/* Name Field */}
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="John Doe" {...field} />
+                                    </FormControl>
+                                    <FormDescription>This is your public display name.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
-                        <div>
-                            <label htmlFor="phone" className="block text-sm font-medium text-gray-900">
-                                Phone Number
-                            </label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                                placeholder="(123) 456-7890"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="website" className="block text-sm font-medium text-gray-900">
-                                Company Website
-                            </label>
-                            <input
-                                type="url"
-                                id="website"
-                                name="website"
-                                value={formData.website}
-                                onChange={handleChange}
-                                className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                                placeholder="https://www.companywebsite.com"
-                            />
-                        </div>
-                    </div>
+                        {/* Email Field */}
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="john.doe@example.com" {...field} />
+                                    </FormControl>
+                                    <FormDescription>Your contact email.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    {/* Project Information Section */}
-                    <div>
-                        <label htmlFor="urgency" className="block text-sm font-medium text-gray-900">
-                            Project Urgency
-                        </label>
-                        <select
-                            id="urgency"
-                            name="urgency"
-                            value={formData.urgency}
-                            onChange={handleChange}
-                            className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                        >
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </div>
+                        {/* Website Demand Field */}
+                        <FormField
+                            control={form.control}
+                            name="website"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Website</FormLabel>
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a website" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {website_demand.map( ( type, index ) => (
+                                                <SelectItem key={index} value={type.name}>
+                                                    <div className="flex items-center gap-2">
+                                                        <span>{type.icon()}</span>
+                                                        <span>{type.name}</span>
+                                                    </div>
+                                                </SelectItem>
+                                            ) )}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormDescription>Select the website type you're interested in.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    <div>
-                        <label htmlFor="dueDate" className="block text-sm font-medium text-gray-900">
-                            Due Date
-                        </label>
-                        <input
-                            type="date"
-                            id="dueDate"
+                        {/* Due Date Field */}
+                        <FormField
+                            control={form.control}
                             name="dueDate"
-                            value={formData.dueDate}
-                            onChange={handleChange}
-                            className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Estimated Due Date</FormLabel>
+                                    <FormControl>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    variant={"outline"}
+                                                    className={cn(
+                                                        "w-[280px] justify-start text-left font-normal",
+                                                        !date && "text-muted-foreground"
+                                                    )}
+                                                >
+                                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                                    {date ? formatDate( date ) : <span>Pick a date</span>}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0">
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={date}
+                                                    onSelect={setDate}
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                    </FormControl>
+                                    <FormDescription>Select the estimated due date for the project.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                    </div>
 
-                    {/* Project Details Section */}
-                    <div>
-                        <label htmlFor="projectDetails" className="block text-sm font-medium text-gray-900">
-                            Project Details
-                        </label>
-                        <textarea
-                            id="projectDetails"
-                            name="projectDetails"
-                            rows={4}
-                            value={formData.projectDetails}
-                            onChange={handleChange}
-                            className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-teal-500 sm:text-sm"
-                            placeholder="Tell us more about your project"
+                        {/* Website Style Field */}
+                        <FormField
+                            control={form.control}
+                            name="style"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Website Style</FormLabel>
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a style" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {site_styles.map( ( style, index ) => (
+                                                <SelectItem key={index} value={style.name}>
+                                                    <div className="flex items-center gap-2">
+                                                        <span>{style.icon()}</span>
+                                                        <span>{style.name}</span>
+                                                    </div>
+                                                </SelectItem>
+                                            ) )}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormDescription>Select the style that best suits your business.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                    </div>
 
-                    {/* Submit Button */}
-                    <div className="mt-8 flex justify-center">
-                        <button
-                            type="submit"
-                            className="rounded-md bg-teal-500 px-6 py-3 text-white font-semibold text-lg shadow-sm hover:bg-teal-400 focus-visible:outline-teal-500"
-                        >
-                            Submit Project Details
-                        </button>
-                    </div>
-                </form>
+                        {/* Message Field */}
+                        <FormField
+                            name="message"
+                            render={( { field } ) => (
+                                <FormItem>
+                                    <FormLabel>Your Message</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            id="message"
+                                            rows={4}
+                                            placeholder="Write your message here..."
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Submit Button */}
+                        <Button type="submit">Submit</Button>
+                    </form>
+                </Form>
             </div>
-        </div>
+        </section>
     );
 }
