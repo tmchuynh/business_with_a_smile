@@ -61,16 +61,18 @@ function classNames( ...classes: string[] ) {
 export default function Pricing() {
     return (
         <div className="relative isolate bg-white px-6 py-28 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-deepTeal-600">Pricing</h2>
-                <p className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-6xl">
-                    Choose the right plan for you
+            <div className="text-center mb-12">
+                <div className="mx-auto max-w-4xl text-center">
+                    <h2 className="text-base font-semibold text-teal-600">Pricing Plans</h2>
+                    <p className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-6xl">
+                        Find the Perfect Plan for Your Needs
+                    </p>
+                </div>
+                <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 sm:text-xl">
+                    Explore affordable pricing options designed to help you engage your audience, build lasting customer loyalty, and boost your sales.
                 </p>
             </div>
-            <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-softNeutral-600 sm:text-xl/8">
-                Choose an affordable plan that’s packed with the best features for engaging your audience, creating customer
-                loyalty, and driving sales.
-            </p>
+
             <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
                 {tiers.map( ( tier, tierIdx ) => (
                     <div
@@ -124,16 +126,22 @@ export default function Pricing() {
                     </div>
                 ) )}
             </div>
-            <div className='mx-auto max-w-4xl text-center mt-14'>
-                <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-4xl">Are You a Student?</h4>
+            <div className="mx-auto max-w-4xl text-center mt-14">
+                <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-4xl">
+                    Are You a Student?
+                </h4>
                 <p className="mt-6 text-lg text-softNeutral-600">
-                    Get a 60% discount on your first purchase with a student discount code.
+                    Enjoy a 60% discount on your first purchase with our exclusive student discount.
                 </p>
-                <form className='flex items-center gap-3 justify-center m-auto'>
-                    <Input placeholder='Enter your student email address' className='mt-3 py-5' />
-                    <Button className='w-1/4'>Submit</Button>
+                <form className="flex items-center gap-3 justify-center m-auto">
+                    <Input
+                        placeholder="Enter your student email address"
+                        className="mt-3 py-5"
+                    />
+                    <Button className="w-1/4">Submit</Button>
                 </form>
             </div>
+
         </div>
     );
 }

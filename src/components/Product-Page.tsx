@@ -100,10 +100,6 @@ const callouts = [
 export default function ProductPage() {
     return (
         <div>
-
-
-
-
             {/* Product Details Section */}
             <ProductDetails product={productDetails} />
 

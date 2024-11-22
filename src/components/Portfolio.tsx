@@ -8,10 +8,16 @@ export default function PortfolioSection() {
 
     return (
         <div className="bg-white py-24 px-6 sm:px-8 lg:px-16">
-            <div className="text-center">
-                <h2 className="text-3xl font-semibold text-teal-600">Our Work</h2>
-                <p className="mt-4 text-xl font-medium text-gray-600">See some of the projects we've completed for our clients.</p>
+            <div className="text-center mb-12">
+                <h2 className="text-base font-semibold text-teal-600">Our Portfolio</h2>
+                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
+                    Showcasing Our Expertise
+                </p>
+                <p className="mt-4 text-xl font-medium text-gray-600">
+                    Explore a selection of projects we’ve delivered for our clients, highlighting innovation, creativity, and results.
+                </p>
             </div>
+
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                 {projects.map( ( project, idx ) => (
                     <div key={idx} className="group relative bg-gray-100 rounded-xl shadow-lg overflow-hidden">

@@ -37,7 +37,7 @@ const paymentPlans = [
             "50% payment due before the site goes live",
             "Regular milestone-based progress reports",
         ],
-        isPopular: false,
+        isPopular: true,
     },
     {
         name: "Extended Milestone Plan",
@@ -63,16 +63,18 @@ function classNames( ...classes: string[] ) {
 export default function PaymentOptions() {
     return (
         <div className="relative isolate bg-softNeutral-50 px-6 py-24 sm:py-32 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-deepTeal-600">Payment Plans</h2>
-                <p className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
-                    Choose a Payment Plan That Works for You
+            <div className="text-center mb-12">
+                <div className="mx-auto max-w-4xl text-center">
+                    <h2 className="text-base font-semibold text-teal-600">Flexible Payment Options</h2>
+                    <p className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
+                        Find the Payment Plan That Fits You Best
+                    </p>
+                </div>
+                <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-gray-600 sm:text-xl">
+                    We offer customizable payment plans designed to meet your budget and business goals. Select a plan that works for you and grow your business with confidence.
                 </p>
             </div>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-gray-600 sm:text-xl/8">
-                Flexible payment options to suit your needs. Choose a plan that fits your budget and scale your business at your own pace.
-            </p>
-            <div className="mx-auto m-7 grid max-w-lg grid-cols-1 gap-y-6 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:max-w-7xl">
+            <div className="mx-auto m-7 grid max-w-lg grid-cols-1 gap-y-6 sm:mt-20 sm:grid-cols-2 gap-x-8 lg:max-w-7xl">
                 {paymentPlans.map( ( plan, index ) => (
                     <div
                         key={plan.id}
@@ -103,24 +105,14 @@ export default function PaymentOptions() {
                                     {plan.price}
                                 </span>
 
-                                {plan.id === 'full-upfront' ? (
-                                    <span
-                                        className={classNames(
-                                            plan.isPopular ? 'text-softNeutral-400' : 'text-softNeutral-500',
-                                            'text-base'
-                                        )}
-                                    >
-                                        payment
-                                    </span>
-                                ) :
-                                    <span
-                                        className={classNames(
-                                            plan.isPopular ? 'text-softNeutral-400' : 'text-softNeutral-500',
-                                            'text-base'
-                                        )}
-                                    >
-                                        payment(s)
-                                    </span>}
+                                <span
+                                    className={classNames(
+                                        plan.isPopular ? 'text-softNeutral-400' : 'text-softNeutral-500',
+                                        'text-base'
+                                    )}
+                                >
+                                    {plan.price === '1' ? 'payment' : 'payment(s)'}
+                                </span>
                             </p>
                             <p
                                 className={classNames(

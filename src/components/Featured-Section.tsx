@@ -27,7 +27,7 @@ export default function FeatureSection() {
     return (
         <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 lg:max-w-6xl mx-auto">
             <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-deepTeal-600">Features</h2>
+                <h2 className="text-base font-semibold text-teal-600">Features</h2>
                 <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
                     Elevate Your Business with Us
                 </p>
