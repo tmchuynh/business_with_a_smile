@@ -1,201 +1,130 @@
 "use client";
 
 import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
-
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "./ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { cn, formatDate } from "@/lib/utils";
+import { Controller, useForm } from "react-hook-form";
 
 // Define the site_styles array for the dropdown options
 const site_styles = [
-    {
-        name: "Professional + Elegant",
-        icon: () => <span className="text-deepTeal-700">🖤</span>,
-        description: "A clean and sleek look for a more refined aesthetic."
-    },
-    {
-        name: "Bold + Fierce",
-        icon: () => <span className="text-red-700">🔥</span>,
-        description: "Embrace boldness with a fierce and powerful design."
-    },
-    {
-        name: "Classic + Modern",
-        icon: () => <span className="text-indigo-700">🎨</span>,
-        description: "A perfect blend of timeless elegance and contemporary style."
-    },
-    {
-        name: "Colorful + Friendly",
-        icon: () => <span className="text-yellow-500">🌈</span>,
-        description: "Vibrant and welcoming, ideal for a joyful atmosphere."
-    },
-    {
-        name: "Monotone + Welcoming",
-        icon: () => <span className="text-gray-700">⚪</span>,
-        description: "A minimalist approach with a welcoming, neutral tone."
-    },
+    { name: "Professional + Elegant", icon: () => <span className="text-deepTeal-700">🖤</span>, description: "A clean and sleek look for a more refined aesthetic." },
+    { name: "Bold + Fierce", icon: () => <span className="text-red-700">🔥</span>, description: "Embrace boldness with a fierce and powerful design." },
+    { name: "Classic + Modern", icon: () => <span className="text-indigo-700">🎨</span>, description: "A perfect blend of timeless elegance and contemporary style." },
+    { name: "Colorful + Friendly", icon: () => <span className="text-yellow-500">🌈</span>, description: "Vibrant and welcoming, ideal for a joyful atmosphere." },
+    { name: "Monotone + Welcoming", icon: () => <span className="text-gray-700">⚪</span>, description: "A minimalist approach with a welcoming, neutral tone." }
 ];
 
+// Define the website demand options
 const website_demand = [
-    {
-        name: "Content-Based Website",
-        icon: () => <span className="text-deepTeal-700">🖤</span>,
-        description: "A clean and sleek look for a more refined aesthetic."
-    },
-    {
-        name: "Professional Business Website",
-        icon: () => <span className="text-red-700">🔥</span>,
-        description: "Embrace boldness with a fierce and powerful design."
-    },
-    {
-        name: "Custom Website",
-        icon: () => <span className="text-indigo-700">🎨</span>,
-        description: "A perfect blend of timeless elegance and contemporary style."
-    },
+    { name: "Content-Based Website", icon: () => <span className="text-deepTeal-700">🖤</span>, description: "A clean and sleek look for a more refined aesthetic." },
+    { name: "Professional Business Website", icon: () => <span className="text-red-700">🔥</span>, description: "Embrace boldness with a fierce and powerful design." },
+    { name: "Custom Website", icon: () => <span className="text-indigo-700">🎨</span>, description: "A perfect blend of timeless elegance and contemporary style." }
 ];
-
-// Define the schema for the form using zod
-const FormSchema = z.object( {
-    name: z
-        .string()
-        .min( 2, { message: "Full name must be at least 2 characters." } )
-        .max( 100, { message: "Full name cannot exceed 100 characters." } ),
-
-    email: z
-        .string()
-        .email( { message: "Please enter a valid email address." } )
-        .min( 5, { message: "Email address must be at least 5 characters." } ),
-
-    style: z
-        .string(),
-
-    website: z
-        .string(),
-
-    dueDate: z
-        .string(),
-
-    demand: z
-        .string(),
-
-    message: z
-        .string()
-        .min( 10, { message: "Message must be at least 10 characters." } )
-        .max( 1000, { message: "Message cannot exceed 1000 characters." } ),
-} );
 
 export default function ContactForm() {
-
-    const [date, setDate] = React.useState<Date>();
-
-
-    // 1. Define the form using `useForm` hook
-    const form = useForm<z.infer<typeof FormSchema>>( {
-        resolver: zodResolver( FormSchema ),
+    const { control, handleSubmit, setValue, formState: { errors } } = useForm( {
         defaultValues: {
             name: "",
             email: "",
-            message: "",
-            website: "",
-            dueDate: "",
             style: "",
-        },
+            website: "",
+            message: "",
+            dueDate: "",
+            attachments: [] // Store multiple files in an array
+        }
     } );
 
-    // 2. Define a submit handler
-    function onSubmit( data: z.infer<typeof FormSchema> ) {
-        toast( {
-            title: "You submitted the following values:",
-            description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify( data, null, 2 )}</code>
-                </pre>
-            ),
-        } );
-    }
+    const [date, setDate] = React.useState<Date>();
+    const fileInputRef = React.useRef<HTMLInputElement>( null );
+    const [openPopover, setOpenPopover] = React.useState( false );
+    const [selectedFiles, setSelectedFiles] = React.useState<File[]>( [] ); // Store selected files in an array
+
+    const handleDateSelect = ( selectedDate: Date | undefined ) => {
+        if ( selectedDate ) {
+            setDate( selectedDate );
+            setOpenPopover( false ); // Close popover when a date is selected
+        }
+    };
+
+    const handleFileChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+        if ( event.target.files ) {
+            const files = Array.from( event.target.files );
+            setSelectedFiles( prevFiles => [...prevFiles, ...files] ); // Add new files to the array
+            setValue( "attachments", [...selectedFiles, ...files] ); // Update form with the selected files
+        }
+    };
+
+    const handleRemoveFile = ( index: number ) => {
+        const newFiles = selectedFiles.filter( ( _, i ) => i !== index ); // Remove the file at the specified index
+        setSelectedFiles( newFiles );
+        setValue( "attachments", newFiles ); // Update form value with the remaining files
+    };
+
+    const handleRemoveAllFiles = () => {
+        setSelectedFiles( [] );
+        setValue( "attachments", [] ); // Clear form value
+    };
+
+    const onSubmit = ( data: any ) => {
+        console.log( data );
+    };
 
     return (
-        <section className="bg-white py-16 px-16 relative isolate w-11/12 mx-auto">
+        <section className="bg-white py-16 px-16 relative w-11/12 mx-auto">
             <div className="text-center mb-12">
                 <h2 className="text-base font-semibold text-teal-600">Bring Your Vision to Life</h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
-                    Contact Us
-                </p>
+                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Contact Us</p>
                 <p className="mt-4 text-lg text-gray-600">
-                    Ready to take the next step? Reach out to us today, and let’s turn your ideas into reality. Whether you’re looking for a fresh website design, expert advice, or innovative solutions, we’re here to help you succeed.
+                    Ready to take the next step? Reach out to us today, and let’s turn your ideas into reality.
                 </p>
             </div>
+
             <div className="my-16 mx-auto max-w-2xl">
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit( onSubmit )} className="space-y-8">
-                        {/* Name Field */}
-                        <FormField
-                            control={form.control}
+                <form onSubmit={handleSubmit( onSubmit )} className="space-y-8">
+                    {/* Name Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Name</label>
+                        <Controller
                             name="name"
+                            control={control}
                             render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="John Doe" {...field} />
-                                    </FormControl>
-                                    <FormDescription>This is your public display name.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
+                                <Input {...field} placeholder="John Doe" className="mt-1" />
                             )}
                         />
+                        {errors.name && <p className="text-sm text-red-500">{String( errors.name?.message )}</p>}
+                    </div>
 
-                        {/* Email Field */}
-                        <FormField
-                            control={form.control}
+                    {/* Email Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Email</label>
+                        <Controller
                             name="email"
+                            control={control}
                             render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="john.doe@example.com" {...field} />
-                                    </FormControl>
-                                    <FormDescription>Your contact email.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
+                                <Input {...field} placeholder="john.doe@example.com" className="mt-1" />
                             )}
                         />
+                        {errors.email && <p className="text-sm text-red-500">{String( errors.email?.message )}</p>}
+                    </div>
 
+                    <div className="grid grid-cols-2 gap-4">
                         {/* Website Demand Field */}
-                        <FormField
-                            control={form.control}
-                            name="website"
-                            render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Website</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a website" />
-                                            </SelectTrigger>
-                                        </FormControl>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-deepTeal-700">Website Type</label>
+                            <Controller
+                                name="website"
+                                control={control}
+                                render={( { field } ) => (
+                                    <Select {...field}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a website type" />
+                                        </SelectTrigger>
                                         <SelectContent>
                                             {website_demand.map( ( type, index ) => (
                                                 <SelectItem key={index} value={type.name}>
@@ -207,62 +136,22 @@ export default function ContactForm() {
                                             ) )}
                                         </SelectContent>
                                     </Select>
-                                    <FormDescription>Select the website type you're interested in.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        {/* Due Date Field */}
-                        <FormField
-                            control={form.control}
-                            name="dueDate"
-                            render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Estimated Due Date</FormLabel>
-                                    <FormControl>
-                                        <Popover>
-                                            <PopoverTrigger asChild>
-                                                <Button
-                                                    variant={"outline"}
-                                                    className={cn(
-                                                        "w-[280px] justify-start text-left font-normal",
-                                                        !date && "text-muted-foreground"
-                                                    )}
-                                                >
-                                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                                    {date ? formatDate( date ) : <span>Pick a date</span>}
-                                                </Button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-auto p-0">
-                                                <Calendar
-                                                    mode="single"
-                                                    selected={date}
-                                                    onSelect={setDate}
-                                                    initialFocus
-                                                />
-                                            </PopoverContent>
-                                        </Popover>
-                                    </FormControl>
-                                    <FormDescription>Select the estimated due date for the project.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                                )}
+                            />
+                            {errors.website && <p className="text-sm text-red-500">{String( errors.website?.message )}</p>}
+                        </div>
 
                         {/* Website Style Field */}
-                        <FormField
-                            control={form.control}
-                            name="style"
-                            render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Website Style</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a style" />
-                                            </SelectTrigger>
-                                        </FormControl>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-deepTeal-700">Website Style</label>
+                            <Controller
+                                name="style"
+                                control={control}
+                                render={( { field } ) => (
+                                    <Select {...field}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a style" />
+                                        </SelectTrigger>
                                         <SelectContent>
                                             {site_styles.map( ( style, index ) => (
                                                 <SelectItem key={index} value={style.name}>
@@ -274,35 +163,107 @@ export default function ContactForm() {
                                             ) )}
                                         </SelectContent>
                                     </Select>
-                                    <FormDescription>Select the style that best suits your business.</FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                                )}
+                            />
+                            {errors.style && <p className="text-sm text-red-500">{String( errors.style?.message )}</p>}
+                        </div>
+                    </div>
 
-                        {/* Message Field */}
-                        <FormField
-                            name="message"
-                            render={( { field } ) => (
-                                <FormItem>
-                                    <FormLabel>Your Message</FormLabel>
-                                    <FormControl>
-                                        <Textarea
-                                            id="message"
-                                            rows={4}
-                                            placeholder="Write your message here..."
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                    {/* Due Date Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Estimated Due Date</label>
+                        <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-[280px] flex justify-start items-center text-left font-normal",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                    aria-label="Select a date"
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? formatDate( date ) : "Pick a date"}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 my-2">
+                                <Calendar mode="single" selected={date} onSelect={handleDateSelect} />
+                            </PopoverContent>
+                        </Popover>
+                        {errors.dueDate && <p className="text-sm text-red-500">{String( errors.dueDate?.message )}</p>}
+                    </div>
 
-                        {/* Submit Button */}
-                        <Button type="submit">Submit</Button>
-                    </form>
-                </Form>
+
+
+                    {/* File Upload Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Attachments (optional)</label>
+                        <div className="space-y-2">
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                multiple
+                                onChange={handleFileChange}
+                                className="hidden"
+                            />
+                            {selectedFiles.length === 0 ? (
+                                <Button
+                                    variant="outline"
+                                    className="w-full text-sm font-medium text-deepTeal-700 border-deepTeal-600 hover:bg-deepTeal-500 hover:text-softNeutral-50"
+                                    onClick={() => fileInputRef.current?.click()}
+                                >
+                                    Choose File
+                                </Button>
+                            ) : (
+                                <div>
+                                    {selectedFiles.map( ( file, index ) => (
+                                        <div key={index} className="grid grid-rows-1 grid-cols-5 items-center gap-2 my-2">
+                                            <span className="col-span-3">{file.name}</span>
+                                            <Button
+                                                variant="outline"
+                                                className="cols-span-1"
+                                                onClick={() => handleRemoveFile( index )}
+                                            >
+                                                Change File
+                                            </Button>
+                                            <Button
+                                                variant="destructive"
+                                                className="cols-span-1"
+                                                onClick={() => handleRemoveFile( index )}
+                                            >
+                                                Remove File
+                                            </Button>
+                                        </div>
+                                    ) )}
+                                    <div className="grid grid-cols-2 items-center gap-4">
+                                        <Button
+                                            variant="destructive"
+                                            onClick={handleRemoveAllFiles}
+                                        >
+                                            Remove All Files
+                                        </Button>
+                                        <Button
+                                            variant="outline"
+                                            onClick={() => fileInputRef.current?.click()}
+                                        >
+                                            Upload Another File
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Message Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Your Message</label>
+                        <Textarea id="message" rows={4} placeholder="Write your message here..." {...control} />
+                        {errors.message && <p className="text-sm text-red-500">{String( errors.message?.message )}</p>}
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button type="submit" className="w-full">Submit</Button>
+                </form>
             </div>
         </section>
     );
