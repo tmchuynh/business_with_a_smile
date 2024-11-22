@@ -5,29 +5,29 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md w-full my-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-md px-3.5 py-3 text-center text-sm font-semibold sm:mt-6 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
     {
         variants: {
             variant: {
                 default:
-                    "bg-deepTeal-500 text-softNeutral-50 shadow hover:bg-deepTeal-400",
+                    "bg-deepTeal-600 text-white shadow-md hover:bg-deepTeal-500 focus-visible:outline-deepTeal-600",
                 destructive:
-                    "bg-richRed-500 text-softNeutral-50 shadow-sm hover:bg-richRed-400",
+                    "bg-richRed-500 text-softNeutral-50 shadow-sm hover:bg-richRed-700",
                 outline:
-                    "border-softNeutral-300 bg-softNeutral-50 text-softNeutral-800 shadow-sm hover:bg-softNeutral-100 hover:text-softNeutral-900",
+                    "text-deepTeal-600 ring-1 ring-inset ring-deepTeal-200 shadow-md hover:ring-deepTeal-300 focus-visible:outline-deepTeal-600",
                 secondary:
-                    "bg-deepBlue-500 text-softNeutral-50 shadow-sm hover:bg-deepBlue-400",
+                    "bg-deepBlue-500 text-softNeutral-50 shadow-sm hover:bg-deepBlue-600",
                 ghost:
-                    "hover:bg-accentGold-100 hover:text-accentGold-500",
+                    "hover:bg-accentGold-100 hover:text-accentGold-500 hover:bg-transparent",
                 link:
                     "text-deepTeal-500 underline-offset-4 hover:underline",
                 success:
-                    "bg-mutedGreen-500 text-softNeutral-50 shadow-sm hover:bg-mutedGreen-400",
+                    "bg-green-600 text-softNeutral-50 shadow-sm hover:bg-green-700",
                 neutral:
-                    "bg-softNeutral-300 text-softNeutral-800 shadow-sm hover:bg-softNeutral-400",
+                    "bg-softNeutral-200 text-softNeutral-800 shadow-sm hover:bg-softNeutral-100",
             },
             size: {
-                default: "h-9 px-4 py-2",
+                default: "h-9 px-4 py-5 w-full",
                 sm: "h-8 rounded-md px-3 text-xs",
                 lg: "h-10 rounded-md px-8",
                 icon: "h-9 w-9",
@@ -39,6 +39,7 @@ const buttonVariants = cva(
         },
     }
 );
+
 
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,

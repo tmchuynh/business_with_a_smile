@@ -11,24 +11,24 @@ export default function Footer() {
                     </p>
                     <a
                         href="mailto:contact@yourcompany.com"
-                        className="text-teal-500 hover:text-teal-400 font-semibold text-lg"
+                        className="text-teal-400 hover:text-teal-100 font-semibold text-lg"
                     >
                         contact@yourcompany.com
                     </a>
                     <div className="mt-6 flex justify-center gap-8">
                         <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                            <Github className="h-8 w-8 text-gray-300 hover:text-teal-500 transition-all" />
+                            <Github className="h-8 w-8 text-gray-300 hover:text-teal-300 transition-all" />
                         </a>
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                            <Twitter className="h-8 w-8 text-gray-300 hover:text-teal-500 transition-all" />
+                            <Twitter className="h-8 w-8 text-gray-300 hover:text-teal-300 transition-all" />
                         </a>
                         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="h-8 w-8 text-gray-300 hover:text-teal-500 transition-all" />
+                            <Linkedin className="h-8 w-8 text-gray-300 hover:text-teal-300 transition-all" />
                         </a>
                     </div>
                 </div>
-                <div className="mt-12 border-t border-gray-700 pt-6">
-                    <p className="text-gray-400 text-sm">&copy; 2022 Your Web Design Company. All rights reserved.</p>
+                <div className="mt-12 border-t border-gray-500 pt-6">
+                    <p className="text-gray-300 text-sm">&copy; 2024 Your Web Design Company. All rights reserved.</p>
                 </div>
             </div>
         </footer>

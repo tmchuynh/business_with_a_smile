@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { StarIcon } from "lucide-react";
 import { BorderBeam } from "./ui/border-beam";
 
 const testimonials = [
@@ -32,12 +32,13 @@ export default function Testimonials() {
     return (
         <section className="bg-gray-100 py-12 px-6 ">
             <div className="max-w-screen-xl mx-auto text-center">
-                <h2 className="text-4xl font-bold text-gray-800 mb-6">
-                    What Our Clients Say
-                </h2>
-                <p className="text-lg text-gray-600 mb-12">
+                <h2 className="text-base font-semibold text-deepTeal-600">Lives Impacted</h2>
+                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
+                    Past Business Partners
+                </p>
+                <p className="text-lg mt-6 text-gray-600 mb-12">
                     Hear from our satisfied clients who have experienced our exceptional
-                    services and products.
+                    services and results.
                 </p>
                 <div className="flex flex-col md:flex-row gap-8">
                     {/* Large testimonial */}
@@ -51,19 +52,24 @@ export default function Testimonials() {
                         </div>
                         <p className="text-lg text-gray-800 mb-6">{testimonials[1].text}</p>
                         <div className="flex items-center space-x-1">
-                            {[...Array( testimonials[1].rating )].map( ( _, i ) => (
-                                <Star key={i} className="text-yellow-500 w-5 h-5" />
+                            {/* Render filled and unfilled stars based on rating */}
+                            {[...Array( 5 )].map( ( _, i ) => (
+                                i < testimonials[1].rating ? (
+                                    <StarIcon key={i} fill="#18578C" color="#18578C" className="w-5 h-5" />
+                                ) : (
+                                    <StarIcon key={i} className="text-deepBlue-600 w-5 h-5" />
+                                )
                             ) )}
                         </div>
                     </div>
 
                     {/* Smaller testimonials */}
-                    <div className="md:w-1/3 flex flex-col space-y-6">
+                    <div className="md:w-1/3 flex flex-col space-y-6 ">
                         {testimonials.map( ( testimonial, index ) =>
                             index !== 1 ? (
                                 <div
                                     key={testimonial.name}
-                                    className="bg-white p-6 rounded-lg shadow-md"
+                                    className="p-8 shadow-md bg-white rounded-lg"
                                 >
                                     <div className="mb-4">
                                         <h4 className="font-medium text-lg">{testimonial.name}</h4>
@@ -71,8 +77,13 @@ export default function Testimonials() {
                                     </div>
                                     <p className="text-gray-700 mb-4">{testimonial.text}</p>
                                     <div className="flex items-center space-x-1 justify-center">
-                                        {[...Array( testimonial.rating )].map( ( _, i ) => (
-                                            <Star key={i} className="text-yellow-500 w-5 h-5" />
+                                        {/* Render filled and unfilled stars based on rating */}
+                                        {[...Array( 5 )].map( ( _, i ) => (
+                                            i < testimonial.rating ? (
+                                                <StarIcon key={i} fill="#18578C" color="#18578C" className="w-5 h-5" />
+                                            ) : (
+                                                <StarIcon key={i} className="text-deepBlue-600 w-5 h-5" />
+                                            )
                                         ) )}
                                     </div>
                                 </div>

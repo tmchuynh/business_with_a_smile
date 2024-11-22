@@ -1,45 +1,54 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const tiers = [
     {
-        name: 'Hobby',
-        id: 'tier-hobby',
+        name: 'Blog Website',
+        id: 'tier-blog',
         href: '#',
-        priceMonthly: '$29',
-        description: "The perfect plan if you're just getting started with our product.",
-        features: ['25 products', 'Up to 10,000 subscribers', 'Advanced analytics', '24-hour support response time'],
+        priceStartingAt: '$1,200',
+        description: 'Perfect for writers, content creators, or businesses focused on content marketing.',
+        features: [
+            'Up to 10 pages',
+            'Responsive blog design',
+            'SEO-optimized blog post templates',
+            'Content management system (e.g., WordPress)',
+            'Social sharing features',
+            '2 revision cycles',
+        ],
         featured: false,
     },
     {
-        name: 'Enterprise',
-        id: 'tier-enterprise',
+        name: 'Business/Portfolio Website',
+        id: 'tier-business',
         href: '#',
-        priceMonthly: '$99',
-        description: 'Dedicated support and infrastructure for your company.',
+        priceStartingAt: '$2,000',
+        description: 'Ideal for businesses looking to showcase services and attract customers.',
         features: [
-            'Unlimited products',
-            'Unlimited subscribers',
-            'Advanced analytics',
-            'Dedicated support representative',
-            'Marketing automations',
-            'Custom integrations',
+            'Up to 10 pages',
+            'Responsive design for all devices',
+            'Advanced SEO setup',
+            'Custom forms and integrations (e.g., newsletter, booking)',
+            '4 revision cycles',
+            'Basic analytics setup',
         ],
         featured: true,
     },
     {
-        name: 'Pro',
-        id: 'tier-pro',
+        name: 'Custom Website',
+        id: 'tier-custom',
         href: '#',
-        priceMonthly: '$49',
-        description: "Unlock powerful features and increased support.",
+        priceStartingAt: '$5,000+',
+        description: 'A tailored solution to meet your unique business needs.',
         features: [
-            '50 products',
-            'Up to 50,000 subscribers',
-            'Advanced analytics',
-            'Priority support response time',
-            'Marketing automations',
-            'Custom integrations',
-            'Premium templates',
+            'Unlimited pages',
+            'Custom design and development',
+            'Full e-commerce capabilities',
+            'Complex integrations (CRM, APIs, etc.)',
+            'Dedicated project manager',
+            'Unlimited revision cycles',
+            'Ongoing maintenance options',
         ],
         featured: false,
     },
@@ -51,67 +60,50 @@ function classNames( ...classes: string[] ) {
 
 export default function Pricing() {
     return (
-        <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-            <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
-                <div
-                    style={{
-                        clipPath:
-                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                    }}
-                    className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#68e9dc] to-[#3177c3] opacity-30"
-                />
-            </div>
+        <div className="relative isolate bg-white px-6 py-28 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
-                <h2 className="text-base/7 font-semibold text-teal-600">Pricing</h2>
-                <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
+                <h2 className="text-base/7 font-semibold text-deepTeal-600">Pricing</h2>
+                <p className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-6xl">
                     Choose the right plan for you
                 </p>
             </div>
-            <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
+            <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-softNeutral-600 sm:text-xl/8">
                 Choose an affordable plan that’s packed with the best features for engaging your audience, creating customer
                 loyalty, and driving sales.
             </p>
-            <div className="mx-auto mt-16 grid items-center max-w-lg grid-cols-1 gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-6xl lg:grid-cols-3">
+            <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
                 {tiers.map( ( tier, tierIdx ) => (
                     <div
                         key={tier.id}
                         className={classNames(
-                            tier.featured ? 'relative bg-teal-900 h-[45rem] shadow-2xl' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
-                            tier.featured
-                                ? ''
-                                : tierIdx === 0
-                                    ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none'
-                                    : 'sm:rounded-t-none lg:rounded-bl-none lg:rounded-tr-3xl',
-                            'rounded-3xl p-8 ring-1 ring-teal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
+                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
+                            'rounded-3xl p-8 ring-1 ring-deepTeal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
                         )}
                     >
                         <div>
                             <h3
                                 id={tier.id}
-                                className={classNames( tier.featured ? 'text-teal-400' : 'text-teal-600', 'text-base/7 font-semibold' )}
+                                className={classNames( tier.featured ? 'text-softNeutral-200' : 'text-deepTeal-600', 'text-base/7 font-semibold' )}
                             >
                                 {tier.name}
                             </h3>
                             <p className="mt-3 flex items-baseline gap-x-2">
                                 <span
                                     className={classNames(
-                                        tier.featured ? 'text-white' : 'text-gray-900',
+                                        tier.featured ? 'text-white' : 'text-softNeutral-900',
                                         'text-5xl font-semibold tracking-tight',
                                     )}
                                 >
-                                    {tier.priceMonthly}
-                                </span>
-                                <span className={classNames( tier.featured ? 'text-gray-400' : 'text-gray-500', 'text-base' )}>
-                                    /month
+                                    {tier.priceStartingAt}
                                 </span>
                             </p>
-                            <p className={classNames( tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-6 text-base/7' )}>
+                            <p className={classNames( tier.featured ? 'text-softNeutral-300' : 'text-softNeutral-600', 'mt-6 text-base/7' )}>
                                 {tier.description}
                             </p>
                             <ul
                                 role="list"
                                 className={classNames(
-                                    tier.featured ? 'text-gray-300' : 'text-gray-600',
+                                    tier.featured ? 'text-softNeutral-300' : 'text-softNeutral-600',
                                     'mt-4 space-y-2 text-sm/6 sm:mt-8',
                                 )}
                             >
@@ -120,7 +112,7 @@ export default function Pricing() {
                                         <CheckIcon
                                             aria-hidden="true"
                                             className={classNames(
-                                                tier.featured ? 'text-teal-400' : 'text-teal-600',
+                                                tier.featured ? 'text-deepTeal-300' : 'text-deepTeal-600',
                                                 'h-5 w-8 flex-none',
                                             )}
                                         />
@@ -129,20 +121,18 @@ export default function Pricing() {
                                 ) )}
                             </ul>
                         </div>
-                        <a
-                            href={tier.href}
-                            aria-describedby={tier.id}
-                            className={classNames(
-                                tier.featured
-                                    ? 'bg-teal-500 text-white shadow-sm hover:bg-teal-400 focus-visible:outline-teal-500'
-                                    : 'text-teal-600 ring-1 ring-inset ring-teal-200 hover:ring-teal-300 focus-visible:outline-teal-600',
-                                'block rounded-md px-3.5 py-3 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-6',
-                            )}
-                        >
-                            Get started today
-                        </a>
                     </div>
                 ) )}
+            </div>
+            <div className='mx-auto max-w-4xl text-center mt-14'>
+                <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-4xl">Are You a Student?</h4>
+                <p className="mt-6 text-lg text-softNeutral-600">
+                    Get a 60% discount on your first purchase with a student discount code.
+                </p>
+                <form className='flex items-center gap-3 justify-center m-auto'>
+                    <Input placeholder='Enter your student email address' className='mt-3 py-5' />
+                    <Button className='w-1/4'>Submit</Button>
+                </form>
             </div>
         </div>
     );

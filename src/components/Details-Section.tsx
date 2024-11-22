@@ -2,51 +2,51 @@ import { CheckIcon, LockIcon, ShieldIcon, CloudIcon, ServerIcon, KeyIcon, Databa
 
 const serviceFeatures = [
     {
-        title: 'Push to deploy',
+        title: 'Brand-Driven Visuals',
         description:
-            'Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.',
+            'Consistent use of colors, fonts, and imagery to create a recognizable identity. Eye-catching designs that strike the right balance between style and functionality.',
         icon: <CheckIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'SSL certificates',
+        title: 'Mobile Optimization',
         description:
-            'Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.',
-        icon: <LockIcon className="h-7 w-7 text-white" />,
+            'With most users accessing websites on mobile devices, responsive design ensures an effortless experience across all screen sizes. A mobile-first approach improves usability and keeps you competitive.',
+        icon: < LockIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'Simple queues',
+        title: 'Supports Digital Marketing Initiatives',
         description:
-            'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
+            'A well-designed website amplifies the effectiveness of SEO, PPC, and social media campaigns, helping you attract and retain more customers.',
         icon: <ShieldIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'Advanced security',
+        title: 'Optimized Performance',
         description:
-            'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
-        icon: <KeyIcon className="h-7 w-7 text-white" />,
+            'Speed matters. Fast-loading pages reduce bounce rates and enhance the user experience. Features like image compression and content delivery networks (CDNs) boost performance.',
+        icon: <ShieldIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'Cloud services',
+        title: 'Strategic Call-to-Actions (CTAs)',
         description:
-            'Offering scalable and flexible cloud solutions tailored to your business needs, providing efficiency and performance.',
+            'Purposefully placed CTAs encourage users to take meaningful actions, from purchasing products to signing up for newsletters.',
         icon: <CloudIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'Database management',
+        title: 'Increases Customer Engagement',
         description:
-            'Comprehensive database solutions that ensure security, scalability, and reliable data storage for your applications.',
+            'User-friendly experiences encourage visitors to stay longer and interact with your content.',
         icon: <DatabaseIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'Web hosting',
+        title: 'Builds Credibility',
         description:
-            'Reliable and fast web hosting services designed to keep your website up and running smoothly, with minimal downtime.',
+            'A professional, polished design reassures visitors of your business’s reliability and expertise.',
         icon: <ServerIcon className="h-7 w-7 text-white" />,
     },
     {
-        title: 'WiFi integration',
+        title: 'Maximizes Revenue Potential',
         description:
-            'Ensure high-speed and secure wireless network setup, with enhanced connectivity and optimized performance.',
+            'Conversion-focused designs streamline processes like checkout or inquiry forms, turning interest into action.',
         icon: <WifiIcon className="h-7 w-7 text-white" />,
     },
 ];
@@ -56,13 +56,12 @@ export default function DetailsSection() {
         <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:text-center">
-                    <h2 className="text-base font-semibold text-teal-600">Deploy faster</h2>
+                    <h2 className="text-base font-semibold text-teal-600">Core Elements</h2>
                     <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
-                        Everything you need to deploy your app
+                        Exceptional Web Design
                     </p>
                     <p className="mt-6 text-lg text-gray-600">
-                        Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-                        pulvinar et feugiat blandit at. In mi viverra elit nunc.
+                        A thoughtfully designed website is the foundation of your online presence. It’s often the first touchpoint for potential customers, making it a key opportunity to showcase your brand and create a positive, lasting impression.
                     </p>
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import HeaderSection from "@/components/Header-Section1";
-import DetailsSection from "@/components/Details-Section";
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/ui/backToTop";
 
 export const metadata: Metadata = {
@@ -20,8 +18,6 @@ export default function RootLayout( {
         <html lang="en">
             <body>
                 <Header />
-                <HeaderSection />
-                <DetailsSection />
                 {children}
                 <BackToTopButton />
                 <Footer />

@@ -12,13 +12,13 @@ interface Action {
 interface DropdownMenuProps {
     label: string;
     solutions: Action[];
-    callsToAction: Action[];
+    callsToAction?: Action[]; // Now optional
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ( {
     label,
     solutions,
-    callsToAction,
+    callsToAction = [], // Default to an empty array if not provided
 } ) => {
     return (
         <Popover className="relative">
@@ -61,21 +61,25 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ( {
                             </div>
                         ) )}
                     </div>
-                    <div className="grid grid-cols-2 divide-x divide-softNeutral-300 bg-softNeutral-50">
-                        {callsToAction.map( ( item ) => (
-                            <a
-                                key={item.name}
-                                href={item.href}
-                                className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-deepTeal-700 hover:bg-deepTeal-100"
-                            >
-                                <item.icon
-                                    aria-hidden="true"
-                                    className="w-5 h-5 flex-none text-softNeutral-500"
-                                />
-                                {item.name}
-                            </a>
-                        ) )}
-                    </div>
+
+                    {/* Conditionally render the calls to action if any */}
+                    {callsToAction.length > 0 && (
+                        <div className="grid grid-cols-2 divide-x divide-softNeutral-300 bg-softNeutral-50">
+                            {callsToAction.map( ( item ) => (
+                                <a
+                                    key={item.name}
+                                    href={item.href}
+                                    className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-deepTeal-700 hover:bg-deepTeal-100"
+                                >
+                                    <item.icon
+                                        aria-hidden="true"
+                                        className="w-5 h-5 flex-none text-softNeutral-500"
+                                    />
+                                    {item.name}
+                                </a>
+                            ) )}
+                        </div>
+                    )}
                 </div>
             </PopoverPanel>
         </Popover>

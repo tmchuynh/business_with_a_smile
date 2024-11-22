@@ -21,11 +21,11 @@ export const CalloutsGrid: React.FC<CalloutsGridProps> = ( {
 } ) => {
     return (
         <div className="bg-softNeutral-50 py-16 sm:py-24">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
                 <div className="mx-auto max-w-2xl sm:text-center lg:max-w-none lg:text-left">
                     <h2 className="text-3xl font-bold text-deepTeal-700">{title}</h2>
 
-                    <div className="mt-12 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-0">
+                    <div className="mt-12 grid grid-cols-1sm:grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-10">
                         {callouts.map( ( callout ) => (
                             <div key={callout.name} className="group relative">
                                 <img
