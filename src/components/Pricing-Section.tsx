@@ -223,7 +223,7 @@ export default function Pricing() {
                     <div
                         key={`${ tier.id }_${ tierIdx }`}
                         className={classNames(
-                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
+                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0 hover:ring-teal-300',
                             'rounded-3xl p-8 ring-1 ring-deepTeal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
                         )}
                     >

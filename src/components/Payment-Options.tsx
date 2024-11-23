@@ -82,7 +82,7 @@ export default function PaymentOptions() {
                             plan.isPopular
                                 ? 'relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 text-white shadow-xl'
                                 : 'bg-white/60 ring-1 ring-teal-200  hover:ring-teal-300',
-                            'rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl ease-in-out transition-all duration-300 transform hover:scale-105 flex flex-col justify-between space-y-4'
+                            'rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4'
                         )}
                     >
                         <div>
