@@ -390,13 +390,14 @@ export default function ContactForm() {
                                         render={( { field } ) => (
                                             <Select value={field.value} onValueChange={field.onChange}>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a payment plan" />
+                                                    <SelectValue placeholder="Select a payment plan">{field.value || "Select a payment plan"}</SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {paymentPlans.map( ( plan, index ) => (
-                                                        <SelectItem key={index} value={plan.name}>
-                                                            <div className="flex items-center gap-2">
-                                                                <span>{plan.name}</span>
+                                                        <SelectItem key={`${ plan.name }_${ index }`} value={plan.name}>
+                                                            <div className="block pr-6">
+                                                                <p className="text-md text-deepTeal-500">{plan.name}</p>
+                                                                <p className="text-sm">{plan.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -404,6 +405,7 @@ export default function ContactForm() {
                                             </Select>
                                         )}
                                     />
+
                                     {errors.payment && (
                                         <p className="text-sm text-red-500">{errors.payment.message}</p>
                                     )}
@@ -423,13 +425,14 @@ export default function ContactForm() {
                                         render={( { field } ) => (
                                             <Select value={field.value} onValueChange={field.onChange}>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a website type" />
+                                                    <SelectValue placeholder="Select a website type" >{field.value || "Select a website type"}</SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {website_types.map( ( type, index ) => (
-                                                        <SelectItem key={index} value={type.name}>
-                                                            <div className="flex items-center gap-2">
-                                                                <span>{type.name}</span>
+                                                        <SelectItem key={`${ type.name }_${ index }`} value={type.name}>
+                                                            <div className="block pr-6">
+                                                                <p className="text-md text-deepTeal-500">{type.name}</p>
+                                                                <p className="text-sm">{type.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -453,13 +456,14 @@ export default function ContactForm() {
                                         render={( { field } ) => (
                                             <Select value={field.value} onValueChange={field.onChange}>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a style" />
+                                                    <SelectValue placeholder="Select a style">{field.value || "Select a style"}</SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {site_styles.map( ( style, index ) => (
-                                                        <SelectItem key={index} value={style.name}>
-                                                            <div className="flex items-center gap-2">
-                                                                <span>{style.name}</span>
+                                                        <SelectItem key={`${ style.name }_${ index }`} value={style.name}>
+                                                            <div className="block pr-6">
+                                                                <p className="text-md text-deepTeal-500">{style.name}</p>
+                                                                <p className="text-sm">{style.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
