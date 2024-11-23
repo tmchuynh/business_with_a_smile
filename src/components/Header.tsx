@@ -40,7 +40,7 @@ export default function Header() {
     }, [] );
 
     return (
-        <header className="bg-white shadow-md">
+        <header className="bg-white">
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <div className="flex items-center">
@@ -66,8 +66,8 @@ export default function Header() {
                         {dropdownOpen && (
                             <div ref={dropdownRef} className="absolute left-1/2 z-10 mt-5 w-96 -translate-x-1/2 bg-white shadow-lg rounded-lg p-2">
                                 {solutions.map( ( item, index ) => (
-                                    <a href={item.href} className="font-semibold text-gray-900">
-                                        <div key={`${ item.name }_${ index }`} className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+                                    <a href={item.href} key={`${ item.name }_${ index }`} className="font-semibold text-gray-900">
+                                        <div className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
                                             <div className="mt-1 flex items-center justify-center rounded-lg bg-teal-100 group-hover:bg-teal-200 p-2 h-10 w-10">
                                                 <item.icon aria-hidden="true" className="text-teal-600 group-hover:text-teal-700" />
                                             </div>
