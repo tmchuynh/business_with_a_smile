@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { toast } from "@/components/hooks/use-toast";
 import { cn, formatDate } from "@/lib/utils";
 import { Controller, useForm } from "react-hook-form";
 
@@ -27,6 +28,17 @@ const website_demand = [
     { name: "Custom Website", icon: () => <span className="text-indigo-700">🎨</span>, description: "A perfect blend of timeless elegance and contemporary style." }
 ];
 
+const formatPhoneNumber = ( value: string ) => {
+    const phoneNumber = value.replace( /\D/g, "" ); // Remove non-numeric characters
+    const match = phoneNumber.match( /^(\d{0,3})(\d{0,3})(\d{0,4})$/ );
+
+    if ( match ) {
+        return `(${ match[1] }) ${ match[2] }-${ match[3] }`.trim();
+    }
+
+    return value;
+};
+
 export default function ContactForm() {
     const { control, handleSubmit, setValue, formState: { errors } } = useForm( {
         defaultValues: {
@@ -36,6 +48,8 @@ export default function ContactForm() {
             website: "",
             message: "",
             dueDate: "",
+            phone: "",
+            communicationMethod: "",
             attachments: [] // Store multiple files in an array
         }
     } );
@@ -44,14 +58,29 @@ export default function ContactForm() {
     const fileInputRef = React.useRef<HTMLInputElement>( null );
     const [openPopover, setOpenPopover] = React.useState( false );
     const [selectedFiles, setSelectedFiles] = React.useState<File[]>( [] ); // Store selected files in an array
+    const [phone, setPhone] = React.useState( "" ); // Manage the phone number
+    const [communicationMethod, setCommunicationMethod] = React.useState( "" ); // Preferred communication method
 
+    // Calculate the date 2 months in the future
+    const minDate = new Date();
+    minDate.setMonth( minDate.getMonth() + 2 );
+
+    // Handle date selection
     const handleDateSelect = ( selectedDate: Date | undefined ) => {
-        if ( selectedDate ) {
+        if ( selectedDate && selectedDate >= minDate ) {
             setDate( selectedDate );
-            setOpenPopover( false ); // Close popover when a date is selected
+            setOpenPopover( false ); // Close popover when a valid date is selected
         }
     };
 
+    const handlePhoneChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
+        const formattedPhone = formatPhoneNumber( e.target.value );
+        if ( formattedPhone.replace( /\D/g, "" ).length <= 10 ) {
+            setPhone( formattedPhone ); // Set formatted phone number in the state
+        }
+    };
+
+    // Handle file changes
     const handleFileChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
         if ( event.target.files ) {
             const files = Array.from( event.target.files );
@@ -60,19 +89,24 @@ export default function ContactForm() {
         }
     };
 
+    // Remove individual file
     const handleRemoveFile = ( index: number ) => {
         const newFiles = selectedFiles.filter( ( _, i ) => i !== index ); // Remove the file at the specified index
         setSelectedFiles( newFiles );
         setValue( "attachments", newFiles ); // Update form value with the remaining files
     };
 
+    // Remove all files
     const handleRemoveAllFiles = () => {
         setSelectedFiles( [] );
         setValue( "attachments", [] ); // Clear form value
     };
 
     const onSubmit = ( data: any ) => {
-        console.log( data );
+        toast( {
+            title: "Form Submitted",
+            description: JSON.stringify( data, null, 2 ),
+        } );
     };
 
     return (
@@ -113,6 +147,43 @@ export default function ContactForm() {
                         {errors.email && <p className="text-sm text-red-500">{String( errors.email?.message )}</p>}
                     </div>
 
+                    {/* Phone Number Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Phone Number</label>
+                        <Input
+                            value={phone}
+                            onChange={handlePhoneChange}
+                            placeholder="(123) 456-7890"
+                            className="mt-1"
+                        />
+                        {errors.phone && <p className="text-sm text-red-500">{String( errors.phone?.message )}</p>}
+                    </div>
+
+                    {/* Preferred Method of Communication Field */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-deepTeal-700">Preferred Method of Communication</label>
+                        <Controller
+                            name="communicationMethod"
+                            control={control}
+                            render={( { field } ) => (
+                                <Select {...field}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select a method" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="email">
+                                            <span>Email</span>
+                                        </SelectItem>
+                                        <SelectItem value="phone">
+                                            <span>Phone</span>
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
+                        {errors.communicationMethod && <p className="text-sm text-red-500">{String( errors.communicationMethod?.message )}</p>}
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4">
                         {/* Website Demand Field */}
                         <div className="space-y-2">
@@ -140,6 +211,7 @@ export default function ContactForm() {
                             />
                             {errors.website && <p className="text-sm text-red-500">{String( errors.website?.message )}</p>}
                         </div>
+
 
                         {/* Website Style Field */}
                         <div className="space-y-2">
@@ -187,13 +259,11 @@ export default function ContactForm() {
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0 my-2">
-                                <Calendar mode="single" selected={date} onSelect={handleDateSelect} />
+                                <Calendar mode="single" selected={date} onSelect={handleDateSelect} disabled={{ before: minDate }} />
                             </PopoverContent>
                         </Popover>
                         {errors.dueDate && <p className="text-sm text-red-500">{String( errors.dueDate?.message )}</p>}
                     </div>
-
-
 
                     {/* File Upload Field */}
                     <div className="space-y-2">
