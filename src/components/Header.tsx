@@ -82,7 +82,7 @@ export default function Header() {
                         )}
                     </div>
 
-                    <a href="/pricing" className="hover:text-teal-600">Pricing</a>
+                    <a href="/websites" className="hover:text-teal-600">Pricing</a>
                     <a href="/contact" className="hover:text-teal-600">Contact</a>
                 </nav>
 

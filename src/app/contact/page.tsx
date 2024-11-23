@@ -1,63 +1,20 @@
 "use client";
 
-import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import { cn, formatDate } from "@/lib/utils";
-import { Controller, useForm } from "react-hook-form";
-import { FormData, paymentPlans, tiers } from "../../../types";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { cn, formatDate, formatPhoneNumber } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { addDays } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-
-// Updated site_styles array with more styles
-const site_styles = [
-    { name: "Luxury + Premium", description: "High-end design for luxury brands." },
-    { name: "Corporate + Formal", description: "Professional design suitable for corporate entities." },
-    { name: "Professional + Elegant", description: "A clean and sleek look for a more refined aesthetic." },
-    { name: "Classic + Modern", description: "A perfect blend of timeless elegance and contemporary style." },
-    { name: "Dark Mode + Sleek", description: "Modern design with dark themes for a sleek look." },
-    { name: "Minimalist + Clean", description: "Simplistic design focusing on essential elements." },
-    { name: "Bold + Fierce", description: "Embrace boldness with a fierce and powerful design." },
-    { name: "Futuristic + Innovative", description: "Cutting-edge design with modern technologies." },
-    { name: "Vibrant + Dynamic", description: "Energetic and lively design to engage users." },
-    { name: "Artistic + Creative", description: "Unique and creative design to showcase artistry." },
-    { name: "Retro + Vintage", description: "Nostalgic design with vintage elements." },
-    { name: "Playful + Whimsical", description: "Fun and whimsical design to delight users." },
-    { name: "Rustic + Natural", description: "Earthy tones and textures for a natural feel." },
-];
-
-// Updated website_types array with more types
-const website_types = [
-    { name: "Blog", description: "Focus on delivering content such as articles, blogs, or news." },
-    { name: "Landing Page", description: "Single-page website focused on a specific marketing goal." },
-    { name: "Event Website", description: "Promote events and manage registrations." },
-    { name: "Custom Website", description: "Tailored solutions to meet unique business needs." },
-    { name: "Personal Website", description: "Share personal content and build a personal brand." },
-    { name: "Portfolio Website", description: "Showcase your work and projects to potential clients." },
-    { name: "Informational websites", description: "Provide information and resources to visitors, and can be used to educate, entertain, or promote a cause." },
-    { name: "Membership Website", description: "Offer exclusive content to registered members." },
-    { name: "Professional Business Website", description: "Represent your business with a professional online presence." },
-    { name: "Non-Profit Organization Website", description: "Promote your cause, engage with supporters, increase donations, and more." },
-    { name: "Transactional/eCommerce websites", description: "Allow visitors to purchase products or services, and can be used to sell physical goods, digital products, or services." },
-];
-
-const formatPhoneNumber = ( value: string ) => {
-    const phoneNumber = value.replace( /\D/g, "" ); // Remove non-numeric characters
-    const match = phoneNumber.match( /^(\d{0,3})(\d{0,3})(\d{0,4})$/ );
-
-    if ( match ) {
-        return `(${ match[1] }) ${ match[2] }-${ match[3] }`.trim();
-    }
-
-    return value;
-};
+import * as React from "react";
+import { Controller, useForm } from "react-hook-form";
+import * as yup from 'yup';
+import { FormData, paymentPlans, site_styles, tiers, website_types } from "../../../types";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 

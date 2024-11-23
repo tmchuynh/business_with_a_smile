@@ -4,17 +4,13 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { tiers } from '../../../types';
-
-
-function classNames( ...classes: string[] ) {
-    return classes.filter( Boolean ).join( ' ' );
-}
+import { classNames } from '@/lib/utils';
 
 export default function Pricing() {
     const router = useRouter();
 
     function navigate( id: string ) {
-        router.push( `/pricing/${ id }/plans` );
+        router.push( `/websites/${ id }/plans` );
     }
 
     return (
@@ -23,7 +19,7 @@ export default function Pricing() {
                 <div className="mx-auto max-w-4xl text-center">
                     <h2 className="text-base font-semibold text-teal-600">Pricing Plans</h2>
                     <p className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-6xl">
-                        Find the Perfect Plan for Your Needs
+                        Find the Perfect Customizations for Your Needs
                     </p>
                 </div>
                 <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 sm:text-xl">

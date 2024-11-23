@@ -38,6 +38,7 @@ export interface PaymentPlan {
     price: string;
     description: string;
     features: string[];
+    benefits: string[];
     details: string[];
     isPopular: boolean;
     paymentSchedule: PaymentScheduleItem[];
@@ -48,6 +49,36 @@ export interface PaymentScheduleItem {
     date: string;
     description: string;
 }
+
+export const site_styles = [
+    { name: "Luxury + Premium", description: "High-end design for luxury brands." },
+    { name: "Corporate + Formal", description: "Professional design suitable for corporate entities." },
+    { name: "Professional + Elegant", description: "A clean and sleek look for a more refined aesthetic." },
+    { name: "Classic + Modern", description: "A perfect blend of timeless elegance and contemporary style." },
+    { name: "Dark Mode + Sleek", description: "Modern design with dark themes for a sleek look." },
+    { name: "Minimalist + Clean", description: "Simplistic design focusing on essential elements." },
+    { name: "Bold + Fierce", description: "Embrace boldness with a fierce and powerful design." },
+    { name: "Futuristic + Innovative", description: "Cutting-edge design with modern technologies." },
+    { name: "Vibrant + Dynamic", description: "Energetic and lively design to engage users." },
+    { name: "Artistic + Creative", description: "Unique and creative design to showcase artistry." },
+    { name: "Retro + Vintage", description: "Nostalgic design with vintage elements." },
+    { name: "Playful + Whimsical", description: "Fun and whimsical design to delight users." },
+    { name: "Rustic + Natural", description: "Earthy tones and textures for a natural feel." },
+];
+
+export const website_types = [
+    { name: "Blog", description: "Focus on delivering content such as articles, blogs, or news." },
+    { name: "Landing Page", description: "Single-page website focused on a specific marketing goal." },
+    { name: "Event Website", description: "Promote events and manage registrations." },
+    { name: "Custom Website", description: "Tailored solutions to meet unique business needs." },
+    { name: "Personal Website", description: "Share personal content and build a personal brand." },
+    { name: "Portfolio Website", description: "Showcase your work and projects to potential clients." },
+    { name: "Informational websites", description: "Provide information and resources to visitors, and can be used to educate, entertain, or promote a cause." },
+    { name: "Membership Website", description: "Offer exclusive content to registered members." },
+    { name: "Professional Business Website", description: "Represent your business with a professional online presence." },
+    { name: "Non-Profit Organization Website", description: "Promote your cause, engage with supporters, increase donations, and more." },
+    { name: "Transactional/eCommerce websites", description: "Allow visitors to purchase products or services, and can be used to sell physical goods, digital products, or services." },
+];
 
 export const tiers = [
     {
@@ -221,6 +252,12 @@ export const paymentPlans: PaymentPlan[] = [
             "Priority scheduling to start your project sooner.",
             "Dedicated premium support throughout your journey.",
         ],
+        benefits: [
+            "Save 10% instantly by paying the full amount upfront.",
+            "Secure priority scheduling to start your project without delays.",
+            "Enjoy dedicated, premium support throughout your project journey.",
+            "Experience the efficiency and peace of mind that comes with seamless, prioritized service."
+        ],
         details: [
             "Benefit from a generous 10% discount.",
             "Enjoy a faster turnaround with priority scheduling.",
@@ -244,6 +281,11 @@ export const paymentPlans: PaymentPlan[] = [
             "50% upfront to begin the project.",
             "50% due before the website launch.",
             "Regular updates and feedback opportunities during development.",
+        ],
+        benefits: [
+            "Split your project cost into two manageable payments.",
+            "Start with a smaller upfront investment and pay the balance before launch.",
+            "Stay on track with regular progress updates during development."
         ],
         details: [
             "Start with a manageable upfront deposit.",
@@ -272,6 +314,11 @@ export const paymentPlans: PaymentPlan[] = [
             "25% upfront, 25% midway, 50% before launch.",
             "Progress updates and transparency at every stage.",
             "Flexibility to adapt as the project evolves.",
+        ],
+        benefits: [
+            "Divide payments into three structured milestones for better control.",
+            "Receive progress reports at every milestone to ensure transparency.",
+            "Stay informed and engaged throughout your project."
         ],
         details: [
             "Structured payments for improved budget management.",
@@ -306,6 +353,12 @@ export const paymentPlans: PaymentPlan[] = [
             "Maintain financial flexibility while the project progresses.",
             "Minimal strain on cash flow for your business.",
         ],
+        benefits: [
+            "Ease financial strain with equal monthly payments.",
+            "Choose a 6-month  to match your budget needs.",
+            "Begin your project with minimal upfront investment.",
+            "Maintain financial flexibility while your project moves forward."
+        ],
         details: [
             "Perfect for businesses preferring manageable monthly installments.",
             "Includes an administrative fee for extended payment schedules.",
@@ -333,6 +386,12 @@ export const paymentPlans: PaymentPlan[] = [
             "Granular control over costs and timelines.",
             "Payments made after each development phase is delivered.",
             "Flexibility to adjust the scope as needed.",
+        ],
+        benefits: [
+            "Only pay for completed work at each development phase.",
+            "Adjust the scope and direction of the project as needed.",
+            "Manage costs effectively by controlling payments phase by phase.",
+            "Retain control over both your spending and project timeline."
         ],
         details: [
             "Ideal for clients who want transparency and control.",
@@ -362,6 +421,12 @@ export const paymentPlans: PaymentPlan[] = [
             "Monthly or annual payments for predictable costs.",
             "Long-term support and security enhancements.",
         ],
+        benefits: [
+            "Get ongoing development, updates, and maintenance with ease.",
+            "Enjoy consistent support and security enhancements.",
+            "Spread costs predictably with monthly or annual payments.",
+            "Build a long-term partnership to ensure your project’s success."
+        ],
         details: [
             "Combines development and ongoing support.",
             "Perfect for businesses seeking a long-term partnership.",
@@ -389,6 +454,12 @@ export const paymentPlans: PaymentPlan[] = [
             "Minimal 15% upfront deposit.",
             "Defer remaining payments for up to 60 days post-launch.",
             "Flexible payment schedules tailored to your business needs.",
+        ],
+        benefits: [
+            "Begin your project with a minimal upfront deposit.",
+            "Defer remaining payments until after project milestones are reached.",
+            "Perfect for startups and businesses with cash flow constraints.",
+            "Enjoy a flexible payment schedule tailored to your needs."
         ],
         details: [
             "Designed for startups or businesses with cash flow constraints.",
