@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./main.css";
+import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/ui/backToTop";

@@ -20,9 +20,11 @@ export interface ProductImage {
 export interface FormData {
     name: string;
     email: string;
-    style: string;
+    style?: string;
     website: string;
-    message: string;
+    payment: string;
+
+    message?: string;
     dueDate: string;
     phone: string;
     communicationMethod: string;
@@ -47,209 +49,184 @@ export interface PaymentScheduleItem {
     description: string;
 }
 
+export const tiers = [
+    {
+        name: 'Personal Website',
+        id: 'personal',
+        href: '#',
+        priceStartingAt: '$900',
+        description: 'Share personal content and build your personal brand.',
+        features: [
+            'Up to 3 pages',
+            'Responsive design',
+            'Social media links',
+            'Contact form',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Content Website',
+        id: 'content',
+        href: '#',
+        priceStartingAt: '$1,000',
+        description: 'Perfect for writers, content creators, or businesses focused on content marketing.',
+        features: [
+            'Up to 5 pages',
+            'Responsive blog design',
+            'SEO-optimized blog post templates',
+            'Social sharing features',
+            '1 revision cycle',
+        ],
+        featured: true,
+    },
+    {
+        name: 'Event Website',
+        id: 'event',
+        href: '#',
+        priceStartingAt: '$1,200',
+        description: 'Promote events and manage registrations.',
+        features: [
+            'Event schedule and details',
+            'Online registration forms',
+            'Ticketing system integration',
+            'Maps and location information',
+            'Social media sharing',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Informational Website',
+        id: 'informational',
+        href: '#',
+        priceStartingAt: '$1,300',
+        description: 'Provide information and resources to visitors.',
+        features: [
+            'Up to 7 pages',
+            'Content management system setup',
+            'SEO optimization',
+            'Responsive design',
+            'Contact form',
+            '2 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Portfolio Website',
+        id: 'portfolio',
+        href: '#',
+        priceStartingAt: '$1,500',
+        description: 'Showcase your work and projects to potential clients.',
+        features: [
+            'Up to 7 pages',
+            'Image and video galleries',
+            'Responsive design',
+            'SEO optimization',
+            'Contact form',
+            '2 revision cycles',
+        ],
+        featured: true,
+    },
+    {
+        name: 'Non-Profit Organization Website',
+        id: 'nonprofit',
+        href: '#',
+        priceStartingAt: '$2,000',
+        description: 'Promote your cause, engage supporters, and increase donations.',
+        features: [
+            'Up to 10 pages',
+            'Donation platform integration',
+            'Image and video galleries',
+            'Event calendar',
+            'Volunteer signup forms',
+            '2 revision cycles',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Professional Business Website',
+        id: 'business',
+        href: '#',
+        priceStartingAt: '$2,500',
+        description: 'Ideal for businesses looking to showcase services and attract customers.',
+        features: [
+            'Up to 10 pages',
+            'Responsive design for all devices',
+            'Advanced SEO setup',
+            'Image and video galleries',
+            'Custom contact forms',
+            '3 revision cycles',
+        ],
+        featured: true,
+    },
+    {
+        name: 'Membership Website',
+        id: 'membership',
+        href: '#',
+        priceStartingAt: '$3,000',
+        description: 'Offer exclusive content to registered members.',
+        features: [
+            'Membership management system',
+            'Secure login and user profiles',
+            'Content restriction settings',
+            'Payment gateway integration',
+            'Discussion forums (optional)',
+            '3 revision cycles',
+        ],
+        featured: false,
+    },
+    {
+        name: 'E-commerce Website',
+        id: 'ecommerce',
+        href: '#',
+        priceStartingAt: '$4,000',
+        description: 'Sell products or services online with a secure e-commerce platform.',
+        features: [
+            'Product catalog setup',
+            'Shopping cart and checkout system',
+            'Payment gateway integration',
+            'Inventory management system',
+            'Customer account creation',
+            '3 revision cycles',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Custom Website',
+        id: 'custom',
+        href: '#',
+        priceStartingAt: '$5,000+',
+        description: 'A tailored solution to meet your unique business needs.',
+        features: [
+            'Unlimited pages',
+            'Custom design and development',
+            'Full e-commerce capabilities',
+            'Complex integrations (CRM, APIs, etc.)',
+            'Dedicated project manager',
+            'Unlimited revision cycles',
+        ],
+        featured: true,
+    },
+];
+
 export const paymentPlans: PaymentPlan[] = [
     {
-        name: "50/50 Split",
-        id: "fifty-fifty",
-        price: "2",
-        description: "A flexible payment option with two installments.",
-        features: [
-            "50% deposit upfront to start the project",
-            "Remaining 50% due before the site goes live",
-            "Regular updates during development",
-        ],
-        details: [
-            "The 50/50 Split plan allows you to manage your budget by dividing the payment into two equal parts.",
-            "An initial 50% deposit is required to commence the project, covering the initial design and development phases.",
-            "The remaining 50% is due upon project completion, just before the website goes live.",
-            "You will receive regular updates and have opportunities to provide feedback during the development process.",
-        ],
-        isPopular: false,
-        paymentSchedule: [
-            {
-                title: "Initial Deposit",
-                date: "Project Start",
-                description: "50% deposit to start the project.",
-            },
-            {
-                title: "Final Payment",
-                date: "Before Launch",
-                description: "Remaining 50% due before the site goes live.",
-            },
-        ],
-    },
-    {
-        name: "Three Milestone Plan",
-        id: "three-milestones",
-        price: "3",
-        description: "Spread payments across three key project milestones.",
-        features: [
-            "33% deposit upfront to initiate the project",
-            "33% payment halfway through the project",
-            "Remaining 34% due before the site goes live",
-            "Milestone-based progress reports",
-        ],
-        details: [
-            "This plan breaks down the payment into three manageable installments aligned with project milestones.",
-            "An initial 33% deposit starts the project, covering the discovery and planning phase.",
-            "The second payment of 33% is due halfway through, typically after the design phase is completed.",
-            "The final 34% payment is due before the website is launched.",
-            "You'll receive detailed progress reports at each milestone, ensuring transparency and engagement.",
-        ],
-        isPopular: false,
-        paymentSchedule: [
-            {
-                title: "Initial Deposit",
-                date: "Project Start",
-                description: "33% deposit to initiate the project.",
-            },
-            {
-                title: "Mid-Project Payment",
-                date: "Midway Point",
-                description: "33% payment upon reaching the project midpoint.",
-            },
-            {
-                title: "Final Payment",
-                date: "Before Launch",
-                description: "34% payment due before the website goes live.",
-            },
-        ],
-    },
-    {
-        name: "Monthly Payment Plan",
-        id: "monthly-plan",
-        price: "6",
-        description: "Spread the cost over several months with equal payments.",
-        features: [
-            "20% deposit upfront to begin the project",
-            "Equal monthly payments over 6 months",
-            "Ideal for manageable budgeting",
-            "Includes a small administrative fee",
-        ],
-        details: [
-            "Designed for clients who prefer to spread out payments, this plan allows for equal monthly installments over 6 months.",
-            "A 20% deposit is required upfront to initiate the project.",
-            "An administrative fee is included to cover the extended payment schedule.",
-            "This plan helps in managing cash flow while ensuring the project progresses without financial strain.",
-        ],
-        isPopular: false,
-        paymentSchedule: [
-            {
-                title: "Initial Deposit",
-                date: "Project Start",
-                description: "20% deposit to initiate the project.",
-            },
-            {
-                title: "Monthly Payments",
-                date: "Starting the 2nd week of the project",
-                description: "80% of the project cost split between 6 recurring monthly payments + $25/month.",
-            },
-        ]
-    },
-    {
-        name: "Pay-as-you-go Plan",
-        id: "pay-as-you-go",
-        price: "Varies",
-        description: "Pay for each development phase upon completion.",
-        features: [
-            "30% deposit upfront to start the project",
-            "Payments made after each completed phase",
-            "View deliverables before making the next payment",
-            "Flexibility to adjust project scope",
-            "Ability to pause the project after any phase if needed",
-            "Control over your spending",
-        ],
-        details: [
-            "The Pay-as-you-go plan offers flexibility by allowing you to pay after each project phase is completed.",
-            "An initial 30% deposit covers the discovery and planning phase.",
-            "Subsequent payments are made at the end of each phase: design, development, testing, and deployment.",
-            "This plan provides the opportunity to reassess and adjust the project scope at each stage.",
-            "Ideal for clients who want granular control over the project and budget.",
-        ],
-        isPopular: false,
-        paymentSchedule: [
-            {
-                title: "Initial Deposit",
-                date: "Project Start",
-                description: "30% deposit to initiate the project.",
-            },
-            {
-                title: "Design Phase",
-                date: "Due upon approval of design concepts",
-                description: "20% deposit to initiate the project.",
-            },
-            {
-                title: "Development Phase",
-                date: "Due upon completion of development",
-                description: "20% deposit to initiate the project.",
-            },
-            {
-                title: "Testing and Revisions",
-                date: "Due upon completion of revisions and testing",
-                description: "15% deposit to initiate the project.",
-            },
-            {
-                title: "Final Payment",
-                date: "Before Launch",
-                description: "15% deposit to initiate the project.",
-            },
-        ]
-    },
-    {
-        name: "Subscription-based Model",
-        id: "subscription-model",
-        price: "Monthly or Annual",
-        description: "Recurring fee for ongoing development and maintenance services.",
-        features: [
-            "Initial setup fee as a deposit",
-            "Website development included",
-            "Ongoing maintenance and support",
-            "Regular updates and security patches",
-            "Ideal for long-term partnerships",
-        ],
-        details: [
-            "This model combines website development and continuous support into a subscription service.",
-            "An initial setup fee is required as a deposit to begin development.",
-            "Monthly or annual subscription fees cover ongoing maintenance, updates, and support.",
-            "This plan is perfect for businesses seeking a long-term partnership with continuous improvements.",
-            "It ensures your website remains up-to-date with the latest features and security enhancements.",
-        ],
-        isPopular: false,
-        paymentSchedule: [
-            {
-                title: "Initial Deposit",
-                date: "Project Start",
-                description: "40% deposit to initiate the project.",
-            },
-            {
-                title: "Website Launch",
-                date: "Before Launch",
-                description: "60% of the total project cost.",
-            },
-            {
-                title: "Ongoing Maintenance and Support",
-                date: "Agreed Upon Length of Time",
-                description: "Monthly or annual subscription fees cover ongoing maintenance.",
-            },
-        ]
-    },
-    {
-        name: "Early Payment Discount",
-        id: "early-payment-discount",
+        name: "Upfront Advantage Plan",
+        id: "upfront-advantage",
         price: "1",
-        description: "Receive a discount by paying the full amount upfront.",
+        description: "Maximize savings and priority service with full upfront payment.",
         features: [
-            "100% payment upfront to initiate the project",
-            "Includes a 10% discount on total project cost",
-            "Priority scheduling and support",
+            "Save 10% instantly with full payment upfront.",
+            "Priority scheduling to start your project sooner.",
+            "Dedicated premium support throughout your journey.",
         ],
         details: [
-            "By paying the full amount upfront, you benefit from a generous 10% discount.",
-            "This plan is similar to the Pay in Full option but offers an even greater discount as an incentive.",
-            "Your project will be prioritized in our schedule, ensuring a faster turnaround.",
-            "Ideal for clients ready to invest upfront to maximize savings.",
+            "Benefit from a generous 10% discount.",
+            "Enjoy a faster turnaround with priority scheduling.",
+            "Ideal for clients ready to invest upfront for maximum savings.",
         ],
-        isPopular: false,
+        isPopular: true,
         paymentSchedule: [
             {
                 title: "Full Payment",
@@ -259,22 +236,163 @@ export const paymentPlans: PaymentPlan[] = [
         ],
     },
     {
+        name: "50/50 Split",
+        id: "fifty-fifty",
+        price: "2",
+        description: "Split your project cost into two easy payments.",
+        features: [
+            "50% upfront to begin the project.",
+            "50% due before the website launch.",
+            "Regular updates and feedback opportunities during development.",
+        ],
+        details: [
+            "Start with a manageable upfront deposit.",
+            "Balance due upon completion ensures quality and satisfaction.",
+        ],
+        isPopular: false,
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "50% deposit to begin development.",
+            },
+            {
+                title: "Final Payment",
+                date: "Before Launch",
+                description: "Remaining 50% paid prior to website launch.",
+            },
+        ],
+    },
+    {
+        name: "Three Milestone Plan",
+        id: "three-milestones",
+        price: "3",
+        description: "Align payments with project milestones for better control.",
+        features: [
+            "25% upfront, 25% midway, 50% before launch.",
+            "Progress updates and transparency at every stage.",
+            "Flexibility to adapt as the project evolves.",
+        ],
+        details: [
+            "Structured payments for improved budget management.",
+            "Ensures you stay informed and engaged throughout the process.",
+        ],
+        isPopular: false,
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "25% to initiate the project.",
+            },
+            {
+                title: "Mid-Project Payment",
+                date: "Midway",
+                description: "25% payment at project midpoint.",
+            },
+            {
+                title: "Final Payment",
+                date: "Before Launch",
+                description: "50% payment due before website goes live.",
+            },
+        ],
+    },
+    {
+        name: "Monthly Payment Plan",
+        id: "monthly-plan",
+        price: "6",
+        description: "Ease your cash flow with equal monthly payments.",
+        features: [
+            "Spread costs over 6 months with a 20% upfront deposit.",
+            "Maintain financial flexibility while the project progresses.",
+            "Minimal strain on cash flow for your business.",
+        ],
+        details: [
+            "Perfect for businesses preferring manageable monthly installments.",
+            "Includes an administrative fee for extended payment schedules.",
+        ],
+        isPopular: false,
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "20% deposit to start development.",
+            },
+            {
+                title: "Monthly Payments",
+                date: "Over 6 months",
+                description: "Remaining balance split into 6 equal monthly payments.",
+            },
+        ],
+    },
+    {
+        name: "Pay-As-You-Go Plan",
+        id: "pay-as-you-go",
+        price: "Varies",
+        description: "Pay for each phase as it’s completed.",
+        features: [
+            "Granular control over costs and timelines.",
+            "Payments made after each development phase is delivered.",
+            "Flexibility to adjust the scope as needed.",
+        ],
+        details: [
+            "Ideal for clients who want transparency and control.",
+            "Allows you to adjust the project at every stage.",
+        ],
+        isPopular: false,
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "30% deposit to initiate planning and discovery.",
+            },
+            {
+                title: "Phase Payments",
+                date: "Upon Phase Completion",
+                description: "Payments made at the end of each phase: design, development, testing, and launch.",
+            },
+        ],
+    },
+    {
+        name: "Subscription Plan",
+        id: "subscription-model",
+        price: "Monthly or Annual",
+        description: "Ongoing development and maintenance for sustained success.",
+        features: [
+            "Continuous updates and maintenance services.",
+            "Monthly or annual payments for predictable costs.",
+            "Long-term support and security enhancements.",
+        ],
+        details: [
+            "Combines development and ongoing support.",
+            "Perfect for businesses seeking a long-term partnership.",
+        ],
+        isPopular: true,
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "40% deposit to begin development.",
+            },
+            {
+                title: "Ongoing Payments",
+                date: "Monthly or Annually",
+                description: "Covers ongoing maintenance and support.",
+            },
+        ],
+    },
+    {
         name: "Deferred Payment Plan",
         id: "deferred-payment",
         price: "Flexible",
-        description: "Start the project with a minimal deposit and defer payments.",
+        description: "Start now, pay later with deferred payments.",
         features: [
-            "15% deposit upfront to begin the project",
-            "Remaining balance deferred to a 60 days after launch date",
-            "Ideal for startups with cash flow constraints",
-            "Flexible payment schedule",
+            "Minimal 15% upfront deposit.",
+            "Defer remaining payments for up to 60 days post-launch.",
+            "Flexible payment schedules tailored to your business needs.",
         ],
         details: [
-            "This plan allows you to start the project with a minimal upfront cost of 15% of the total project price.",
-            "The remaining balance can be deferred to a date that aligns with your cash flow, typically 30 to 60 days after project completion.",
-            "It's designed to help startups and small businesses that may need time to generate revenue from the new website.",
-            "Flexible payment schedules can be arranged to suit your financial situation.",
-            "A clear contractual agreement will outline the payment terms and due dates.",
+            "Designed for startups or businesses with cash flow constraints.",
+            "Allows you to start the project with minimal upfront costs.",
         ],
         isPopular: false,
         paymentSchedule: [
@@ -285,9 +403,9 @@ export const paymentPlans: PaymentPlan[] = [
             },
             {
                 title: "Final Payment",
-                date: "60 days after launch date",
-                description: "85% of the project cost.",
+                date: "Up to 60 days post-launch",
+                description: "Remaining balance paid after project completion.",
             },
-        ]
+        ],
     },
 ];

@@ -6,8 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "tailwind": "npx tailwindcss -i ./src/app/globals.css -o ./src/app/main.css --watch"
+        "lint": "next lint"
     },
     "dependencies": {
         "@emotion/react": "^11.13.5",

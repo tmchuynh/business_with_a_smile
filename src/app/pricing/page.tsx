@@ -3,167 +3,8 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
+import { tiers } from '../../../types';
 
-const tiers = [
-    {
-        name: 'Personal Website',
-        id: 'tier-personal',
-        href: '#',
-        priceStartingAt: '$900',
-        description: 'Share personal content and build your personal brand.',
-        features: [
-            'Up to 3 pages',
-            'Responsive design',
-            'Social media links',
-            'Contact form',
-            '1 revision cycle',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Content Website',
-        id: 'tier-blog',
-        href: '#',
-        priceStartingAt: '$1,000',
-        description: 'Perfect for writers, content creators, or businesses focused on content marketing.',
-        features: [
-            'Up to 5 pages',
-            'Responsive blog design',
-            'SEO-optimized blog post templates',
-            'Social sharing features',
-            '1 revision cycle',
-        ],
-        featured: true,
-    },
-    {
-        name: 'Event Website',
-        id: 'tier-event',
-        href: '#',
-        priceStartingAt: '$1,200',
-        description: 'Promote events and manage registrations.',
-        features: [
-            'Event schedule and details',
-            'Online registration forms',
-            'Ticketing system integration',
-            'Maps and location information',
-            'Social media sharing',
-            '1 revision cycle',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Informational Website',
-        id: 'tier-informational',
-        href: '#',
-        priceStartingAt: '$1,300',
-        description: 'Provide information and resources to visitors.',
-        features: [
-            'Up to 7 pages',
-            'Content management system setup',
-            'SEO optimization',
-            'Responsive design',
-            'Contact form',
-            '2 revision cycle',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Portfolio Website',
-        id: 'tier-portfolio',
-        href: '#',
-        priceStartingAt: '$1,500',
-        description: 'Showcase your work and projects to potential clients.',
-        features: [
-            'Up to 7 pages',
-            'Image and video galleries',
-            'Responsive design',
-            'SEO optimization',
-            'Contact form',
-            '2 revision cycles',
-        ],
-        featured: true,
-    },
-    {
-        name: 'Non-Profit Organization Website',
-        id: 'tier-nonprofit',
-        href: '#',
-        priceStartingAt: '$2,000',
-        description: 'Promote your cause, engage supporters, and increase donations.',
-        features: [
-            'Up to 10 pages',
-            'Donation platform integration',
-            'Image and video galleries',
-            'Event calendar',
-            'Volunteer signup forms',
-            '2 revision cycles',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Professional Business Website',
-        id: 'tier-business',
-        href: '#',
-        priceStartingAt: '$2,500',
-        description: 'Ideal for businesses looking to showcase services and attract customers.',
-        features: [
-            'Up to 10 pages',
-            'Responsive design for all devices',
-            'Advanced SEO setup',
-            'Image and video galleries',
-            'Custom contact forms',
-            '3 revision cycles',
-        ],
-        featured: true,
-    },
-    {
-        name: 'Membership Website',
-        id: 'tier-membership',
-        href: '#',
-        priceStartingAt: '$3,000',
-        description: 'Offer exclusive content to registered members.',
-        features: [
-            'Membership management system',
-            'Secure login and user profiles',
-            'Content restriction settings',
-            'Payment gateway integration',
-            'Discussion forums (optional)',
-            '3 revision cycles',
-        ],
-        featured: false,
-    },
-    {
-        name: 'E-commerce Website',
-        id: 'tier-ecommerce',
-        href: '#',
-        priceStartingAt: '$4,000',
-        description: 'Sell products or services online with a secure e-commerce platform.',
-        features: [
-            'Product catalog setup',
-            'Shopping cart and checkout system',
-            'Payment gateway integration',
-            'Inventory management system',
-            'Customer account creation',
-            '3 revision cycles',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Custom Website',
-        id: 'tier-custom',
-        href: '#',
-        priceStartingAt: '$5,000+',
-        description: 'A tailored solution to meet your unique business needs.',
-        features: [
-            'Unlimited pages',
-            'Custom design and development',
-            'Full e-commerce capabilities',
-            'Complex integrations (CRM, APIs, etc.)',
-            'Dedicated project manager',
-            'Unlimited revision cycles',
-        ],
-        featured: true,
-    },
-];
 
 function classNames( ...classes: string[] ) {
     return classes.filter( Boolean ).join( ' ' );
@@ -172,8 +13,8 @@ function classNames( ...classes: string[] ) {
 export default function Pricing() {
     const router = useRouter();
 
-    function navigate() {
-        router.push( `/pricing/plans` );
+    function navigate( id: string ) {
+        router.push( `/pricing/${ id }/plans` );
     }
 
     return (
@@ -258,7 +99,7 @@ export default function Pricing() {
                         <Button
                             variant={tier.featured ? 'default' : 'outline'}
                             className="mt-8"
-                            onClick={() => navigate()}
+                            onClick={() => navigate( tier.id )}
                         >
                             Get Started Today
                         </Button>

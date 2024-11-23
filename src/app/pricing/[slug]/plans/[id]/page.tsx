@@ -2,22 +2,32 @@
 
 import React from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { paymentPlans } from "../../../../../types";
+import { paymentPlans } from "../../../../../../types";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function PaymentDetails() {
-    const planId = useParams().id;
+    const router = useRouter();
 
-    const plan = paymentPlans.find( ( p ) => p.id === planId );
+    const planName = useParams().id!.toString();
+    const name = decodeURIComponent( planName );
+
+    const plan = paymentPlans.find( ( p ) => p.name === name );
 
     if ( !plan ) {
         return <p>Plan not found.</p>;
     }
 
+    const params = useParams<{ slug: string; id: string; }>();
+
+    function navigate() {
+        const { slug, id } = params;
+        router.push( `/contact?paymentMethod=${ id }&website=${ slug }` );
+    }
+
     return (
-        <div className="bg-white py-16 px-6 lg:px-8">
+        <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
             <div className="max-w-4xl mx-auto text-center mb-12">
                 <h1 className="text-4xl font-bold text-gray-900">{plan.name}</h1>
                 <p className="mt-4 text-lg text-gray-600">{plan.description}</p>
@@ -58,7 +68,7 @@ export default function PaymentDetails() {
 
                 {/* Call-to-Action */}
                 <div className="text-center">
-                    <Button variant="default" className="py-3 px-6">
+                    <Button variant="default" className="py-3 px-6" onClick={() => navigate()}>
                         Choose {plan.name}
                     </Button>
                 </div>
