@@ -1,8 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function PricingPage() {
+    const router = useRouter();
+
+    function navigate( id: string ) {
+        router.push( `/payments/plans/${ id }` );
+    }
     return (
         <>
             <div className="relative isolate bg-white px-6 py-28 lg:px-8">
@@ -19,11 +27,26 @@ export default function PricingPage() {
                 </div>
 
                 <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
+                    <div className="mx-auto max-w-4xl text-center mt-14">
+                        <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-4xl">
+                            Are You a Student?
+                        </h4>
+                        <p className="mt-6 text-lg text-softNeutral-600">
+                            Enjoy a 60% discount on your first purchase with our exclusive student discount.
+                        </p>
+                        <form className="flex items-center gap-3 justify-center mx-auto my-3">
+                            <Input
+                                placeholder="Enter your student email address"
+                                className="py-5"
+                            />
+                            <Button className="w-1/4">Submit</Button>
+                        </form>
+                    </div>
                     {tiers.map( ( tier, tierIdx ) => (
                         <div
                             key={`${ tier.id }_${ tierIdx }`}
                             className={classNames(
-                                tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0 hover:ring-teal-300',
+                                tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0 hover:ring-teal-500',
                                 'rounded-3xl p-8 ring-1 ring-deepTeal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
                             )}
                         >
@@ -44,6 +67,7 @@ export default function PricingPage() {
                                         {tier.priceStartingAt}
                                     </span>
                                 </p>
+
                                 <p className={classNames( tier.featured ? 'text-softNeutral-300' : 'text-softNeutral-600', 'mt-6 text-base/7' )}>
                                     {tier.description}
                                 </p>
@@ -57,7 +81,6 @@ export default function PricingPage() {
                                     {tier.features.map( ( feature ) => (
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
-                                                aria-hidden="true"
                                                 className={classNames(
                                                     tier.featured ? 'text-deepTeal-300' : 'text-deepTeal-600',
                                                     'h-5 w-8 flex-none',
@@ -71,22 +94,6 @@ export default function PricingPage() {
                         </div>
                     ) )}
                 </div>
-                <div className="mx-auto max-w-4xl text-center mt-14">
-                    <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 text-4xl">
-                        Are You a Student?
-                    </h4>
-                    <p className="mt-6 text-lg text-softNeutral-600">
-                        Enjoy a 60% discount on your first purchase with our exclusive student discount.
-                    </p>
-                    <form className="flex items-center gap-3 justify-center mx-auto my-3">
-                        <Input
-                            placeholder="Enter your student email address"
-                            className="py-5"
-                        />
-                        <Button className="w-1/4">Submit</Button>
-                    </form>
-                </div>
-
             </div>
 
 
@@ -110,9 +117,9 @@ export default function PricingPage() {
                             key={`${ plan.id }_${ index }`}
                             className={classNames(
                                 plan.isPopular
-                                    ? 'relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 text-white shadow-xl'
-                                    : 'bg-white/60 ring-1 ring-teal-200 hover:ring-teal-300',
-                                'rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4'
+                                    ? 'relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 text-white shadow-xl hover:scale-105'
+                                    : 'bg-white/60 ring-1 ring-teal-200 hover:ring-teal-500',
+                                'rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4 transition-all duration-300'
                             )}
                         >
                             <div>
@@ -162,7 +169,6 @@ export default function PricingPage() {
                                     {plan.features.map( ( feature ) => (
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
-                                                aria-hidden="true"
                                                 className={classNames(
                                                     plan.isPopular ? 'text-deepTeal-300' : 'text-deepTeal-600',
                                                     'h-5 w-5 flex-none',
@@ -177,9 +183,11 @@ export default function PricingPage() {
                             <Button
                                 variant={plan.isPopular ? 'default' : 'outline'}
                                 className="mt-8"
+                                onClick={() => navigate( plan.id )}
                             >
                                 Get Started Today
                             </Button>
+
                         </div>
                     ) )}
                 </div>
@@ -205,22 +213,6 @@ const tiers = [
             'Responsive design',
             'Social media links',
             'Contact form',
-            '1 revision cycle',
-        ],
-        featured: false,
-    },
-    {
-        name: 'Landing Page',
-        id: 'tier-landing',
-        href: '#',
-        priceStartingAt: '$800',
-        description: 'Single-page website focused on a specific marketing goal.',
-        features: [
-            'Custom design',
-            'Call-to-action integration',
-            'Lead capture forms',
-            'Basic SEO setup',
-            'Social media integration',
             '1 revision cycle',
         ],
         featured: false,
@@ -259,7 +251,7 @@ const tiers = [
     },
     {
         name: 'Content Website',
-        id: 'tier-blog',
+        id: 'tier-content-website',
         href: '#',
         priceStartingAt: '$1,000',
         description: 'Perfect for writers, content creators, or businesses focused on content marketing (ie. graphic designers, photographers, etc.).',
@@ -430,11 +422,11 @@ const paymentPlans = [
     {
         name: "Monthly Payment Plan",
         id: "monthly-plan",
-        price: "6 or 12",
+        price: "6",
         description: "Spread the cost over several months with equal payments.",
         features: [
             "20% deposit upfront to begin the project",
-            "Equal monthly payments over 6 or 12 months",
+            "Equal monthly payments over 6 months",
             "Ideal for manageable budgeting",
             "Includes a small administrative fee",
         ],

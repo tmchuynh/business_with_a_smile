@@ -13,8 +13,8 @@ interface BoxRevealProps {
 export const BoxReveal = ( {
     children,
     width = "fit-content",
-    boxColor = "#004B45",
-    duration = 0.5,
+    boxColor = "#00211D",
+    duration = 0.55,
 }: BoxRevealProps ) => {
     const mainControls = useAnimation();
     const slideControls = useAnimation();
@@ -64,7 +64,6 @@ export const BoxReveal = ( {
                     right: 0,
                     zIndex: 20,
                     background: boxColor,
-                    borderRadius: "0.75rem",
                 }}
             />
         </div>

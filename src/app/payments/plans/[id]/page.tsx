@@ -2,15 +2,13 @@
 
 import React from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { useRouter } from "next/router";
 import { paymentPlans } from "../../../../../types";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
+import { useParams } from "next/navigation";
 
 export default function PaymentDetails() {
-
-    const router = useRouter();
-    const { planId } = router.query;
+    const planId = useParams().id;
 
     const plan = paymentPlans.find( ( p ) => p.id === planId );
 

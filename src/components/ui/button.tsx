@@ -14,23 +14,21 @@ const buttonVariants = cva(
                 destructive:
                     "bg-richRed-500 text-softNeutral-50 hover:bg-richRed-700 shadow-md",
                 outline:
-                    "text-deepTeal-600 ring-1 ring-inset ring-deepTeal-200 shadow-sm hover:ring-deepTeal-300 focus-visible:outline-deepTeal-600",
+                    "text-deepTeal-600 ring-1 ring-inset ring-deepTeal-200 shadow-sm hover:ring-deepTeal-500 focus-visible:outline-deepTeal-600",
                 secondary:
                     "bg-deepBlue-500 text-softNeutral-50 hover:bg-deepBlue-600 shadow-md",
                 ghost:
-                    "hover:bg-accentGold-100 hover:text-accentGold-500 hover:bg-transparent",
+                    "hover:bg-accentGold-100 hover:text-softNeutral-50 text-accentGold-500 bg-transparent",
                 link:
-                    "text-deepTeal-500 underline-offset-4 hover:underline",
-                success:
-                    "bg-green-600 text-softNeutral-50 hover:bg-green-700 shadow-md",
+                    "text-deepTeal-500 underline-offset-4 underline hover:no-underline hover:ring-1 hover:ring-deepTeal-500",
                 neutral:
-                    "bg-softNeutral-200 text-softNeutral-800 hover:bg-softNeutral-100 shadow-md",
+                    "bg-softNeutral-50 text-softNeutral-800 hover:bg-softNeutral-500 hover:text-softNeutral-100 shadow-md",
             },
             size: {
                 default: "h-9 px-4 py-5 w-full",
                 sm: "h-8 rounded-md px-3 text-xs",
                 lg: "h-10 rounded-md px-8",
-                icon: "h-9 w-9",
+                icon: "h-9 w-9 p-3",
             },
         },
         defaultVariants: {

@@ -46,7 +46,7 @@ const secondHalf = testimonials.slice( midpoint );
 
 export default function Testimonials() {
     return (
-        <section className="bg-softNeutral-50 py-20 lg:py-32 w-full">
+        <section className="py-20 lg:py-32 w-full">
             <div className="max-w-screen-2xl mx-auto text-center">
                 <div className="text-center mb-12">
                     <h2 className="text-base font-semibold text-teal-600">What Our Clients Say</h2>

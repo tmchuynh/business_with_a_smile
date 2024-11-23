@@ -49,31 +49,6 @@ export interface PaymentScheduleItem {
 
 export const paymentPlans: PaymentPlan[] = [
     {
-        name: "Pay in Full",
-        id: "full-upfront",
-        price: "1",
-        description: "Settle the full amount upfront and enjoy a discount.",
-        features: [
-            "100% payment upfront to initiate the project",
-            "Dedicated project manager",
-            "Priority support",
-            "Includes a 5% discount on total project cost",
-        ],
-        details: [
-            "By choosing the Pay in Full option, you commit to paying the entire project cost upfront. This not only streamlines the process but also allows us to allocate resources more efficiently.",
-            "You benefit from a 5% discount on the total project cost, making it a cost-effective choice.",
-            "With priority support and a dedicated project manager, your project will receive immediate attention and expedited service.",
-        ],
-        isPopular: true,
-        paymentSchedule: [
-            {
-                title: "Full Payment",
-                date: "Project Start",
-                description: "100% payment made upfront to initiate the project.",
-            },
-        ],
-    },
-    {
         name: "50/50 Split",
         id: "fifty-fifty",
         price: "2",
@@ -143,22 +118,33 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Monthly Payment Plan",
         id: "monthly-plan",
-        price: "6 or 12",
+        price: "6",
         description: "Spread the cost over several months with equal payments.",
         features: [
             "20% deposit upfront to begin the project",
-            "Equal monthly payments over 6 or 12 months",
+            "Equal monthly payments over 6 months",
             "Ideal for manageable budgeting",
             "Includes a small administrative fee",
         ],
         details: [
-            "Designed for clients who prefer to spread out payments, this plan allows for equal monthly installments over 6 or 12 months.",
+            "Designed for clients who prefer to spread out payments, this plan allows for equal monthly installments over 6 months.",
             "A 20% deposit is required upfront to initiate the project.",
             "An administrative fee is included to cover the extended payment schedule.",
             "This plan helps in managing cash flow while ensuring the project progresses without financial strain.",
         ],
         isPopular: false,
-        paymentSchedule: []
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "20% deposit to initiate the project.",
+            },
+            {
+                title: "Monthly Payments",
+                date: "Starting the 2nd week of the project",
+                description: "80% of the project cost split between 6 recurring monthly payments + $25/month.",
+            },
+        ]
     },
     {
         name: "Pay-as-you-go Plan",
@@ -179,7 +165,33 @@ export const paymentPlans: PaymentPlan[] = [
             "Ideal for clients who want granular control over the project and budget.",
         ],
         isPopular: false,
-        paymentSchedule: []
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "30% deposit to initiate the project.",
+            },
+            {
+                title: "Design Phase",
+                date: "Due upon approval of design concepts",
+                description: "20% deposit to initiate the project.",
+            },
+            {
+                title: "Development Phase",
+                date: "Due upon completion of development",
+                description: "20% deposit to initiate the project.",
+            },
+            {
+                title: "Testing and Revisions",
+                date: "Due upon completion of revisions and testing",
+                description: "15% deposit to initiate the project.",
+            },
+            {
+                title: "Final Payment",
+                date: "Before Launch",
+                description: "15% deposit to initiate the project.",
+            },
+        ]
     },
     {
         name: "Subscription-based Model",
@@ -201,7 +213,23 @@ export const paymentPlans: PaymentPlan[] = [
             "It ensures your website remains up-to-date with the latest features and security enhancements.",
         ],
         isPopular: false,
-        paymentSchedule: []
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "40% deposit to initiate the project.",
+            },
+            {
+                title: "Website Launch",
+                date: "Before Launch",
+                description: "60% of the total project cost.",
+            },
+            {
+                title: "Ongoing Maintenance and Support",
+                date: "Agreed Upon Length of Time",
+                description: "Monthly or annual subscription fees cover ongoing maintenance.",
+            },
+        ]
     },
     {
         name: "Early Payment Discount",
@@ -235,7 +263,7 @@ export const paymentPlans: PaymentPlan[] = [
         description: "Start the project with a minimal deposit and defer payments.",
         features: [
             "15% deposit upfront to begin the project",
-            "Remaining balance deferred to a later date",
+            "Remaining balance deferred to a 60 days after launch date",
             "Ideal for startups with cash flow constraints",
             "Flexible payment schedule",
         ],
@@ -247,6 +275,17 @@ export const paymentPlans: PaymentPlan[] = [
             "A clear contractual agreement will outline the payment terms and due dates.",
         ],
         isPopular: false,
-        paymentSchedule: []
+        paymentSchedule: [
+            {
+                title: "Initial Deposit",
+                date: "Project Start",
+                description: "15% deposit to initiate the project.",
+            },
+            {
+                title: "Final Payment",
+                date: "60 days after launch date",
+                description: "85% of the project cost.",
+            },
+        ]
     },
 ];
