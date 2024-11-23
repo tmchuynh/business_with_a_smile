@@ -12,21 +12,39 @@ import { toast } from "@/components/hooks/use-toast";
 import { cn, formatDate } from "@/lib/utils";
 import { Controller, useForm } from "react-hook-form";
 
-// Define the site_styles array for the dropdown options
+// Updated site_styles array with more styles
 const site_styles = [
     { name: "Professional + Elegant", icon: () => <span className="text-deepTeal-700">🖤</span>, description: "A clean and sleek look for a more refined aesthetic." },
     { name: "Bold + Fierce", icon: () => <span className="text-red-700">🔥</span>, description: "Embrace boldness with a fierce and powerful design." },
     { name: "Classic + Modern", icon: () => <span className="text-indigo-700">🎨</span>, description: "A perfect blend of timeless elegance and contemporary style." },
-    { name: "Colorful + Friendly", icon: () => <span className="text-yellow-500">🌈</span>, description: "Vibrant and welcoming, ideal for a joyful atmosphere." },
-    { name: "Monotone + Welcoming", icon: () => <span className="text-gray-700">⚪</span>, description: "A minimalist approach with a welcoming, neutral tone." }
+    { name: "Minimalist + Clean", icon: () => <span className="text-gray-500">➖</span>, description: "Simplistic design focusing on essential elements." },
+    { name: "Vibrant + Dynamic", icon: () => <span className="text-orange-500">⚡</span>, description: "Energetic and lively design to engage users." },
+    { name: "Rustic + Natural", icon: () => <span className="text-green-700">🌿</span>, description: "Earthy tones and textures for a natural feel." },
+    { name: "Retro + Vintage", icon: () => <span className="text-brown-700">📻</span>, description: "Nostalgic design with vintage elements." },
+    { name: "Futuristic + Innovative", icon: () => <span className="text-blue-500">🚀</span>, description: "Cutting-edge design with modern technologies." },
+    { name: "Artistic + Creative", icon: () => <span className="text-purple-500">🎭</span>, description: "Unique and creative design to showcase artistry." },
+    { name: "Corporate + Formal", icon: () => <span className="text-black">🏢</span>, description: "Professional design suitable for corporate entities." },
+    { name: "Playful + Whimsical", icon: () => <span className="text-pink-500">🎈</span>, description: "Fun and whimsical design to delight users." },
+    { name: "Luxury + Premium", icon: () => <span className="text-yellow-800">💎</span>, description: "High-end design for luxury brands." },
+    { name: "Dark Mode + Sleek", icon: () => <span className="text-black">🌑</span>, description: "Modern design with dark themes for a sleek look." }
 ];
 
-// Define the website demand options
-const website_demand = [
-    { name: "Content-Based Website", icon: () => <span className="text-deepTeal-700">🖤</span>, description: "A clean and sleek look for a more refined aesthetic." },
-    { name: "Professional Business Website", icon: () => <span className="text-red-700">🔥</span>, description: "Embrace boldness with a fierce and powerful design." },
-    { name: "Custom Website", icon: () => <span className="text-indigo-700">🎨</span>, description: "A perfect blend of timeless elegance and contemporary style." }
+// Updated website_types array with more types
+const website_types = [
+    { name: "Custom Website", icon: () => <span className="text-indigo-700">✨</span>, description: "Tailored solutions to meet unique business needs." },
+    { name: "Blog", icon: () => <span className="text-deepTeal-700">📝</span>, description: "Focus on delivering content such as articles, blogs, or news." },
+    { name: "Professional Business Website", icon: () => <span className="text-blue-700">🏢</span>, description: "Represent your business with a professional online presence." },
+    { name: "Transactional/eCommerce websites", icon: () => <span className="text-green-500">🛒</span>, description: "Allow visitors to purchase products or services, and can be used to sell physical goods, digital products, or services." },
+    { name: "Portfolio Website", icon: () => <span className="text-purple-500">🎨</span>, description: "Showcase your work and projects to potential clients." },
+    { name: "Landing Page", icon: () => <span className="text-red-500">🚩</span>, description: "Single-page website focused on a specific marketing goal." },
+    { name: "Non-Profit Organization Website", icon: () => <span className="text-teal-500">🤝</span>, description: "Promote your cause, engage with supporters, increase donations, and more." },
+    { name: "Membership Website", icon: () => <span className="text-yellow-500">🔑</span>, description: "Offer exclusive content to registered members." },
+    { name: "Portfolio websites", icon: () => <span className="text-blue-500">💬</span>, description: "Build a online portfolio or brochure website for your creative profession." },
+    { name: "Event Website", icon: () => <span className="text-pink-500">🎉</span>, description: "Promote events and manage registrations." },
+    { name: "Personal Website", icon: () => <span className="text-gray-700">👤</span>, description: "Share personal content and build a personal brand." },
+    { name: "Informational websites", icon: () => <span className="text-orange-700">📂</span>, description: "Provide information and resources to visitors, and can be used to educate, entertain, or promote a cause." }
 ];
+
 
 const formatPhoneNumber = ( value: string ) => {
     const phoneNumber = value.replace( /\D/g, "" ); // Remove non-numeric characters
@@ -40,26 +58,26 @@ const formatPhoneNumber = ( value: string ) => {
 };
 
 export default function ContactForm() {
-    const { control, handleSubmit, setValue, formState: { errors } } = useForm( {
+    const { control, handleSubmit, setValue, watch, getValues, formState: { errors } } = useForm<FormData>( {
         defaultValues: {
             name: "",
             email: "",
             style: "",
             website: "",
             message: "",
-            dueDate: "",
+            dueDate: undefined,
             phone: "",
             communicationMethod: "",
-            attachments: [] // Store multiple files in an array
+            attachments: []
         }
     } );
 
-    const [date, setDate] = React.useState<Date>();
+    const [date, setDate] = React.useState<Date | undefined>( undefined );
     const fileInputRef = React.useRef<HTMLInputElement>( null );
     const [openPopover, setOpenPopover] = React.useState( false );
-    const [selectedFiles, setSelectedFiles] = React.useState<File[]>( [] ); // Store selected files in an array
-    const [phone, setPhone] = React.useState( "" ); // Manage the phone number
-    const [communicationMethod, setCommunicationMethod] = React.useState( "" ); // Preferred communication method
+
+    // Get the current attachments from the form state
+    const attachments = watch( "attachments" );
 
     // Calculate the date 2 months in the future
     const minDate = new Date();
@@ -69,14 +87,8 @@ export default function ContactForm() {
     const handleDateSelect = ( selectedDate: Date | undefined ) => {
         if ( selectedDate && selectedDate >= minDate ) {
             setDate( selectedDate );
-            setOpenPopover( false ); // Close popover when a valid date is selected
-        }
-    };
-
-    const handlePhoneChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-        const formattedPhone = formatPhoneNumber( e.target.value );
-        if ( formattedPhone.replace( /\D/g, "" ).length <= 10 ) {
-            setPhone( formattedPhone ); // Set formatted phone number in the state
+            setValue( "dueDate", selectedDate );
+            setOpenPopover( false );
         }
     };
 
@@ -84,25 +96,23 @@ export default function ContactForm() {
     const handleFileChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
         if ( event.target.files ) {
             const files = Array.from( event.target.files );
-            setSelectedFiles( prevFiles => [...prevFiles, ...files] ); // Add new files to the array
-            setValue( "attachments", [...selectedFiles, ...files] ); // Update form with the selected files
+            setValue( "attachments", files );
         }
     };
 
     // Remove individual file
     const handleRemoveFile = ( index: number ) => {
-        const newFiles = selectedFiles.filter( ( _, i ) => i !== index ); // Remove the file at the specified index
-        setSelectedFiles( newFiles );
-        setValue( "attachments", newFiles ); // Update form value with the remaining files
+        const currentFiles = getValues( "attachments" );
+        const newFiles = currentFiles.filter( ( _, i ) => i !== index );
+        setValue( "attachments", newFiles );
     };
 
     // Remove all files
     const handleRemoveAllFiles = () => {
-        setSelectedFiles( [] );
-        setValue( "attachments", [] ); // Clear form value
+        setValue( "attachments", [] );
     };
 
-    const onSubmit = ( data: any ) => {
+    const onSubmit = ( data: FormData ) => {
         toast( {
             title: "Form Submitted",
             description: JSON.stringify( data, null, 2 ),
@@ -150,39 +160,78 @@ export default function ContactForm() {
                     {/* Phone Number Field */}
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-deepTeal-700">Phone Number</label>
-                        <Input
-                            value={phone}
-                            onChange={handlePhoneChange}
-                            placeholder="(123) 456-7890"
-                            className="mt-1"
+                        <Controller
+                            name="phone"
+                            control={control}
+                            render={( { field } ) => (
+                                <Input
+                                    {...field}
+                                    value={formatPhoneNumber( field.value )}
+                                    onChange={( e ) => field.onChange( formatPhoneNumber( e.target.value ) )}
+                                    placeholder="(123) 456-7890"
+                                    className="mt-1"
+                                />
+                            )}
                         />
                         {errors.phone && <p className="text-sm text-red-500">{String( errors.phone?.message )}</p>}
                     </div>
 
-                    {/* Preferred Method of Communication Field */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-deepTeal-700">Preferred Method of Communication</label>
-                        <Controller
-                            name="communicationMethod"
-                            control={control}
-                            render={( { field } ) => (
-                                <Select {...field}>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select a method" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="email">
-                                            <span>Email</span>
-                                        </SelectItem>
-                                        <SelectItem value="phone">
-                                            <span>Phone</span>
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        {errors.communicationMethod && <p className="text-sm text-red-500">{String( errors.communicationMethod?.message )}</p>}
+                    <div className="grid grid-cols-2 gap-4">
+                        {/* Preferred Method of Communication Field */}
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-deepTeal-700">Preferred Method of Communication</label>
+                            <Controller
+                                name="communicationMethod"
+                                control={control}
+                                render={( { field } ) => (
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a method" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="email">
+                                                <span>Email</span>
+                                            </SelectItem>
+                                            <SelectItem value="phone">
+                                                <span>Phone</span>
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            />
+                            {errors.communicationMethod && <p className="text-sm text-red-500">{String( errors.communicationMethod?.message )}</p>}
+                        </div>
+
+                        {/* Due Date Field */}
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-deepTeal-700">Estimated Due Date</label>
+                            <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                            "flex justify-start items-center text-left font-normal",
+                                            !date && "text-muted-foreground"
+                                        )}
+                                        aria-label="Select a date"
+                                    >
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        {date ? formatDate( date ) : "Pick a date"}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0 my-2">
+                                    <Calendar mode="single" selected={date} onSelect={handleDateSelect} disabled={{ before: minDate }} />
+                                </PopoverContent>
+                            </Popover>
+                            {errors.dueDate && <p className="text-sm text-red-500">{String( errors.dueDate?.message )}</p>}
+                        </div>
+
                     </div>
+
+
 
                     <div className="grid grid-cols-2 gap-4">
                         {/* Website Demand Field */}
@@ -192,12 +241,15 @@ export default function ContactForm() {
                                 name="website"
                                 control={control}
                                 render={( { field } ) => (
-                                    <Select {...field}>
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select a website type" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {website_demand.map( ( type, index ) => (
+                                            {website_types.map( ( type, index ) => (
                                                 <SelectItem key={index} value={type.name}>
                                                     <div className="flex items-center gap-2">
                                                         <span>{type.icon()}</span>
@@ -212,7 +264,6 @@ export default function ContactForm() {
                             {errors.website && <p className="text-sm text-red-500">{String( errors.website?.message )}</p>}
                         </div>
 
-
                         {/* Website Style Field */}
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-deepTeal-700">Website Style</label>
@@ -220,7 +271,10 @@ export default function ContactForm() {
                                 name="style"
                                 control={control}
                                 render={( { field } ) => (
-                                    <Select {...field}>
+                                    <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select a style" />
                                         </SelectTrigger>
@@ -241,30 +295,6 @@ export default function ContactForm() {
                         </div>
                     </div>
 
-                    {/* Due Date Field */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-deepTeal-700">Estimated Due Date</label>
-                        <Popover open={openPopover} onOpenChange={setOpenPopover}>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-[280px] flex justify-start items-center text-left font-normal",
-                                        !date && "text-muted-foreground"
-                                    )}
-                                    aria-label="Select a date"
-                                >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {date ? formatDate( date ) : "Pick a date"}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 my-2">
-                                <Calendar mode="single" selected={date} onSelect={handleDateSelect} disabled={{ before: minDate }} />
-                            </PopoverContent>
-                        </Popover>
-                        {errors.dueDate && <p className="text-sm text-red-500">{String( errors.dueDate?.message )}</p>}
-                    </div>
-
                     {/* File Upload Field */}
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-deepTeal-700">Attachments (optional)</label>
@@ -276,7 +306,7 @@ export default function ContactForm() {
                                 onChange={handleFileChange}
                                 className="hidden"
                             />
-                            {selectedFiles.length === 0 ? (
+                            {attachments.length === 0 ? (
                                 <Button
                                     variant="outline"
                                     className="w-full text-sm font-medium text-deepTeal-700 border-deepTeal-600 hover:bg-deepTeal-500 hover:text-softNeutral-50"
@@ -286,13 +316,13 @@ export default function ContactForm() {
                                 </Button>
                             ) : (
                                 <div>
-                                    {selectedFiles.map( ( file, index ) => (
+                                    {attachments.map( ( file, index ) => (
                                         <div key={index} className="grid grid-rows-1 grid-cols-5 items-center gap-2 my-2">
                                             <span className="col-span-3">{file.name}</span>
                                             <Button
                                                 variant="outline"
                                                 className="cols-span-1"
-                                                onClick={() => handleRemoveFile( index )}
+                                                onClick={() => fileInputRef.current?.click()}
                                             >
                                                 Change File
                                             </Button>
@@ -327,7 +357,18 @@ export default function ContactForm() {
                     {/* Message Field */}
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-deepTeal-700">Your Message</label>
-                        <Textarea id="message" rows={4} placeholder="Write your message here..." {...control} />
+                        <Controller
+                            name="message"
+                            control={control}
+                            render={( { field } ) => (
+                                <Textarea
+                                    {...field}
+                                    id="message"
+                                    rows={4}
+                                    placeholder="Write your message here..."
+                                />
+                            )}
+                        />
                         {errors.message && <p className="text-sm text-red-500">{String( errors.message?.message )}</p>}
                     </div>
 
