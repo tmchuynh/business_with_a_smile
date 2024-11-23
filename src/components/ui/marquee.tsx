@@ -7,29 +7,32 @@ interface MarqueeProps {
     children?: React.ReactNode;
     vertical?: boolean;
     repeat?: number;
+    duration?: number;
     [key: string]: any;
 }
 
 export default function Marquee( {
     className,
     reverse,
-    pauseOnHover = false,
+    pauseOnHover = true,
     children,
     vertical = false,
     repeat = 2,
+    duration = 30,
     ...props
 }: MarqueeProps ) {
     return (
         <div
             {...props}
             className={cn(
-                "group flex overflow-hidden p-2 [--duration:20s] [--gap:1rem] [gap:var(--gap)]",
+                "group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)]",
                 {
                     "flex-row": !vertical,
                     "flex-col": vertical,
                 },
                 className,
             )}
+            style={{ "--duration": `${ duration }s` } as React.CSSProperties}
         >
             {Array( repeat )
                 .fill( 0 )

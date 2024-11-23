@@ -1,10 +1,15 @@
+import NumberTicker from "./number-ticker";
+
 const stats = [
-    { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
-    { id: 2, name: 'Assets under holding', value: '$119 trillion' },
-    { id: 3, name: 'New users annually', value: '46,000' },
+    { id: 16, name: 'Maintenance contracts', value: 6, suffix: "contracts" },
+    { id: 1, name: 'Websites designed and developed', value: 150, suffix: "websites" },
+    { id: 15, name: 'Average project duration', value: 8, suffix: "weeks" },
+    { id: 3, name: 'Websites launched per month', value: 7, suffix: "websites" },
+    { id: 8, name: 'Customer satisfaction rate', value: 92, suffix: "%" },
+    { id: 2, name: 'Clients served', value: 25, suffix: "clients" },
 ];
 
-export default function Example() {
+export default function Stats() {
     return (
         <div className="bg-softNeutral-50 py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -15,7 +20,15 @@ export default function Example() {
                                 {stat.name}
                             </dt>
                             <dd className="order-first text-3xl font-semibold tracking-tight text-deepTeal-700 dark:text-deepTeal-300 sm:text-5xl">
-                                {stat.value}
+                                {/* NumberTicker for the numeric value */}
+                                <NumberTicker
+                                    value={stat.value}
+                                    direction="up"
+                                    decimalPlaces={0}
+                                    className="mr-2"
+                                />
+                                {/* Append the word/suffix */}
+                                <span>{stat.suffix}</span>
                             </dd>
                         </div>
                     ) )}
