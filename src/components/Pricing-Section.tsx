@@ -4,6 +4,70 @@ import { Button } from './ui/button';
 
 const tiers = [
     {
+        name: 'Personal Website',
+        id: 'tier-personal',
+        href: '#',
+        priceStartingAt: '$800',
+        description: 'Share personal content and build your personal brand.',
+        features: [
+            'Up to 3 pages',
+            'Blog integration (optional)',
+            'Responsive design',
+            'Social media links',
+            'Contact form',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Landing Page',
+        id: 'tier-landing',
+        href: '#',
+        priceStartingAt: '$800',
+        description: 'Single-page website focused on a specific marketing goal.',
+        features: [
+            'Custom design',
+            'Call-to-action integration',
+            'Lead capture forms',
+            'Basic SEO setup',
+            'Social media integration',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Informational Website',
+        id: 'tier-informational',
+        href: '#',
+        priceStartingAt: '$1,000',
+        description: 'Provide information and resources to visitors.',
+        features: [
+            'Up to 5 pages',
+            'Content management system setup',
+            'SEO optimization',
+            'Responsive design',
+            'Contact form',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Blog',
+        id: 'tier-blog',
+        href: '#',
+        priceStartingAt: '$1,000',
+        description: 'Perfect for writers and content creators to share articles and updates.',
+        features: [
+            'Up to 5 pages',
+            'Responsive blog design',
+            'SEO-optimized blog templates',
+            'Content management system setup',
+            'Social media integration',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
         name: 'Content Website',
         id: 'tier-blog',
         href: '#',
@@ -16,23 +80,105 @@ const tiers = [
             'Social sharing features',
             '1 revision cycle',
         ],
+        featured: true,
+    },
+    {
+        name: 'Event Website',
+        id: 'tier-event',
+        href: '#',
+        priceStartingAt: '$1,200',
+        description: 'Promote events and manage registrations.',
+        features: [
+            'Event schedule and details',
+            'Online registration forms',
+            'Ticketing system integration',
+            'Maps and location information',
+            'Social media sharing',
+            '1 revision cycle',
+        ],
+        featured: false,
+    },
+    {
+        name: 'Portfolio Website',
+        id: 'tier-portfolio',
+        href: '#',
+        priceStartingAt: '$1,500',
+        description: 'Showcase your work and projects to potential clients.',
+        features: [
+            'Up to 7 pages',
+            'Image and video galleries',
+            'Responsive design',
+            'SEO optimization',
+            'Contact form',
+            '2 revision cycles',
+        ],
+        featured: true,
+    },
+    {
+        name: 'Non-Profit Organization Website',
+        id: 'tier-nonprofit',
+        href: '#',
+        priceStartingAt: '$2,000',
+        description: 'Promote your cause, engage supporters, and increase donations.',
+        features: [
+            'Up to 10 pages',
+            'Donation platform integration',
+            'Event calendar',
+            'Volunteer signup forms',
+            'Responsive design',
+            '2 revision cycles',
+        ],
         featured: false,
     },
     {
         name: 'Professional Business Website',
         id: 'tier-business',
         href: '#',
-        priceStartingAt: '$2,000',
+        priceStartingAt: '$2,500',
         description: 'Ideal for businesses looking to showcase services and attract customers.',
         features: [
             'Up to 10 pages',
             'Responsive design for all devices',
             'Advanced SEO setup',
-            'Custom forms and integrations (e.g., newsletter, booking)',
-            '4 revision cycles',
+            'Custom contact forms',
+            'Google Maps integration',
+            '3 revision cycles',
             'Basic analytics setup',
         ],
         featured: true,
+    },
+    {
+        name: 'Membership Website',
+        id: 'tier-membership',
+        href: '#',
+        priceStartingAt: '$3,000',
+        description: 'Offer exclusive content to registered members.',
+        features: [
+            'Membership management system',
+            'Secure login and user profiles',
+            'Content restriction settings',
+            'Payment gateway integration',
+            'Discussion forums (optional)',
+            '3 revision cycles',
+        ],
+        featured: false,
+    },
+    {
+        name: 'E-commerce Website',
+        id: 'tier-ecommerce',
+        href: '#',
+        priceStartingAt: '$4,000',
+        description: 'Sell products or services online with a secure e-commerce platform.',
+        features: [
+            'Product catalog setup (up to 50 products)',
+            'Shopping cart and checkout system',
+            'Payment gateway integration',
+            'Inventory management system',
+            'Order tracking and management',
+            'Customer account creation',
+            '3 revision cycles',
+        ],
+        featured: false,
     },
     {
         name: 'Custom Website',
@@ -49,7 +195,7 @@ const tiers = [
             'Unlimited revision cycles',
             'Ongoing maintenance options',
         ],
-        featured: false,
+        featured: true,
     },
 ];
 
@@ -75,9 +221,9 @@ export default function Pricing() {
             <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
                 {tiers.map( ( tier, tierIdx ) => (
                     <div
-                        key={tier.id}
+                        key={`${ tier.id }_${ tierIdx }`}
                         className={classNames(
-                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
+                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0',
                             'rounded-3xl p-8 ring-1 ring-deepTeal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
                         )}
                     >
@@ -132,10 +278,10 @@ export default function Pricing() {
                 <p className="mt-6 text-lg text-softNeutral-600">
                     Enjoy a 60% discount on your first purchase with our exclusive student discount.
                 </p>
-                <form className="flex items-center gap-3 justify-center m-auto">
+                <form className="flex items-center gap-3 justify-center mx-auto my-3">
                     <Input
                         placeholder="Enter your student email address"
-                        className="mt-3 py-5"
+                        className="py-5"
                     />
                     <Button className="w-1/4">Submit</Button>
                 </form>

@@ -16,3 +16,15 @@ interface ProductImage {
     src: string;
     alt: string;
 }
+
+interface FormData {
+    name: string;
+    email: string;
+    style: string;
+    website: string;
+    message: string;
+    dueDate: Date | undefined; // Changed from Date | null
+    phone: string;
+    communicationMethod: string;
+    attachments: File[];
+}
