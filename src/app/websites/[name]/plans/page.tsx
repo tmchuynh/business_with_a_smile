@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter } from "next/navigation";
 import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
-import { paymentPlans } from '../../../../../types';
+import { paymentPlans } from '../../../../../types/constants';
 
 
 export default function PaymentOptions() {

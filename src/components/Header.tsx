@@ -1,30 +1,28 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronDown, BarChart, MessageSquare, Lock, Plug, Repeat } from "lucide-react"; // Importing Lucide icons
+import { ChevronDown } from "lucide-react";
 import { encodeUrlSafeBase64 } from "@/lib/utils";
-import { website_types } from "../../types";
-import { type } from "os";
+import { website_types } from "../../types/constants";
 
 
 export default function Header() {
-    const [dropdownOpen, setDropdownOpen] = useState( false ); // State to manage dropdown visibility
+    const [dropdownOpen, setDropdownOpen] = useState( false );
 
     // Explicitly define the type of refs
-    const dropdownRef = useRef<HTMLDivElement>( null ); // Ref for dropdown
-    const buttonRef = useRef<HTMLButtonElement>( null ); // Ref for the button
+    const dropdownRef = useRef<HTMLDivElement>( null );
+    const buttonRef = useRef<HTMLButtonElement>( null );
 
-    const toggleDropdown = () => setDropdownOpen( !dropdownOpen ); // Toggle the dropdown visibility
+    const toggleDropdown = () => setDropdownOpen( !dropdownOpen );
 
     // Close dropdown when clicking outside
     useEffect( () => {
-        // Event listener to close dropdown on click outside
         const handleClickOutside = ( event: MouseEvent ) => {
             if (
                 dropdownRef.current && !dropdownRef.current.contains( event.target as Node ) &&
                 buttonRef.current && !buttonRef.current.contains( event.target as Node )
             ) {
-                setDropdownOpen( false ); // Close dropdown if clicked outside
+                setDropdownOpen( false );
             }
         };
 
@@ -53,7 +51,7 @@ export default function Header() {
                     {/* Solutions Dropdown */}
                     <div className="relative">
                         <button
-                            ref={buttonRef} // Attach ref to the button
+                            ref={buttonRef}
                             onClick={toggleDropdown}
                             className="inline-flex items-center gap-x-1 text-sm font-semibold"
                         >
@@ -81,7 +79,6 @@ export default function Header() {
                     <a href="/contact" className="hover:text-teal-600">Contact</a>
                 </nav>
 
-                {/* Call to Action Button for smaller screens */}
                 <div className="md:hidden">
                     <a href="#" className="inline-block py-2 px-4 bg-teal-600 text-white font-semibold rounded-md hover:bg-teal-500">
                         Get Started

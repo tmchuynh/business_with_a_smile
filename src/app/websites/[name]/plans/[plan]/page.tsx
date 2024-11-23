@@ -2,11 +2,11 @@
 
 import React from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { paymentPlans } from "../../../../../../types";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { decodeUrlSafeBase64 } from "@/lib/utils";
+import { paymentPlans } from "../../../../../../types/constants";
 
 export default function PaymentDetails() {
     const router = useRouter();

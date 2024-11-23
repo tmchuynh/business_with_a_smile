@@ -3,9 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { tiers } from '../../../types';
 import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
 import ImportanceOfWebDesign from '@/components/Importance-of-Web-Design';
+import { tiers } from '../../../types/constants';
 
 export default function Pricing() {
     const router = useRouter();

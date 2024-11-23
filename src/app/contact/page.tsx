@@ -14,7 +14,8 @@ import { useSearchParams } from "next/navigation";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from 'yup';
-import { FormData, paymentPlans, site_styles, tiers, website_types } from "../../../types";
+import { FormData } from "../../../types";
+import { paymentPlans, site_styles, tiers, website_types } from "../../../types/constants";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
