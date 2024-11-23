@@ -143,16 +143,28 @@ export default function ContactForm() {
 
     const searchParams = useSearchParams();
     const paymentPlan = searchParams.get( "paymentMethod" );
-    const payment = decodeUrlSafeBase64( paymentPlan! );
     const websiteType = searchParams.get( "website" );
-    const tier = decodeUrlSafeBase64( websiteType! );
 
-    const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
-    const websiteIndex = tiers.findIndex( site => site.id == tier );
-    const plan = paymentPlans[paymentIndex];
-    const website = tiers[websiteIndex];
-    setValue( "payment", plan.name );
-    setValue( "website", website.name );
+    // Only decode if the value exists
+    let payment: string | null = null;
+    let tier: string | null = null;
+
+    if ( paymentPlan ) {
+        payment = decodeUrlSafeBase64( paymentPlan );
+    }
+
+    if ( websiteType ) {
+        tier = decodeUrlSafeBase64( websiteType );
+    }
+
+    if ( payment && tier ) {
+        const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
+        const websiteIndex = tiers.findIndex( site => site.id == tier );
+        const plan = paymentPlans[paymentIndex];
+        const website = tiers[websiteIndex];
+        setValue( "payment", plan.name );
+        setValue( "website", website.name );
+    }
 
     return (
         <section className="py-16 px-4 md:px-16 relative mx-auto w-11/12">

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, BarChart, MessageSquare, Lock, Plug, Repeat } from "lucide-react"; // Importing Lucide icons
+import { encodeUrlSafeBase64 } from "@/lib/utils";
 
 const solutions = [
     { name: 'Portfolio', description: 'Get a better understanding of your traffic', href: '/portfolio', icon: BarChart },
@@ -50,7 +51,9 @@ export default function Header() {
                 {/* Navigation Links */}
                 <nav className="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
                     <a href="/" className="hover:text-teal-600">Home</a>
-                    <a href="#about" className="hover:text-teal-600">About</a>
+                    <a href="/about" className="hover:text-teal-600">About</a>
+                    <a href="/portfolio" className="hover:text-teal-600">Portfolio</a>
+                    <a href="/websites" className="hover:text-teal-600">Websites</a>
 
                     {/* Solutions Dropdown */}
                     <div className="relative">
@@ -82,7 +85,7 @@ export default function Header() {
                         )}
                     </div>
 
-                    <a href="/websites" className="hover:text-teal-600">Pricing</a>
+                    <a href={`/websites/${ encodeUrlSafeBase64( "business" ) }/plans`} className="hover:text-teal-600">Pricing</a>
                     <a href="/contact" className="hover:text-teal-600">Contact</a>
                 </nav>
 
