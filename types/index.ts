@@ -154,7 +154,9 @@ export const paymentPlans: PaymentPlan[] = [
         features: [
             "30% deposit upfront to start the project",
             "Payments made after each completed phase",
+            "View deliverables before making the next payment",
             "Flexibility to adjust project scope",
+            "Ability to pause the project after any phase if needed",
             "Control over your spending",
         ],
         details: [
