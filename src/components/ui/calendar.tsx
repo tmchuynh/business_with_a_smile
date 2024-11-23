@@ -9,6 +9,12 @@ import { buttonVariants } from "@/components/ui/button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
+const defaultMonth = new Date();
+defaultMonth.setMonth( defaultMonth.getMonth() + 3 );
+
+const startMonth = new Date();
+startMonth.setMonth( startMonth.getMonth() + 2 );
+
 function Calendar( {
     className,
     classNames,
@@ -17,7 +23,10 @@ function Calendar( {
 }: CalendarProps ) {
     return (
         <DayPicker
+            captionLayout="dropdown"
+            defaultMonth={defaultMonth}
             showOutsideDays={showOutsideDays}
+            numberOfMonths={2}
             className={cn( "p-4 bg-white border border-deepTeal-400 rounded-md", className )}
             classNames={{
                 months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
@@ -51,9 +60,9 @@ function Calendar( {
                 day_selected:
                     "bg-deepTeal-100 text-white hover:bg-deepTeal-200 hover:text-white focus:bg-deepTeal-600 focus:text-white",
                 day_today: "bg-deepTeal-100 text-white hover:bg-deepTeal-600 hover:text-softNeutral-50",
+                day_disabled: "relative before:absolute text-richRed-500",
                 day_outside:
-                    "day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
-                day_disabled: "relative before:absolute before:top-4 before:left-4 before:w-full before:h-full before:border-l-2 before:border-deepTeal-900 before:transform before:rotate-45 before:scale-150 before:content-['']",
+                    "day-outside text-softNeutral-300 aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
                 day_range_middle:
                     "aria-selected:bg-accent aria-selected:text-accent-foreground",
                 day_hidden: "invisible",
