@@ -1,5 +1,7 @@
+"use client";
+
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
 
 const tiers = [
@@ -11,7 +13,6 @@ const tiers = [
         description: 'Share personal content and build your personal brand.',
         features: [
             'Up to 3 pages',
-            'Blog integration (optional)',
             'Responsive design',
             'Social media links',
             'Contact form',
@@ -24,7 +25,7 @@ const tiers = [
         id: 'tier-blog',
         href: '#',
         priceStartingAt: '$1,000',
-        description: 'Perfect for writers, content creators, or businesses focused on content marketing (ie. graphic designers, photographers, etc.).',
+        description: 'Perfect for writers, content creators, or businesses focused on content marketing.',
         features: [
             'Up to 5 pages',
             'Responsive blog design',
@@ -94,7 +95,6 @@ const tiers = [
             'Image and video galleries',
             'Event calendar',
             'Volunteer signup forms',
-            'Responsive design',
             '2 revision cycles',
         ],
         featured: false,
@@ -138,11 +138,10 @@ const tiers = [
         priceStartingAt: '$4,000',
         description: 'Sell products or services online with a secure e-commerce platform.',
         features: [
-            'Product catalog setup (up to 50 products)',
+            'Product catalog setup',
             'Shopping cart and checkout system',
             'Payment gateway integration',
             'Inventory management system',
-            'Order tracking and management',
             'Customer account creation',
             '3 revision cycles',
         ],
@@ -171,6 +170,12 @@ function classNames( ...classes: string[] ) {
 }
 
 export default function Pricing() {
+    const router = useRouter();
+
+    function navigate() {
+        router.push( `/pricing/plans` );
+    }
+
     return (
         <div className="relative isolate bg-white px-6 py-28 lg:px-8">
             <div className="text-center mb-12">
@@ -202,30 +207,32 @@ export default function Pricing() {
                     <div
                         key={`${ tier.id }_${ tierIdx }`}
                         className={classNames(
-                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 h-[45rem] shadow-2xl hover:scale-105' : 'bg-white/60 h-[39rem] sm:mx-8 lg:mx-0 hover:ring-teal-300',
-                            'rounded-3xl p-8 ring-1 ring-deepTeal-900/10 sm:p-10 h-full transition-all duration-300 flex flex-col justify-between',
+                            tier.featured ? 'relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 shadow-2xl hover:scale-105' : 'bg-white/60 hover:ring-teal-300',
+                            'rounded-3xl ring-1 ring-deepTeal-900/10 p-8  transition-all duration-300 flex flex-col justify-between mx-8 lg:mx-0  h-[37rem]',
                         )}
                     >
-                        <div>
-                            <h3
-                                id={tier.id}
-                                className={classNames( tier.featured ? 'text-softNeutral-200' : 'text-deepTeal-600', 'text-base/7 font-semibold' )}
-                            >
-                                {tier.name}
-                            </h3>
-                            <p className="mt-3 flex items-baseline gap-x-2">
-                                <span
-                                    className={classNames(
-                                        tier.featured ? 'text-white' : 'text-softNeutral-900',
-                                        'text-5xl font-semibold tracking-tight',
-                                    )}
+                        <div className='flex flex-col justify-evenly h-[25rem]'>
+                            <div>
+                                <h3
+                                    id={tier.id}
+                                    className={classNames( tier.featured ? 'text-softNeutral-200' : 'text-deepTeal-600', 'text-base/7 font-semibold' )}
                                 >
-                                    {tier.priceStartingAt}
-                                </span>
-                            </p>
-                            <p className={classNames( tier.featured ? 'text-softNeutral-300' : 'text-softNeutral-600', 'mt-6 text-base/7' )}>
-                                {tier.description}
-                            </p>
+                                    {tier.name}
+                                </h3>
+                                <p className="mt-3 flex items-baseline gap-x-2">
+                                    <span
+                                        className={classNames(
+                                            tier.featured ? 'text-white' : 'text-softNeutral-900',
+                                            'text-5xl font-semibold tracking-tight',
+                                        )}
+                                    >
+                                        {tier.priceStartingAt}
+                                    </span>
+                                </p>
+                                <p className={classNames( tier.featured ? 'text-softNeutral-300' : 'text-softNeutral-600', 'mt-6 text-base/7' )}>
+                                    {tier.description}
+                                </p>
+                            </div>
                             <ul
                                 role="list"
                                 className={classNames(
@@ -247,6 +254,14 @@ export default function Pricing() {
                                 ) )}
                             </ul>
                         </div>
+
+                        <Button
+                            variant={tier.featured ? 'default' : 'outline'}
+                            className="mt-8"
+                            onClick={() => navigate()}
+                        >
+                            Get Started Today
+                        </Button>
                     </div>
                 ) )}
 
