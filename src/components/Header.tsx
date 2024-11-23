@@ -3,14 +3,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, BarChart, MessageSquare, Lock, Plug, Repeat } from "lucide-react"; // Importing Lucide icons
 import { encodeUrlSafeBase64 } from "@/lib/utils";
+import { website_types } from "../../types";
+import { type } from "os";
 
-const solutions = [
-    { name: 'Portfolio', description: 'Get a better understanding of your traffic', href: '/portfolio', icon: BarChart },
-    { name: 'Services', description: 'Speak directly to your customers', href: '/services', icon: MessageSquare },
-    { name: 'Security', description: "Your customers' data will be safe and secure", href: '#', icon: Lock },
-    { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: Plug },
-    { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: Repeat },
-];
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState( false ); // State to manage dropdown visibility
@@ -67,16 +62,13 @@ export default function Header() {
                         </button>
 
                         {dropdownOpen && (
-                            <div ref={dropdownRef} className="absolute left-1/2 z-10 mt-5 w-96 -translate-x-1/2 bg-white shadow-lg rounded-lg p-2">
-                                {solutions.map( ( item, index ) => (
-                                    <a href={item.href} key={`${ item.name }_${ index }`} className="font-semibold text-gray-900">
-                                        <div className="group relative flex items-center gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-                                            <div className="mt-1 flex items-center justify-center rounded-lg bg-teal-100 group-hover:bg-teal-200 p-2 h-10 w-10">
-                                                <item.icon aria-hidden="true" className="text-teal-600 group-hover:text-teal-700" />
-                                            </div>
-                                            <div>
+                            <div ref={dropdownRef} className="absolute left-1/2 z-10 gap-3 mt-5 w-[55rem] -translate-x-3/4 bg-white shadow-lg rounded-lg p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-7xl">
+                                {website_types.map( ( item, index ) => (
+                                    <a href={`/websites/${ item.name }`} key={`${ item.name }_${ index }`} className="font-semibold text-gray-900 text-ellipsis">
+                                        <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-gray-50 h-full overflow-clip">
+                                            <div className="text-lg text-deepTeal-500">
                                                 {item.name}
-                                                <p className="mt-1 text-gray-600">{item.description}</p>
+                                                <p className="mt-1 text-gray-600 text-sm text-pretty">{item.description}</p>
                                             </div>
                                         </div>
                                     </a>

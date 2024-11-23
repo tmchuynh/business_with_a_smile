@@ -10,8 +10,8 @@ import ImportanceOfWebDesign from '@/components/Importance-of-Web-Design';
 export default function Pricing() {
     const router = useRouter();
 
-    function navigate( id: string ) {
-        router.push( `/websites/${ encodeUrlSafeBase64( id ) }/plans` );
+    function navigate( name: string ) {
+        router.push( `/websites/${ encodeUrlSafeBase64( name ) }/plans` );
     }
 
     return (
@@ -97,7 +97,7 @@ export default function Pricing() {
                             <Button
                                 variant={tier.featured ? 'default' : 'outline'}
                                 className="mt-8"
-                                onClick={() => navigate( tier.id )}
+                                onClick={() => navigate( tier.name )}
                             >
                                 Get Started Today
                             </Button>

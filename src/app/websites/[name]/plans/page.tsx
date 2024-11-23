@@ -11,10 +11,10 @@ export default function PaymentOptions() {
     const router = useRouter();
     const pathname = usePathname();
     const segments = pathname.split( '/' ).filter( Boolean );
-    const website = segments.length > 1 ? decodeURIComponent( segments[1] ) : '';
+    const name = segments.length > 1 ? decodeURIComponent( segments[1] ) : '';
 
-    function navigate( name: string ) {
-        router.push( `/websites/${ website }/plans/${ encodeUrlSafeBase64( name ) }` );
+    function navigate( plan: string ) {
+        router.push( `/websites/${ name }/plans/${ encodeUrlSafeBase64( plan ) }` );
     }
 
     return (

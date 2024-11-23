@@ -6,7 +6,7 @@ import { paymentPlans } from "../../../../../../types";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { decodeUrlSafeBase64, encodeUrlSafeBase64 } from "@/lib/utils";
+import { decodeUrlSafeBase64 } from "@/lib/utils";
 
 export default function PaymentDetails() {
     const router = useRouter();
@@ -20,11 +20,11 @@ export default function PaymentDetails() {
         return <p>Plan not found.</p>;
     }
 
-    const params = useParams<{ slug: string; id: string; }>();
+    const params = useParams<{ name: string; plan: string; }>();
 
     function navigate() {
-        const { slug, id } = params;
-        router.push( `/contact?paymentMethod=${ id }&website=${ slug }` );
+        const { name, plan } = params;
+        router.push( `/contact?paymentMethod=${ plan }&website=${ name }` );
     }
 
     return (
