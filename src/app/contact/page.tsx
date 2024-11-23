@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn, formatDate, formatPhoneNumber } from "@/lib/utils";
+import { cn, decodeUrlSafeBase64, formatDate, formatPhoneNumber } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDays } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -143,14 +143,16 @@ export default function ContactForm() {
 
     const searchParams = useSearchParams();
     const paymentPlan = searchParams.get( "paymentMethod" );
+    const payment = decodeUrlSafeBase64( paymentPlan! );
     const websiteType = searchParams.get( "website" );
+    const tier = decodeUrlSafeBase64( websiteType! );
 
-    const paymentIndex = paymentPlans.findIndex( plan => plan.name === paymentPlan );
-    const websiteIndex = tiers.findIndex( site => site.id === websiteType );
+    const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
+    const websiteIndex = tiers.findIndex( site => site.id == tier );
     const plan = paymentPlans[paymentIndex];
-    const webite = tiers[websiteIndex];
+    const website = tiers[websiteIndex];
     setValue( "payment", plan.name );
-    setValue( "website", webite.name );
+    setValue( "website", website.name );
 
     return (
         <section className="py-16 px-4 md:px-16 relative mx-auto w-11/12">

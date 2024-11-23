@@ -25,3 +25,16 @@ export const formatPhoneNumber = ( value: string ) => {
 export function classNames( ...classes: string[] ) {
     return classes.filter( Boolean ).join( ' ' );
 }
+
+// URL-safe Base64 Encoding
+export const encodeUrlSafeBase64 = ( str: string ): string => {
+    let base64 = btoa( unescape( encodeURIComponent( str ) ) );
+    return base64.replace( /\+/g, '-' ).replace( /\//g, '_' ).replace( /=+$/, '' ); // URL-safe base64 encoding
+};
+
+// URL-safe Base64 Decoding
+export const decodeUrlSafeBase64 = ( str: string ): string => {
+    let base64 = str.replace( /-/g, '+' ).replace( /_/g, '/' );
+    while ( base64.length % 4 ) { base64 += '='; }  // Add padding if necessary
+    return decodeURIComponent( escape( atob( base64 ) ) );
+};

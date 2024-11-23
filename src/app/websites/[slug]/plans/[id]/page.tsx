@@ -6,12 +6,13 @@ import { paymentPlans } from "../../../../../../types";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
+import { decodeUrlSafeBase64, encodeUrlSafeBase64 } from "@/lib/utils";
 
 export default function PaymentDetails() {
     const router = useRouter();
 
     const planName = useParams().id!.toString();
-    const name = decodeURIComponent( planName );
+    const name = decodeUrlSafeBase64( planName );
 
     const plan = paymentPlans.find( ( p ) => p.name === name );
 

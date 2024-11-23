@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter } from "next/navigation";
-import { classNames } from '@/lib/utils';
+import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
 import { paymentPlans } from '../../../../../types';
 
 
@@ -14,7 +14,7 @@ export default function PaymentOptions() {
     const website = segments.length > 1 ? decodeURIComponent( segments[1] ) : '';
 
     function navigate( name: string ) {
-        router.push( `/websites/${ website }/plans/${ encodeURIComponent( name ) }` );
+        router.push( `/websites/${ website }/plans/${ encodeUrlSafeBase64( name ) }` );
     }
 
     return (

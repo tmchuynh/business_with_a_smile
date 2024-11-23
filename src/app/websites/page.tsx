@@ -4,13 +4,13 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { tiers } from '../../../types';
-import { classNames } from '@/lib/utils';
+import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
 
 export default function Pricing() {
     const router = useRouter();
 
     function navigate( id: string ) {
-        router.push( `/websites/${ id }/plans` );
+        router.push( `/websites/${ encodeUrlSafeBase64( id ) }/plans` );
     }
 
     return (
