@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn, decodeUrlSafeBase64, formatDate, formatPhoneNumber } from "@/lib/utils";
+import { cn, decodeUrlSafeBase64, formatDate, formatPhoneNumber, phoneRegExp } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDays } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -15,10 +15,8 @@ import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { FormData } from "../../../types";
-import { paymentPlans, site_styles, tiers, website_types } from "../../../types/constants";
+import { paymentPlans, presets, site_styles, tiers, website_types } from "../../../types/constants";
 import { useTheme } from "next-themes";
-
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -40,29 +38,6 @@ const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     } ),
     attachments: yup.array().of( yup.mixed<File>().required() ),
 } );
-
-const presets = [
-    {
-        value: "60 days",
-        description: "2 months"
-    },
-    {
-        value: "90 days",
-        description: "3 months"
-    },
-    {
-        value: "120 days",
-        description: "4 months"
-    },
-    {
-        value: "180 days",
-        description: "5 months"
-    },
-    {
-        value: "240 days",
-        description: "6 months"
-    }
-];
 
 export default function ContactForm() {
     const {

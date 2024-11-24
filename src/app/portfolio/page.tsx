@@ -1,18 +1,6 @@
+import { projects } from "../../../types/constants";
+
 export default function PortfolioSection() {
-    const projects = [
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-        { title: 'Blog Design', description: 'A responsive blog with easy-to-read layout and SEO optimization.', imgUrl: '/path-to-image2.jpg' },
-        { title: 'Corporate Website', description: 'A professional website for a business with all essential features.', imgUrl: '/path-to-image3.jpg' },
-        { title: 'Landing Page', description: 'A high-converting landing page with clean UI/UX design.', imgUrl: '/path-to-image4.jpg' },
-    ];
 
     return (
         <div className="bg-white dark:bg-softGray-900 py-24 px-6 sm:px-8 lg:px-16">

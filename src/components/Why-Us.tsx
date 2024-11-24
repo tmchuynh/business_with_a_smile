@@ -1,30 +1,30 @@
 import { Phone, Globe, CheckCircle } from 'lucide-react';
 import Stats from './ui/stats';
 
-export default function OurFeatures() {
-    const features = [
-        {
-            name: 'Tailored Solutions',
-            description: 'No cookie-cutter approaches here. Every website and strategy is customized to align with your unique goals and brand identity.',
-            icon: <Phone className="h-8 w-8 text-deepTeal-100" />,
-        },
-        {
-            name: 'Results-Driven Focus',
-            description: 'We prioritize creating websites and strategies that deliver ROI, from increased conversions to long-term business growth.',
-            icon: <Globe className="h-8 w-8 text-deepTeal-100" />,
-        },
-        {
-            name: 'Seamless Collaboration',
-            description: 'Communication is key. We keep you informed, involved, and confident throughout the process.',
-            icon: <CheckCircle className="h-8 w-8 text-deepTeal-100" />,
-        },
-        {
-            name: 'Ongoing Support',
-            description: 'Whether maintaining your website or providing continuous business guidance, we’re here for the long haul.',
-            icon: <CheckCircle className="h-8 w-8 text-deepTeal-100" />,
-        },
-    ];
+const features = [
+    {
+        name: 'Tailored Solutions',
+        description: 'No cookie-cutter approaches here. Every website and strategy is customized to align with your unique goals and brand identity.',
+        icon: <Phone className="h-8 w-8 text-deepTeal-100" />,
+    },
+    {
+        name: 'Results-Driven Focus',
+        description: 'We prioritize creating websites and strategies that deliver ROI, from increased conversions to long-term business growth.',
+        icon: <Globe className="h-8 w-8 text-deepTeal-100" />,
+    },
+    {
+        name: 'Seamless Collaboration',
+        description: 'Communication is key. We keep you informed, involved, and confident throughout the process.',
+        icon: <CheckCircle className="h-8 w-8 text-deepTeal-100" />,
+    },
+    {
+        name: 'Ongoing Support',
+        description: 'Whether maintaining your website or providing continuous business guidance, we’re here for the long haul.',
+        icon: <CheckCircle className="h-8 w-8 text-deepTeal-100" />,
+    },
+];
 
+export default function OurFeatures() {
     return (
         <>
             <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-24 sm:py-32 lg:px-8 lg:max-w-6xl mx-auto">
