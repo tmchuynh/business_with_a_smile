@@ -81,8 +81,8 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                             aria-live="assertive"
                         >
                             <div className="flex items-center justify-between">
-                                <span className="sr-only">{step.title}</span>
-                                <h3 className="font-medium">{`${ step.id }. ${ step.title }`}</h3>
+                                <h6 className="sr-only">{step.title}</h6>
+                                <h2>{`${ step.id }. ${ step.title }`}</h2>
                                 <div className="ml-2">{icon[step.state]}</div>
                             </div>
                         </div>

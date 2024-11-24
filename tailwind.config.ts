@@ -12,14 +12,6 @@ export default {
             gridTemplateRows: {
                 '[auto,auto,1fr]': 'auto auto 1fr',
             },
-            boxShadow: {
-                inner: "inset 0 2px 8px 3px"
-            },
-            dropShadow: {
-                xs: "0 4px 3px rgba(255, 255, 255, 1)",
-                sm: "0 0 2px rgba(0, 0, 0, 0.75)",
-                lg: "0 2px 4px rgba(0, 0, 0, 0.5)"
-            },
             colors: {
                 deepTeal: {
                     50: "#e6f0ee",

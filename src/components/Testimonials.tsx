@@ -108,13 +108,13 @@ export default function Testimonials() {
         <section className="py-20 lg:py-32 w-full">
             <div className="max-w-screen-2xl mx-auto text-center">
                 <div className="text-center mb-12">
-                    <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">What Our Clients Say</h2>
-                    <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-200 sm:text-5xl lg:text-balance">
+                    <h6>What Our Clients Say</h6>
+                    <h1>
                         Client Testimonials
-                    </p>
-                    <p className="text-lg text-softNeutral-600 dark:text-gray-50 mt-4 mb-12">
+                    </h1>
+                    <h2>
                         Discover what our clients have to say about their experiences with our outstanding services and results.
-                    </p>
+                    </h2>
                 </div>
 
                 <Marquee reverse={true}>
@@ -128,19 +128,19 @@ export default function Testimonials() {
                             >
                                 <div>
                                     <div className="text-left mb-6">
-                                        <h3 className="text-xl font-semibold text-deepTeal-600 dark:text-deepBlue-400">{testimonial.name}</h3>
+                                        <h3>{testimonial.name}</h3>
                                         {testimonial.company ? (
-                                            <p className="text-gray-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
+                                            <p className="text-softNeutral-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
                                         ) : ''}
                                     </div>
-                                    <p className="text-gray-700 mb-6 text-left">{testimonial.text}</p>
+                                    <p className="text-softNeutral-700 mb-6 text-left">{testimonial.text}</p>
                                 </div>
                                 <div className="flex space-x-1 self-end">
                                     {[...Array( 5 )].map( ( _, i ) => (
                                         i < testimonials[1].rating ? (
                                             <Star key={i} fill="#004B45" color="#004B45" className="w-5 h-5" />
                                         ) : (
-                                            <Star key={i} className="text-teal-600 w-5 h-5" />
+                                            <Star key={i} className="text-deepTeal-600 w-5 h-5" />
                                         )
                                     ) )}
                                 </div>
@@ -160,19 +160,19 @@ export default function Testimonials() {
                             >
                                 <div>
                                     <div className="text-left mb-6">
-                                        <h3 className="text-xl font-semibold text-deepTeal-600 dark:text-deepBlue-400">{testimonial.name}</h3>
+                                        <h3>{testimonial.name}</h3>
                                         {testimonial.company ? (
-                                            <p className="text-gray-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
+                                            <p className="text-softNeutral-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
                                         ) : ''}
                                     </div>
-                                    <p className="text-gray-700 mb-6 text-left">{testimonial.text}</p>
+                                    <p className="text-softNeutral-700 mb-6 text-left">{testimonial.text}</p>
                                 </div>
                                 <div className="flex space-x-1 self-end">
                                     {[...Array( 5 )].map( ( _, i ) => (
                                         i < testimonials[1].rating ? (
                                             <Star key={i} fill="#004B45" color="#004B45" className="w-5 h-5" />
                                         ) : (
-                                            <Star key={i} className="text-teal-600 w-5 h-5" />
+                                            <Star key={i} className="text-deepTeal-600 w-5 h-5" />
                                         )
                                     ) )}
                                 </div>

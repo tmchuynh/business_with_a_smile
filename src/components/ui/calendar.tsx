@@ -26,7 +26,6 @@ function Calendar( {
             captionLayout="dropdown"
             defaultMonth={defaultMonth}
             showOutsideDays={showOutsideDays}
-            numberOfMonths={2}
             className={cn( "p-4 bg-white ring-1 ring-deepTeal-200 border  dark:border-deepBlue-400 rounded-md", className )}
             classNames={{
                 months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
@@ -38,8 +37,8 @@ function Calendar( {
                     buttonVariants( { variant: "outline" } ),
                     "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
                 ),
-                nav_button_previous: "absolute left-1 ",
-                nav_button_next: "absolute right-1",
+                nav_button_previous: "absolute left-1 text-deepTeal-600 dark:text-softNeutral-900",
+                nav_button_next: "absolute right-1 text-deepTeal-600 dark:text-softNeutral-900",
                 table: "w-full border-collapse space-y-1",
                 head_row: "flex",
                 head_cell:
@@ -53,13 +52,13 @@ function Calendar( {
                 ),
                 day: cn(
                     buttonVariants( { variant: "ghost" } ),
-                    "h-8 w-8 p-0 font-normal hover:text-deepTeal-200 aria-selected:opacity-100 text-deepTeal-600"
+                    "h-8 w-8 p-0 font-normal hover:text-softNeutral-50 hover:bg-deepBlue-200 aria-selected:opacity-100 text-deepTeal-600"
                 ),
                 day_range_start: "day-range-start",
                 day_range_end: "day-range-end",
                 day_selected:
-                    "bg-deepTeal-100 text-white hover:bg-deepTeal-200 hover:text-white focus:bg-deepTeal-600 focus:text-white",
-                day_today: "bg-deepTeal-100 text-white hover:bg-deepTeal-600 hover:text-softNeutral-50",
+                    "bg-deepTeal-400 text-deepTeal-50 hover:bg-deepTeal-200 hover:text-white focus:bg-deepTeal-600 focus:text-white",
+                day_today: "bg-deepBlue-400 text-white hover:bg-deepTeal-600 hover:text-softNeutral-50",
                 day_disabled: "relative before:absolute text-richRed-500",
                 day_outside:
                     "day-outside text-softNeutral-300 aria-selected:bg-accent/50 aria-selected:text-muted-foreground",

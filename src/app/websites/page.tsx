@@ -28,18 +28,18 @@ export default function Pricing() {
             <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-28 lg:px-8">
                 <div className="text-center mb-12">
                     <div className="mx-auto max-w-4xl text-center">
-                        <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">
+                        <h6>
                             Pricing Plans
-                        </h2>
-                        <p className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 dark:text-gray-50 text-6xl">
+                        </h6>
+                        <h1>
                             Find the Perfect Customizations for Your Needs
-                        </p>
+                        </h1>
+                        <h2 className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 dark:text-softNeutral-50 sm:text-xl">
+                            Explore affordable pricing options designed to help you engage
+                            your audience, build lasting customer loyalty, and boost your
+                            sales.
+                        </h2>
                     </div>
-                    <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 dark:text-gray-50 sm:text-xl">
-                        Explore affordable pricing options designed to help you engage
-                        your audience, build lasting customer loyalty, and boost your
-                        sales.
-                    </p>
                 </div>
 
                 <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
@@ -47,11 +47,11 @@ export default function Pricing() {
                         <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 dark:text-deepBlue-400 text-4xl">
                             Are You a Student?
                         </h4>
-                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-gray-50">
+                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-softNeutral-50">
                             Enjoy a 60% discount on your first purchase with our exclusive
                             student discount.
                         </p>
-                        <p className="mt-2 text-lg text-softNeutral-600 dark:text-gray-50">
+                        <p className="mt-2 text-lg text-softNeutral-600 dark:text-softNeutral-50">
                             Simply upload a photo of your current student ID card with your
                             project submission.
                         </p>
@@ -62,9 +62,9 @@ export default function Pricing() {
                             key={`${ tier.id }_${ tierIdx }`}
                             className={classNames(
                                 tier.featured
-                                    ? "relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 dark:from-deepBlue-400 dark:to-deepBlue-900 shadow-2xl hover:scale-105"
+                                    ? "relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 shadow-2xl hover:scale-105"
                                     : "bg-white dark:bg-gray-200 ring-teal-200 hover:ring-teal-300 ",
-                                "rounded-3xl ring-1 ring-deepTeal-900/10 p-8  transition-all duration-300 flex flex-col justify-between mx-8 lg:mx-0  h-[37rem]"
+                                "rounded-3xl ring-1 ring-deepTeal-900/10 p-8 transition-all duration-300 flex flex-col justify-between mx-8 lg:mx-0  h-[37rem]"
                             )}
                         >
                             <div className="flex flex-col justify-evenly h-[25rem]">
@@ -96,7 +96,7 @@ export default function Pricing() {
                                         className={classNames(
                                             tier.featured
                                                 ? "text-softNeutral-300"
-                                                : "text-softNeutral-600 dark:text-gray-900",
+                                                : "text-softNeutral-600 dark:text-softNeutral-900",
                                             "mt-6 text-base/7"
                                         )}
                                     >
@@ -108,7 +108,7 @@ export default function Pricing() {
                                     className={classNames(
                                         tier.featured
                                             ? "text-softNeutral-300"
-                                            : "text-softNeutral-600 dark:text-gray-900",
+                                            : "text-softNeutral-600 dark:text-softNeutral-900",
                                         "mt-4 space-y-2 text-sm/6 sm:mt-8"
                                     )}
                                 >
@@ -132,7 +132,9 @@ export default function Pricing() {
                                 <Button
                                     variant={
                                         tier.featured
-                                            ? "default"
+                                            ? isDarkMode
+                                                ? "outline"
+                                                : "default"
                                             : isDarkMode
                                                 ? "secondary"
                                                 : "outline"
@@ -150,7 +152,7 @@ export default function Pricing() {
                         <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 dark:text-deepBlue-400 text-4xl">
                             Need ongoing maintenance?
                         </h4>
-                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-gray-50">
+                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-softNeutral-50">
                             Upgrade with our add-ons for ongoing maintenance and support.
                         </p>
                         <form className="flex items-center gap-3 justify-center mx-auto my-3">

@@ -27,18 +27,42 @@ const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     payment: yup.string().required( 'Please select a payment plan' ),
     website: yup.string().required( 'Please select a website type' ),
     message: yup.string(),
+    preset: yup.string(),
     dueDate: yup.string().required( 'Please select a due date' ),
     phone: yup.string().matches( phoneRegExp, 'Phone number is not valid' ).required( 'Phone number is required' ),
     communicationMethod: yup.string().required( 'Please select a communication method' ),
     discordUsername: yup.string().when( 'communicationMethod', ( value: any, schema: any ) => {
         const communicationMethod = value as string;
-        if ( communicationMethod === 'discord' ) {
+        if ( communicationMethod === 'Discord' ) {
             return schema.required( 'Please enter your Discord username' );
         }
         return schema.notRequired();
     } ),
     attachments: yup.array().of( yup.mixed<File>().required() ),
 } );
+
+const presets = [
+    {
+        value: "60 days",
+        description: "2 months"
+    },
+    {
+        value: "90 days",
+        description: "3 months"
+    },
+    {
+        value: "120 days",
+        description: "4 months"
+    },
+    {
+        value: "180 days",
+        description: "5 months"
+    },
+    {
+        value: "240 days",
+        description: "6 months"
+    }
+];
 
 export default function ContactForm() {
     const {
@@ -56,6 +80,7 @@ export default function ContactForm() {
             payment: '',
             website: '',
             message: '',
+            preset: '',
             dueDate: undefined,
             phone: '',
             communicationMethod: '',
@@ -179,16 +204,16 @@ export default function ContactForm() {
     return (
         <section className="py-16 px-4 md:px-16 relative mx-auto w-11/12">
             <div className="text-center mb-12">
-                <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">
+                <h6>
                     Bring Your Vision to Life
-                </h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl">
+                </h6>
+                <h1 className="mt-2 text-4xl font-semibold tracking-tight text-softNeutral-900 dark:text-softNeutral-50 sm:text-5xl">
                     Contact Us
-                </p>
-                <p className="mt-4 text-lg text-gray-600 dark:text-gray-200">
+                </h1>
+                <h2 className="mt-4 text-lg text-softNeutral-600 dark:text-softNeutral-200">
                     Ready to take the next step? Reach out to us today, and let’s turn
                     your ideas into reality.
-                </p>
+                </h2>
             </div>
 
             <div className="my-16 mx-auto">
@@ -199,17 +224,17 @@ export default function ContactForm() {
                     {/* Section 1: Personal Information */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
+                            <h3>
                                 Personal Information
                             </h3>
-                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
+                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
                                 Tell us about yourself and how to reach you.
                             </p>
                         </div>
                         <div className="md:col-span-2 space-y-6">
                             {/* Name Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                     Name
                                 </label>
                                 <Controller
@@ -234,7 +259,7 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Email Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Email
                                     </label>
                                     <Controller
@@ -257,7 +282,7 @@ export default function ContactForm() {
 
                                 {/* Phone Number Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Phone Number
                                     </label>
                                     <Input
@@ -278,7 +303,7 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Preferred Method of Communication Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Preferred Method of Communication
                                     </label>
                                     <Controller
@@ -290,21 +315,23 @@ export default function ContactForm() {
                                                 onValueChange={field.onChange}
                                             >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a method" />
+                                                    <SelectValue placeholder="Select a method" >
+                                                        {field.value || "Select a method"}
+                                                    </SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="phone">
-                                                        <span className="mt-1 text-deepTeal-500">
+                                                    <SelectItem value="Phone">
+                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                             Phone
                                                         </span>
                                                     </SelectItem>
-                                                    <SelectItem value="discord">
-                                                        <span className="mt-1 text-deepTeal-500">
+                                                    <SelectItem value="Discord">
+                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                             Discord
                                                         </span>
                                                     </SelectItem>
-                                                    <SelectItem value="email">
-                                                        <span className="mt-1 text-deepTeal-500">
+                                                    <SelectItem value="Email">
+                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                             Email
                                                         </span>
                                                     </SelectItem>
@@ -320,9 +347,9 @@ export default function ContactForm() {
                                 </div>
 
                                 {/* Discord Username Field */}
-                                {communicationMethod === "discord" && (
+                                {communicationMethod === "Discord" && (
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                             Discord Username
                                         </label>
                                         <Controller
@@ -337,7 +364,7 @@ export default function ContactForm() {
                                                     onChange={( e ) => {
                                                         let value = e.target.value;
                                                         if ( !value.startsWith( "@" ) ) {
-                                                            value = "@" + value;
+                                                            value = "@ " + value;
                                                         }
                                                         field.onChange( value );
                                                     }}
@@ -358,10 +385,10 @@ export default function ContactForm() {
                     {/* Section 2: Project Details */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
+                            <h3>
                                 Project Details
                             </h3>
-                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
+                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
                                 Let us know more about your project requirements.
                             </p>
                         </div>
@@ -370,7 +397,7 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                 {/* Estimated Due Date Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Estimated Due Date
                                     </label>
                                     <Popover open={openPopover} onOpenChange={setOpenPopover}>
@@ -395,41 +422,37 @@ export default function ContactForm() {
                                                 disabled={{ before: minDate }}
                                                 initialFocus
                                             />
-                                            <Select
-                                                onValueChange={( value ) =>
-                                                    setDate( addDays( new Date(), parseInt( value ) ) )
-                                                }
-                                            >
-                                                <SelectTrigger className="dark:bg-white">
-                                                    <SelectValue placeholder="Select a Preset" />
-                                                </SelectTrigger>
-                                                <SelectContent position="popper">
-                                                    <SelectItem
-                                                        value="60"
-                                                        className="text-deepTeal-500"
+                                            <Controller
+                                                name="preset"
+                                                control={control}
+                                                render={( { field } ) => (
+                                                    <Select
+                                                        onValueChange={( value ) => {
+                                                            const days = value.replace( /[a-zA-Z\s]/g, "" ).trim();
+                                                            setDate( addDays( new Date(), parseInt( days ) ) );
+                                                            const months = parseInt( days ) / 30;
+                                                            field.onChange( `${ months } months` );
+                                                        }}
+                                                        value={field.value}
                                                     >
-                                                        2 months
-                                                    </SelectItem>
-                                                    <SelectItem
-                                                        value="90"
-                                                        className="text-deepTeal-500"
-                                                    >
-                                                        3 months
-                                                    </SelectItem>
-                                                    <SelectItem
-                                                        value="120"
-                                                        className="text-deepTeal-500"
-                                                    >
-                                                        4 months
-                                                    </SelectItem>
-                                                    <SelectItem
-                                                        value="240"
-                                                        className="text-deepTeal-500"
-                                                    >
-                                                        6 months
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                                        <SelectTrigger className="dark:text-softNeutral-50">
+                                                            <SelectValue placeholder="Select a Preset" >
+                                                                {field.value || "Select a Preset"}
+                                                            </SelectValue>
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {presets.map( ( length, index ) => (
+                                                                <SelectItem
+                                                                    key={`${ length } days_${ index }`}
+                                                                    value={length.value}
+                                                                >
+                                                                    {length.description}
+                                                                </SelectItem>
+                                                            ) )}
+                                                        </SelectContent>
+                                                    </Select>
+                                                )}
+                                            />
                                         </PopoverContent>
                                     </Popover>
                                     {errors.dueDate && (
@@ -441,7 +464,7 @@ export default function ContactForm() {
 
                                 {/* Chosen Payment Plan Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Chosen Payment Plan
                                     </label>
                                     <Controller
@@ -464,10 +487,10 @@ export default function ContactForm() {
                                                             value={plan.name}
                                                         >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">
+                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                                     {plan.name}
                                                                 </p>
-                                                                <p className="text-sm dark:text-gray-700">{plan.description}</p>
+                                                                <p className="text-sm dark:text-softNeutral-200">{plan.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -488,7 +511,7 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Website Type Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Website Type
                                     </label>
                                     <Controller
@@ -511,10 +534,10 @@ export default function ContactForm() {
                                                             value={type.name}
                                                         >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">
+                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                                     {type.name}
                                                                 </p>
-                                                                <p className="text-sm dark:text-gray-700">{type.description}</p>
+                                                                <p className="text-sm dark:text-softNeutral-200">{type.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -531,7 +554,7 @@ export default function ContactForm() {
 
                                 {/* Website Style Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Website Style
                                     </label>
                                     <Controller
@@ -554,10 +577,10 @@ export default function ContactForm() {
                                                             value={style.name}
                                                         >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">
+                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
                                                                     {style.name}
                                                                 </p>
-                                                                <p className="text-sm dark:text-gray-700">{style.description}</p>
+                                                                <p className="text-sm dark:text-softNeutral-200">{style.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -578,17 +601,17 @@ export default function ContactForm() {
                     {/* Section 3: Additional Information */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
+                            <h3>
                                 Additional Information
                             </h3>
-                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
+                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
                                 Any additional details or files you'd like to share.
                             </p>
                         </div>
                         <div className="md:col-span-2 space-y-6">
                             {/* Attachments */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                     Attachments (optional)
                                 </label>
                                 <div className="space-y-2">
@@ -604,8 +627,7 @@ export default function ContactForm() {
                                         <>
                                             {mounted && (
                                                 <Button
-                                                    variant={isDarkMode ? "secondary" : "default"}
-                                                    className="w-full text-sm font-medium  border-deepTeal-600 dark:border-deepBlue-400 hover:bg-deepTeal-500 hover:text-softNeutral-50"
+                                                    variant={isDarkMode ? "outline" : "default"}
                                                     onClick={() => fileInputRef.current?.click()}
                                                 >
                                                     Choose File
@@ -664,7 +686,7 @@ export default function ContactForm() {
 
                             {/* Message Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                     Your Message
                                 </label>
                                 <Controller

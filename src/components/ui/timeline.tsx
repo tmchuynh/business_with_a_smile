@@ -20,7 +20,7 @@ export const Timeline: React.FC<TimelineProps> = ( { items } ) => {
                     <li className="mb-10 ml-6">
                         <span className="absolute flex items-center justify-center w-10 h-10 bg-teal-100 rounded-full -left-5 ">
                             <svg
-                                className="w-3 h-3 text-teal-600 dark:text-deepBlue-400"
+                                className="w-3 h-3 text-deepTeal-600 dark:text-deepBlue-400"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                             >
@@ -29,13 +29,13 @@ export const Timeline: React.FC<TimelineProps> = ( { items } ) => {
                         </span>
                     </li>
                     <div className="mx-10">
-                        <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-gray-50">
+                        <h3 className="dark:text-softNeutral-50">
                             {item.title}
                         </h3>
-                        <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-deepBlue-400">
+                        <time className="block mb-2 text-sm font-normal leading-none text-softNeutral-400 dark:text-deepBlue-400">
                             {item.date}
                         </time>
-                        <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-300">
+                        <p>
                             {item.description}
                         </p>
                     </div>

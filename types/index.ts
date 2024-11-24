@@ -23,6 +23,7 @@ export interface FormData {
     style?: string;
     website: string;
     payment: string;
+    preset?: string;
 
     message?: string;
     dueDate: string;

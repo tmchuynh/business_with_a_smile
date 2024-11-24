@@ -17,13 +17,13 @@ export default function PortfolioSection() {
     return (
         <div className="bg-white dark:bg-softGray-900 py-24 px-6 sm:px-8 lg:px-16">
             <div className="text-center mb-12">
-                <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">Our Portfolio</h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl lg:text-balance">
+                <h6>Our Portfolio</h6>
+                <h1>
                     Showcasing Our Expertise
-                </p>
-                <p className="mt-4 text-xl font-medium text-gray-600 dark:text-gray-100">
+                </h1>
+                <h2>
                     Explore a selection of projects we’ve delivered for our clients, highlighting innovation, creativity, and results.
-                </p>
+                </h2>
             </div>
 
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -35,8 +35,8 @@ export default function PortfolioSection() {
                             className="w-full h-64 object-cover transition-all duration-300 group-hover:scale-110"
                         />
                         <div className="p-6">
-                            <h3 className="text-xl font-semibold text-teal-600">{project.title}</h3>
-                            <p className="mt-2 text-sm text-gray-600">{project.description}</p>
+                            <h3>{project.title}</h3>
+                            <p className="mt-2 text-sm text-softNeutral-600">{project.description}</p>
                         </div>
                     </div>
                 ) )}

@@ -52,13 +52,13 @@ export default function ImportanceOfWebDesign() {
     return (
         <section className="bg-white dark:bg-softGray-900 py-16 px-16 relative isolate w-11/12 mx-auto">
             <div className="text-center mb-12">
-                <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">Core Foundations</h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl lg:text-balance">
+                <h6>Core Foundations</h6>
+                <h1>
                     Why Responsive Web Design is Essential for Your Business
-                </p>
-                <p className="mt-4 text-lg text-gray-600 dark:text-gray-50">
+                </h1>
+                <h2>
                     In today’s digital world, your website must perform flawlessly across all devices. Responsive web design ensures your site looks and works perfectly on smartphones, tablets, and desktops. Modern users expect fast, intuitive, and visually appealing experiences—responsive design delivers just that. It’s not just a feature, but a necessity to stay competitive, improve search rankings, and drive conversions.
-                </p>
+                </h2>
             </div>
             <div className="grid grid-cols-3 gap-8 text-center mx-auto">
                 {services.map( ( service, index ) => (
@@ -69,8 +69,8 @@ export default function ImportanceOfWebDesign() {
                         <div className="flex justify-center items-center bg-teal-100 dark:bg-deepBlue-100 p-4 rounded-full mb-4">
                             {service.icon}
                         </div>
-                        <h3 className="text-xl font-semibold text-teal-700 dark:text-deepBlue-400">{service.name}</h3>
-                        <p className="mt-3 text-gray-600 dark:text-gray-50">{service.description}</p>
+                        <h3>{service.name}</h3>
+                        <p>{service.description}</p>
                     </div>
                 ) )}
             </div>

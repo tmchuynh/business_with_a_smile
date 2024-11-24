@@ -54,23 +54,23 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <div className="flex items-center">
-                    <Link href="/" className="text-3xl font-bold text-teal-600 dark:text-white">
+                    <Link href="/" className="text-3xl font-bold text-deepTeal-600 dark:text-white">
                         CompanyLogo
                     </Link>
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="hidden md:flex space-x-8 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                    <Link href="/" className="hover:text-teal-600 dark:hover:text-teal-400">
+                <nav className="hidden md:flex space-x-8 text-sm font-semibold text-softNeutral-800 dark:text-softNeutral-200">
+                    <Link href="/" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                         Home
                     </Link>
-                    <Link href="/about" className="hover:text-teal-600 dark:hover:text-teal-400">
+                    <Link href="/about" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                         About
                     </Link>
-                    <Link href="/portfolio" className="hover:text-teal-600 dark:hover:text-teal-400">
+                    <Link href="/portfolio" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                         Portfolio
                     </Link>
-                    <Link href="/websites" className="hover:text-teal-600 dark:hover:text-teal-400">
+                    <Link href="/websites" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                         Websites
                     </Link>
 
@@ -81,7 +81,7 @@ export default function Header() {
                             onClick={toggleDropdown}
                             className="inline-flex items-center gap-x-1 text-sm font-semibold"
                         >
-                            <span>About</span>
+                            <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">About</span>
                             <ChevronDown aria-hidden="true" className="h-5 w-5" />
                         </button>
 
@@ -94,12 +94,12 @@ export default function Header() {
                                     <Link
                                         href={`/websites/${ item.name }`}
                                         key={`${ item.name }_${ index }`}
-                                        className="font-semibold text-gray-900 text-ellipsis dark:text-gray-300"
+                                        className="font-semibold text-softNeutral-900 text-ellipsis dark:text-softNeutral-300"
                                     >
                                         <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-gray-50 h-full overflow-clip dark:hover:bg-gray-600">
-                                            <div className="text-lg text-deepTeal-500 dark:text-teal-400">
+                                            <div className="text-lg text-deepTeal-500 dark:text-deepTeal-400">
                                                 {item.name}
-                                                <p className="mt-1 text-gray-600 text-sm text-pretty dark:text-gray-400">
+                                                <p className="mt-1 text-softNeutral-600 text-sm text-pretty dark:text-softNeutral-400">
                                                     {item.description}
                                                 </p>
                                             </div>
@@ -112,11 +112,11 @@ export default function Header() {
 
                     <Link
                         href={`/websites/${ encodeUrlSafeBase64( "business" ) }/plans`}
-                        className="hover:text-teal-600 dark:hover:text-teal-400"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
                     >
                         Pricing
                     </Link>
-                    <Link href="/contact" className="hover:text-teal-600 dark:hover:text-teal-400">
+                    <Link href="/contact" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                         Contact
                     </Link>
                 </nav>
@@ -126,7 +126,7 @@ export default function Header() {
                     <Button
                         variant={isDarkMode ? "secondary" : "default"}
                         onClick={() => setTheme( theme === "dark" ? "light" : "dark" )}
-                        className="p-2 w-10 h-10 rounded-full focus:outline-none "
+                        className="group relative p-2 w-10 h-10 rounded-full focus:outline-none "
                         aria-label="Toggle Dark Mode"
                     >
                         {theme === "dark" ? (
@@ -134,6 +134,11 @@ export default function Header() {
                         ) : (
                             <Moon className="h-5 w-5" />
                         )}
+
+                        {/* Description on Hover */}
+                        <span className="absolute right-12 bottom-3 text-softNeutral-800 dark:text-softNeutral-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                            Toggle Dark Mode
+                        </span>
                     </Button>
                 )}
 

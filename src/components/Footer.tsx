@@ -2,12 +2,12 @@ import { Github, Twitter, Linkedin } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t-2 border-softGray-950 py-12 text-gray-900 dark:text-gray-400 dark:bg-softGray-900 dark:border-softGray-200">
+        <footer className="bg-white border-t-2 border-softGray-950 py-12 text-softNeutral-900 dark:text-softNeutral-400 dark:bg-softGray-900 dark:border-softGray-200">
             <div className="max-w-7xl mx-auto px-6 sm:px-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Contact Information */}
                     <div>
-                        <h3 className="text-xl font-semibold mb-4 dark:text-softNeutral-50">Get in Touch</h3>
+                        <h3>Get in Touch</h3>
                         <p className="mb-4 ">
                             Let’s bring your ideas to life. Get in touch with our team to discuss your project.
                         </p>
@@ -32,7 +32,7 @@ export default function Footer() {
 
                     {/* Company Info */}
                     <div>
-                        <h3 className="text-xl font-semibold mb-4 dark:text-softNeutral-50">Company</h3>
+                        <h3>Company</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="/about" className="hover:text-deepTeal-400 dark:hover:text-deepBlue-400">
@@ -59,7 +59,7 @@ export default function Footer() {
 
                     {/* Services */}
                     <div>
-                        <h3 className="text-xl font-semibold mb-4 dark:text-softNeutral-50">Our Services</h3>
+                        <h3>Our Services</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="/web-design" className="hover:text-deepTeal-400 dark:hover:text-deepBlue-400">
@@ -86,7 +86,7 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-xl font-semibold mb-4 dark:text-softNeutral-50">Quick Links</h3>
+                        <h3>Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
                                 <a href="/portfolio" className="hover:text-deepTeal-400 dark:hover:text-deepBlue-400">

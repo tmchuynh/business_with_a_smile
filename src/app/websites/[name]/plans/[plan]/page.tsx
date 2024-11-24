@@ -38,28 +38,28 @@ export default function PaymentDetails() {
     return (
         <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
             <div className="max-w-4xl mx-auto text-center mb-12">
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-deepBlue-400">
+                <h1 className="text-deepTeal-500 dark:text-deepBlue-500">
                     {plan.name}
                 </h1>
-                <p className="mt-4 text-lg text-gray-600 dark:text-gray-200">
+                <h2>
                     {plan.description}
-                </p>
+                </h2>
             </div>
 
             <div className="max-w-3xl mx-auto">
                 {/* In-depth Details */}
                 <div className="mb-12">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-4">
+                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
                         How It Works
                     </h2>
                     <ul className="space-y-4">
                         {plan.details.map( ( detail, index ) => (
                             <li
                                 key={index}
-                                className="flex items-center dark:text-gray-200"
+                                className="flex items-center dark:text-softNeutral-200"
                             >
                                 <CheckIcon
-                                    className="h-6 w-6 text-teal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
+                                    className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
                                     aria-hidden="true"
                                 />
                                 <p className="ml-3">{detail}</p>
@@ -70,17 +70,17 @@ export default function PaymentDetails() {
 
                 {/* Features */}
                 <div className="mb-12">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50 mb-4">
+                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
                         Features
                     </h2>
                     <ul className="space-y-2">
                         {plan.features.map( ( feature, index ) => (
                             <li
                                 key={index}
-                                className="flex items-center dark:text-gray-200"
+                                className="flex items-center dark:text-softNeutral-200"
                             >
                                 <CheckIcon
-                                    className="h-6 w-6 text-teal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
+                                    className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
                                     aria-hidden="true"
                                 />
                                 <p className="ml-3">{feature}</p>
@@ -91,7 +91,7 @@ export default function PaymentDetails() {
 
                 {/* Payment Timeline */}
                 <div className="mb-12">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500 -mb-6">
                         Payment Schedule
                     </h2>
                     <Timeline items={plan.paymentSchedule} />

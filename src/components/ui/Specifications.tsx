@@ -21,10 +21,10 @@ export const Specifications: React.FC<SpecificationsProps> = ( {
             <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-6xl lg:grid-cols-3 lg:px-8">
                 {/* Text Section */}
                 <div className="flex flex-col items-start h-72">
-                    <h2 className="text-3xl font-bold tracking-tight text-deepTeal-700 sm:text-4xl">
+                    <h3>
                         {title}
-                    </h2>
-                    <p className="mt-4 text-softNeutral-700 dark:text-softNeutral-300">
+                    </h3>
+                    <p>
                         {description}
                     </p>
                 </div>
@@ -33,10 +33,10 @@ export const Specifications: React.FC<SpecificationsProps> = ( {
                 <dl className="mt-16 grid grid-cols-1 col-span-1 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-y-16 lg:gap-x-8 lg:col-span-2">
                     {features.map( ( feature, index ) => (
                         <div key={index} className="border-t border-deepTeal-600 dark:border-deepBlue-400 pt-4">
-                            <dt className="font-medium text-deepTeal-700">{feature.name}</dt>
-                            <dd className="mt-2 text-sm text-softNeutral-500">
+                            <h6>{feature.name}</h6>
+                            <p>
                                 {feature.description}
-                            </dd>
+                            </p>
                         </div>
                     ) )}
                 </dl>

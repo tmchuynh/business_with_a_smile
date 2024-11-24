@@ -31,18 +31,14 @@ export default function PaymentOptions() {
         <div className="relative isolate bg-softNeutral-50 dark:bg-softGray-900 px-6 py-24 sm:py-32 lg:px-8">
             <div className="text-center mb-12">
                 <div className="mx-auto max-w-4xl">
-                    <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">
-                        Flexible Payment Options
+                    <h6>Flexible Payment Options</h6>
+                    <h1>Find the Payment Plan That Fits You Best</h1>
+                    <h2>
+                        We offer customizable payment plans designed to meet your budget
+                        and business goals. Select a plan that works for you and grow your
+                        business with confidence.
                     </h2>
-                    <p className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl dark:text-gray-50">
-                        Find the Payment Plan That Fits You Best
-                    </p>
                 </div>
-                <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-gray-600 dark:text-gray-50 sm:text-xl">
-                    We offer customizable payment plans designed to meet your budget and
-                    business goals. Select a plan that works for you and grow your
-                    business with confidence.
-                </p>
             </div>
             <div className="mx-auto m-7 grid h-screen max-w-lg grid-cols-1 gap-y-6 sm:grid-cols-2 gap-x-8 lg:max-w-7xl">
                 {paymentPlans.map( ( plan, index ) => (
@@ -50,9 +46,9 @@ export default function PaymentOptions() {
                         key={`${ plan.id }_${ index }`}
                         className={classNames(
                             plan.isPopular
-                                ? "relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 dark:from-deepBlue-400 dark:to-deepBlue-900 text-white shadow-xl"
+                                ? "relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 text-white shadow-xl hover:scale-105"
                                 : "bg-white dark:bg-gray-200 ring-1 ring-teal-200 hover:ring-teal-300",
-                            "rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4"
+                            "rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4 transition-all duration-300"
                         )}
                     >
                         <div>
@@ -70,9 +66,7 @@ export default function PaymentOptions() {
                             <p className="mt-4 flex items-baseline gap-x-2">
                                 <span
                                     className={classNames(
-                                        plan.isPopular
-                                            ? "text-white"
-                                            : "text-softNeutral-900 ",
+                                        plan.isPopular ? "text-white" : "text-softNeutral-900 ",
                                         "text-5xl font-semibold tracking-tight"
                                     )}
                                 >
@@ -82,7 +76,7 @@ export default function PaymentOptions() {
                                     className={classNames(
                                         plan.isPopular
                                             ? "text-softNeutral-300"
-                                            : "text-softNeutral-600 dark:text-gray-900",
+                                            : "text-softNeutral-600 dark:text-softNeutral-900",
                                         "text-base"
                                     )}
                                 >
@@ -97,7 +91,7 @@ export default function PaymentOptions() {
                                 className={classNames(
                                     plan.isPopular
                                         ? "text-softNeutral-300"
-                                        : "text-softNeutral-600 dark:text-gray-900",
+                                        : "text-softNeutral-600 dark:text-softNeutral-900",
                                     "mt-4 text-base"
                                 )}
                             >
@@ -109,7 +103,7 @@ export default function PaymentOptions() {
                                 className={classNames(
                                     plan.isPopular
                                         ? "text-softNeutral-300"
-                                        : "text-softNeutral-600 dark:text-gray-900",
+                                        : "text-softNeutral-600 dark:text-softNeutral-900",
                                     "mt-4 space-y-2 text-sm sm:mt-8"
                                 )}
                             >
@@ -134,7 +128,9 @@ export default function PaymentOptions() {
                             <Button
                                 variant={
                                     plan.isPopular
-                                        ? "default"
+                                        ? isDarkMode
+                                            ? "outline"
+                                            : "default"
                                         : isDarkMode
                                             ? "secondary"
                                             : "outline"
