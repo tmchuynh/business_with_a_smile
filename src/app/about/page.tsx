@@ -126,7 +126,7 @@ export default function AboutPage() {
                             onClick={() => navigate()}
                             variant={isDarkMode ? "secondary" : "default"}
                         >
-                            Upgrade Today
+                            Start Today
                         </Button>
                     )}
                 </div>

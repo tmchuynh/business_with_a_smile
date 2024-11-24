@@ -20,7 +20,7 @@ export default function Testimonials() {
     const isDarkMode = theme === 'dark';
 
     return (
-        <section className="py-20 lg:py-32 w-full">
+        <section className="py-10 lg:py-20 w-full">
             <div className="max-w-screen-2xl mx-auto text-center">
                 <div className="text-center mb-12">
                     <h6>What Our Clients Say</h6>

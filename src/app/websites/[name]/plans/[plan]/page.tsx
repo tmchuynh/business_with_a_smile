@@ -9,6 +9,7 @@ import { classNames, decodeUrlSafeBase64 } from "@/lib/utils";
 import { paymentPlans } from "../../../../../../types/constants";
 import { useTheme } from "next-themes";
 import { Badge } from "@/components/ui/badge";
+import { HeaderImage } from "@/components/ui/header-image";
 
 export default function PaymentDetails() {
     const router = useRouter();
@@ -37,7 +38,8 @@ export default function PaymentDetails() {
     }
 
     return (
-        <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
+        <div className="pb-20 h-max">
+            <HeaderImage url={'/images/mountain.jpg'} />
             <div className="max-w-4xl mx-auto text-center mb-12">
                 <h6>Payment Option</h6>
                 <h1>

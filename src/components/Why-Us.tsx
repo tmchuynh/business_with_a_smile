@@ -1,5 +1,4 @@
 import { CheckCircle, Globe, Phone } from 'lucide-react';
-import Stats from './ui/stats';
 
 const features = [
     {
@@ -27,7 +26,7 @@ const features = [
 export default function OurFeatures() {
     return (
         <>
-            <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-24 sm:py-32 lg:px-8 lg:max-w-6xl mx-auto">
+            <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-2 lg:py-10 lg:px-8 lg:max-w-6xl mx-auto">
                 <div className="mx-auto max-w-4xl text-center">
                     <h6>Features</h6>
                     <h1>
@@ -54,7 +53,6 @@ export default function OurFeatures() {
                     ) )}
                 </div>
             </div>
-            <Stats />
         </>
     );
 }

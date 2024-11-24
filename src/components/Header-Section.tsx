@@ -25,7 +25,7 @@ export default function HeaderSection() {
                             <h1>
                                 Showcase Your Brand and Drive Business Growth
                             </h1>
-                            <h2>
+                            <h2 className='w-full'>
                                 In today’s competitive digital world, your website isn’t just an online presence—it’s a reflection of your brand’s identity and values. Great web design goes beyond aesthetics, focusing on user experience, functionality, and strategic growth.
                             </h2>
                             <dl className="mt-10 max-w-xl space-y-8 text-softNeutral-600 dark:text-softNeutral-50 lg:max-w-none">
