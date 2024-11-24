@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import { Providers } from "./providers";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/ui/backToTop";
 
@@ -15,12 +16,14 @@ export default function RootLayout( {
     children: React.ReactNode;
 }> ) {
     return (
-        <html lang="en">
-            <body>
-                <Header />
-                {children}
-                <BackToTopButton />
-                <Footer />
+        <html lang="en" suppressHydrationWarning>
+            <body className="dark:bg-softGray-900">
+                <Providers>
+                    <Header />
+                    {children}
+                    <BackToTopButton />
+                    <Footer />
+                </Providers>
             </body>
         </html>
     );

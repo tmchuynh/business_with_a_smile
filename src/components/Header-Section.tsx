@@ -2,21 +2,21 @@ import { CheckIcon } from 'lucide-react';
 
 export default function HeaderSection() {
     return (
-        <div className="overflow-hidden bg-white py-24 sm:py-32">
+        <div className="overflow-hidden bg-white dark:bg-softGray-900 py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto grid items-center max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                     <div className="lg:pr-8 lg:pt-4">
                         <div className="lg:max-w-lg">
-                            <h2 className="text-base font-semibold text-teal-600">Exceptional Web Design</h2>
-                            <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                            <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400 dark:font-bold">Exceptional Web Design</h2>
+                            <p className="mt-2 text-4xl font-semibold tracking-tight dark:text-gray-50 text-gray-900 sm:text-5xl">
                                 Showcase Your Brand and Drive Business Growth
                             </p>
-                            <p className="mt-6 text-lg text-gray-600">
+                            <p className="mt-6 text-lg text-gray-600 dark:text-gray-50">
                                 In today’s competitive digital world, your website isn’t just an online presence—it’s a reflection of your brand’s identity and values. Great web design goes beyond aesthetics, focusing on user experience, functionality, and strategic growth.
                             </p>
-                            <dl className="mt-10 max-w-xl space-y-8 text-gray-600 lg:max-w-none">
+                            <dl className="mt-10 max-w-xl space-y-8 text-gray-600 dark:text-gray-50 lg:max-w-none">
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold text-teal-700">
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
                                         <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Brand Identity
                                     </dt>
@@ -25,7 +25,7 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold text-teal-700">
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
                                         <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Enhanced User Experience
                                     </dt>
@@ -34,7 +34,7 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold text-teal-700">
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
                                         <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Increased Conversions
                                     </dt>
@@ -43,7 +43,7 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold text-teal-700">
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
                                         <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         SEO-Optimized Design
                                     </dt>

@@ -17,9 +17,9 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                 // Mapping step states to colors based on the new color scheme
                 const stateStyles = {
                     completed:
-                        "text-mutedGreen-700 border-mutedGreen-300 bg-mutedGreen-50 dark:bg-mutedGreen-800 dark:border-mutedGreen-800 dark:text-mutedGreen-400", // Muted Green
+                        "text-softNeutral-100 border-deepTeal-600 dark:border-deepBlue-400 bg-deepTeal-500 dark:bg-deepBlue-400 dark:text-deepBlue-200", // Muted Green
                     current:
-                        "text-deepTeal-700 bg-deepTeal-100 border-deepTeal-300 dark:bg-deepTeal-800 dark:border-deepTeal-700 dark:text-deepTeal-400", // Deep Teal
+                        "text-deepBlue-600 bg-deepBlue-100 border-deepBlue-300 dark:bg-deepTeal-200 dark:border-deepTeal-700 dark:text-deepTeal-400", // Deep Teal
                     upcoming:
                         "text-softNeutral-900 bg-softNeutral-100 border-softNeutral-300 dark:bg-softNeutral-800 dark:border-softNeutral-700 dark:text-softNeutral-400", // Soft Neutral
                 };
@@ -28,7 +28,7 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                 const icon = {
                     completed: (
                         <svg
-                            className="w-5 h-5 text-mutedGreen-700 dark:text-mutedGreen-400"
+                            className="w-5 h-5 text-deepTeal-700 dark:text-deepTeal-400"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

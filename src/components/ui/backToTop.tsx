@@ -3,12 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { Button } from "./button";
 
 const BackToTopButton = () => {
     const [isVisible, setIsVisible] = useState( false );
+    const { theme } = useTheme();
+    const [mounted, setMounted] = useState( false );
+    useEffect( () => {
+        setMounted( true );
+    }, [] );
+
+    const isDarkMode = theme === 'dark';
 
     const handleScroll = () => {
-        if ( window.scrollY > 300 ) {
+        if ( window.scrollY > 400 ) {
             setIsVisible( true );
         } else {
             setIsVisible( false );
@@ -31,19 +40,25 @@ const BackToTopButton = () => {
     };
 
     return (
-        <button
-            onClick={scrollToTop}
-            className={cn(
-                "fixed bottom-8 right-8 rounded-full p-3 shadow-lg transition-opacity duration-300 ease-in-out",
-                isVisible
-                    ? "bg-teal-600 text-white opacity-100"
-                    : "opacity-0 pointer-events-none",
-                "hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2"
+        <>
+            {mounted && (
+                <Button
+                    onClick={scrollToTop}
+                    variant={isDarkMode ? "secondary" : "default"}
+                    className={cn(
+                        "fixed bottom-8 right-8 rounded-full w-10 h-10 p-3 shadow-lg transition-opacity duration-300 ease-in-out",
+                        isVisible
+                            ? " text-white opacity-100"
+                            : "opacity-0 pointer-events-none",
+                    )}
+                    aria-label="Back to Top"
+                >
+                    <ChevronUp className="h-6 w-6" />
+                </Button>
             )}
-            aria-label="Back to Top"
-        >
-            <ChevronUp className="h-6 w-6" />
-        </button>
+        </>
+
+
     );
 };
 

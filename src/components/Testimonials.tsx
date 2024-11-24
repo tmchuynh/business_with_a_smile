@@ -1,5 +1,9 @@
+"use client";
+
 import { Star } from 'lucide-react';
 import Marquee from './ui/marquee';
+import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
 const testimonials = [
     {
@@ -92,15 +96,23 @@ const firstHalf = testimonials.slice( 0, midpoint );
 const secondHalf = testimonials.slice( midpoint );
 
 export default function Testimonials() {
+    const { theme } = useTheme();
+    const [mounted, setMounted] = useState( false );
+    useEffect( () => {
+        setMounted( true );
+    }, [] );
+
+    const isDarkMode = theme === 'dark';
+
     return (
         <section className="py-20 lg:py-32 w-full">
             <div className="max-w-screen-2xl mx-auto text-center">
                 <div className="text-center mb-12">
-                    <h2 className="text-base font-semibold text-teal-600">What Our Clients Say</h2>
-                    <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
+                    <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">What Our Clients Say</h2>
+                    <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-200 sm:text-5xl lg:text-balance">
                         Client Testimonials
                     </p>
-                    <p className="text-lg text-softNeutral-600 mt-4 mb-12">
+                    <p className="text-lg text-softNeutral-600 dark:text-gray-50 mt-4 mb-12">
                         Discover what our clients have to say about their experiences with our outstanding services and results.
                     </p>
                 </div>
@@ -116,9 +128,9 @@ export default function Testimonials() {
                             >
                                 <div>
                                     <div className="text-left mb-6">
-                                        <h3 className="text-xl font-semibold text-deepTeal-600">{testimonial.name}</h3>
+                                        <h3 className="text-xl font-semibold text-deepTeal-600 dark:text-deepBlue-400">{testimonial.name}</h3>
                                         {testimonial.company ? (
-                                            <p className="text-gray-500 text-sm">{testimonial.company}</p>
+                                            <p className="text-gray-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
                                         ) : ''}
                                     </div>
                                     <p className="text-gray-700 mb-6 text-left">{testimonial.text}</p>
@@ -143,14 +155,14 @@ export default function Testimonials() {
                         {secondHalf.map( ( testimonial, index ) => (
                             <div
                                 key={`${ testimonial.name }_${ index }`}
-                                className="bg-white p-8 rounded-lg shadow-md flex flex-col justify-between"
+                                className="bg-white  p-8 rounded-lg shadow-md flex flex-col justify-between"
                                 style={{ width: '30rem' }}
                             >
                                 <div>
                                     <div className="text-left mb-6">
-                                        <h3 className="text-xl font-semibold text-deepTeal-600">{testimonial.name}</h3>
+                                        <h3 className="text-xl font-semibold text-deepTeal-600 dark:text-deepBlue-400">{testimonial.name}</h3>
                                         {testimonial.company ? (
-                                            <p className="text-gray-500 text-sm">{testimonial.company}</p>
+                                            <p className="text-gray-500 text-sm dark:text-deepBlue-900">{testimonial.company}</p>
                                         ) : ''}
                                     </div>
                                     <p className="text-gray-700 mb-6 text-left">{testimonial.text}</p>

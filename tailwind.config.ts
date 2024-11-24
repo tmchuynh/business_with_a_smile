@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
+    darkMode: ['selector', '.dark'],
     content: [
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,6 +11,14 @@ export default {
         extend: {
             gridTemplateRows: {
                 '[auto,auto,1fr]': 'auto auto 1fr',
+            },
+            boxShadow: {
+                inner: "inset 0 2px 8px 3px"
+            },
+            dropShadow: {
+                xs: "0 4px 3px rgba(255, 255, 255, 1)",
+                sm: "0 0 2px rgba(0, 0, 0, 0.75)",
+                lg: "0 2px 4px rgba(0, 0, 0, 0.5)"
             },
             colors: {
                 deepTeal: {
@@ -32,10 +40,10 @@ export default {
                     300: "#74add8",
                     400: "#4692cb",
                     500: "#1E70B2",
-                    600: "#18578C",
-                    700: "#123F66",
-                    800: "#0B2740",
-                    900: "#06111B",
+                    600: "#18448c",
+                    700: "#122766",
+                    800: "#041739",
+                    900: "#02112f",
                 },
                 richRed: {
                     50: "#fbeaea",
@@ -49,18 +57,6 @@ export default {
                     800: "#42000C",
                     900: "#210006",
                 },
-                mutedGreen: {
-                    50: "#ebf6f4",
-                    100: "#d6eae8",
-                    200: "#add6d3",
-                    300: "#85c2be",
-                    400: "#5DADAA",
-                    500: "#3A7E79",
-                    600: "#2D5F5C",
-                    700: "#203F3E",
-                    800: "#132020",
-                    900: "#091010",
-                },
                 softNeutral: {
                     50: "#f9f9f8",
                     100: "#f1f1f0",
@@ -72,6 +68,19 @@ export default {
                     700: "#484745",
                     800: "#252423",
                     900: "#131211",
+                },
+                softGray: {
+                    50: "#f9fafb",
+                    100: "#f2f4f6",
+                    200: "#e4e6e9",
+                    300: "#d1d3d8",
+                    400: "#9fa2a9",
+                    500: "#6d7176",
+                    600: "#4b4f54",
+                    700: "#373a3f",
+                    800: "#1f2328",
+                    900: "#101417",
+                    950: "#0a1115"
                 },
                 accentGold: {
                     50: "#fff6e6",
@@ -85,58 +94,61 @@ export default {
                     800: "#402D00",
                     900: "#201800",
                 },
-                background: "hsl(var(--background))",
-                foreground: "hsl(var(--foreground))",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
                 card: {
-                    DEFAULT: "hsl(var(--card))",
-                    foreground: "hsl(var(--card-foreground))",
+                    DEFAULT: "var(--card)",
+                    foreground: "var(--card-foreground)",
                 },
                 popover: {
-                    DEFAULT: "hsl(var(--popover))",
-                    foreground: "hsl(var(--popover-foreground))",
+                    DEFAULT: "var(--popover)",
+                    foreground: "var(--popover-foreground)",
                 },
                 primary: {
-                    DEFAULT: "hsl(var(--primary))",
-                    foreground: "hsl(var(--primary-foreground))",
+                    DEFAULT: "var(--primary)",
+                    foreground: "var(--primary-foreground)",
                 },
                 secondary: {
-                    DEFAULT: "hsl(var(--secondary))",
-                    foreground: "hsl(var(--secondary-foreground))",
+                    DEFAULT: "var(--secondary)",
+                    foreground: "var(--secondary-foreground)",
                 },
                 muted: {
-                    DEFAULT: "hsl(var(--muted))",
-                    foreground: "hsl(var(--muted-foreground))",
+                    DEFAULT: "var(--muted))",
+                    foreground: "var(--muted-foreground)",
                 },
                 accent: {
-                    DEFAULT: "hsl(var(--accent))",
-                    foreground: "hsl(var(--accent-foreground))",
+                    DEFAULT: "var(--accent)",
+                    foreground: "var(--accent-foreground)",
                 },
                 destructive: {
-                    DEFAULT: "hsl(var(--destructive))",
-                    foreground: "hsl(var(--destructive-foreground))",
+                    DEFAULT: "var(--destructive)",
+                    foreground: "var(--destructive-foreground)",
                 },
-                border: "hsl(var(--border))",
-                input: "hsl(var(--input))",
-                ring: "hsl(var(--ring))",
+                border: "var(--border)",
+                input: "var(--input)",
+                ring: "var(--ring)",
                 chart: {
-                    "1": "hsl(var(--chart-1))",
-                    "2": "hsl(var(--chart-2))",
-                    "3": "hsl(var(--chart-3))",
-                    "4": "hsl(var(--chart-4))",
-                    "5": "hsl(var(--chart-5))",
+                    "1": "var(--chart-1)",
+                    "2": "var(--chart-2)",
+                    "3": "var(--chart-3)",
+                    "4": "var(--chart-4)",
+                    "5": "var(--chart-5)",
                 },
                 sidebar: {
-                    DEFAULT: "hsl(var(--sidebar-background))",
-                    foreground: "hsl(var(--sidebar-foreground))",
-                    primary: "hsl(var(--sidebar-primary))",
-                    "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-                    accent: "hsl(var(--sidebar-accent))",
-                    "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-                    border: "hsl(var(--sidebar-border))",
-                    ring: "hsl(var(--sidebar-ring))",
+                    DEFAULT: "var(--sidebar-background)",
+                    foreground: "var(--sidebar-foreground)",
+                    primary: "var(--sidebar-primary)",
+                    "primary-foreground": "var(--sidebar-primary-foreground)",
+                    accent: "var(--sidebar-accent)",
+                    "accent-foreground": "var(--sidebar-accent-foreground)",
+                    border: "var(--sidebar-border)",
+                    ring: "var(--sidebar-ring)",
                 },
             },
             borderRadius: {
+                xl: "2rem",
+                "2xl": "2.3rem",
+                "3xl": "3rem",
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",

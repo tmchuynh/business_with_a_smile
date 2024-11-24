@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { FormData } from "../../../types";
 import { paymentPlans, site_styles, tiers, website_types } from "../../../types/constants";
+import { useTheme } from "next-themes";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -75,6 +76,14 @@ export default function ContactForm() {
     // Calculate the date 2 months in the future
     const minDate = new Date();
     minDate.setMonth( minDate.getMonth() + 2 );
+
+    const { theme } = useTheme();
+    const [mounted, setMounted] = React.useState( false );
+    React.useEffect( () => {
+        setMounted( true );
+    }, [] );
+
+    const isDarkMode = theme === 'dark';
 
     // Handle date selection
     const handleDateSelect = ( selectedDate: Date | undefined ) => {
@@ -160,7 +169,7 @@ export default function ContactForm() {
 
     if ( payment && tier ) {
         const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
-        const websiteIndex = tiers.findIndex( site => site.id == tier );
+        const websiteIndex = tiers.findIndex( site => site.name == tier );
         const plan = paymentPlans[paymentIndex];
         const website = tiers[websiteIndex];
         setValue( "payment", plan.name );
@@ -170,43 +179,54 @@ export default function ContactForm() {
     return (
         <section className="py-16 px-4 md:px-16 relative mx-auto w-11/12">
             <div className="text-center mb-12">
-                <h2 className="text-base font-semibold text-teal-600">
+                <h2 className="text-base font-semibold text-teal-600 dark:text-deepBlue-400">
                     Bring Your Vision to Life
                 </h2>
-                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl">
                     Contact Us
                 </p>
-                <p className="mt-4 text-lg text-gray-600">
+                <p className="mt-4 text-lg text-gray-600 dark:text-gray-200">
                     Ready to take the next step? Reach out to us today, and let’s turn
                     your ideas into reality.
                 </p>
             </div>
 
             <div className="my-16 mx-auto">
-                <form onSubmit={handleSubmit( onSubmit )} className="space-y-12 divide-y">
+                <form
+                    onSubmit={handleSubmit( onSubmit )}
+                    className="space-y-12 divide-y"
+                >
                     {/* Section 1: Personal Information */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
                                 Personal Information
                             </h3>
-                            <p className="mt-1 text-sm text-gray-600">
+                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
                                 Tell us about yourself and how to reach you.
                             </p>
                         </div>
                         <div className="md:col-span-2 space-y-6">
                             {/* Name Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700">Name</label>
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                    Name
+                                </label>
                                 <Controller
                                     name="name"
                                     control={control}
                                     render={( { field } ) => (
-                                        <Input {...field} placeholder="John Doe" className="mt-1" />
+                                        <Input
+                                            {...field}
+                                            placeholder="John Doe"
+                                            className="mt-1"
+                                        />
                                     )}
                                 />
                                 {errors.name && (
-                                    <p className="text-sm text-red-500">{errors.name.message}</p>
+                                    <p className="text-sm text-red-500">
+                                        {errors.name.message}
+                                    </p>
                                 )}
                             </div>
 
@@ -214,7 +234,9 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Email Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">Email</label>
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
+                                        Email
+                                    </label>
                                     <Controller
                                         name="email"
                                         control={control}
@@ -227,13 +249,15 @@ export default function ContactForm() {
                                         )}
                                     />
                                     {errors.email && (
-                                        <p className="text-sm text-red-500">{errors.email.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.email.message}
+                                        </p>
                                     )}
                                 </div>
 
                                 {/* Phone Number Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Phone Number
                                     </label>
                                     <Input
@@ -243,7 +267,9 @@ export default function ContactForm() {
                                         className="mt-1"
                                     />
                                     {errors.phone && (
-                                        <p className="text-sm text-red-500">{errors.phone.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.phone.message}
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -252,26 +278,35 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Preferred Method of Communication Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Preferred Method of Communication
                                     </label>
                                     <Controller
                                         name="communicationMethod"
                                         control={control}
                                         render={( { field } ) => (
-                                            <Select value={field.value} onValueChange={field.onChange}>
+                                            <Select
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                            >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a method" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="phone">
-                                                        <span className="mt-1 text-gray-600">Phone</span>
+                                                        <span className="mt-1 text-deepTeal-500">
+                                                            Phone
+                                                        </span>
                                                     </SelectItem>
                                                     <SelectItem value="discord">
-                                                        <span className="mt-1 text-gray-600">Discord</span>
+                                                        <span className="mt-1 text-deepTeal-500">
+                                                            Discord
+                                                        </span>
                                                     </SelectItem>
                                                     <SelectItem value="email">
-                                                        <span className="mt-1 text-gray-600">Email</span>
+                                                        <span className="mt-1 text-deepTeal-500">
+                                                            Email
+                                                        </span>
                                                     </SelectItem>
                                                 </SelectContent>
                                             </Select>
@@ -287,7 +322,7 @@ export default function ContactForm() {
                                 {/* Discord Username Field */}
                                 {communicationMethod === "discord" && (
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-deepTeal-700">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                             Discord Username
                                         </label>
                                         <Controller
@@ -323,8 +358,10 @@ export default function ContactForm() {
                     {/* Section 2: Project Details */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900">Project Details</h3>
-                            <p className="mt-1 text-sm text-gray-600">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
+                                Project Details
+                            </h3>
+                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
                                 Let us know more about your project requirements.
                             </p>
                         </div>
@@ -333,7 +370,7 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                 {/* Estimated Due Date Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Estimated Due Date
                                     </label>
                                     <Popover open={openPopover} onOpenChange={setOpenPopover}>
@@ -350,7 +387,7 @@ export default function ContactForm() {
                                                 {date ? formatDate( date ) : "Pick a date"}
                                             </Button>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0 my-2 space-y-3">
+                                        <PopoverContent className="w-auto p-0 my-2 space-y-3 border-none">
                                             <Calendar
                                                 mode="single"
                                                 selected={date}
@@ -363,42 +400,74 @@ export default function ContactForm() {
                                                     setDate( addDays( new Date(), parseInt( value ) ) )
                                                 }
                                             >
-                                                <SelectTrigger>
+                                                <SelectTrigger className="dark:bg-white">
                                                     <SelectValue placeholder="Select a Preset" />
                                                 </SelectTrigger>
                                                 <SelectContent position="popper">
-                                                    <SelectItem value="60">2 months</SelectItem>
-                                                    <SelectItem value="90">3 months</SelectItem>
-                                                    <SelectItem value="120">4 months</SelectItem>
-                                                    <SelectItem value="240">6 months</SelectItem>
+                                                    <SelectItem
+                                                        value="60"
+                                                        className="text-deepTeal-500"
+                                                    >
+                                                        2 months
+                                                    </SelectItem>
+                                                    <SelectItem
+                                                        value="90"
+                                                        className="text-deepTeal-500"
+                                                    >
+                                                        3 months
+                                                    </SelectItem>
+                                                    <SelectItem
+                                                        value="120"
+                                                        className="text-deepTeal-500"
+                                                    >
+                                                        4 months
+                                                    </SelectItem>
+                                                    <SelectItem
+                                                        value="240"
+                                                        className="text-deepTeal-500"
+                                                    >
+                                                        6 months
+                                                    </SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </PopoverContent>
                                     </Popover>
                                     {errors.dueDate && (
-                                        <p className="text-sm text-red-500">{errors.dueDate.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.dueDate.message}
+                                        </p>
                                     )}
                                 </div>
 
                                 {/* Chosen Payment Plan Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Chosen Payment Plan
                                     </label>
                                     <Controller
                                         name="payment"
                                         control={control}
                                         render={( { field } ) => (
-                                            <Select value={field.value} onValueChange={field.onChange}>
+                                            <Select
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                            >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a payment plan">{field.value || "Select a payment plan"}</SelectValue>
+                                                    <SelectValue placeholder="Select a payment plan">
+                                                        {field.value || "Select a payment plan"}
+                                                    </SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {paymentPlans.map( ( plan, index ) => (
-                                                        <SelectItem key={`${ plan.name }_${ index }`} value={plan.name}>
+                                                        <SelectItem
+                                                            key={`${ plan.name }_${ index }`}
+                                                            value={plan.name}
+                                                        >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">{plan.name}</p>
-                                                                <p className="text-sm">{plan.description}</p>
+                                                                <p className="text-md text-deepTeal-500">
+                                                                    {plan.name}
+                                                                </p>
+                                                                <p className="text-sm dark:text-gray-700">{plan.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -408,7 +477,9 @@ export default function ContactForm() {
                                     />
 
                                     {errors.payment && (
-                                        <p className="text-sm text-red-500">{errors.payment.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.payment.message}
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -417,23 +488,33 @@ export default function ContactForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Website Type Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Website Type
                                     </label>
                                     <Controller
                                         name="website"
                                         control={control}
                                         render={( { field } ) => (
-                                            <Select value={field.value} onValueChange={field.onChange}>
+                                            <Select
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                            >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a website type" >{field.value || "Select a website type"}</SelectValue>
+                                                    <SelectValue placeholder="Select a website type">
+                                                        {field.value || "Select a website type"}
+                                                    </SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {website_types.map( ( type, index ) => (
-                                                        <SelectItem key={`${ type.name }_${ index }`} value={type.name}>
+                                                        <SelectItem
+                                                            key={`${ type.name }_${ index }`}
+                                                            value={type.name}
+                                                        >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">{type.name}</p>
-                                                                <p className="text-sm">{type.description}</p>
+                                                                <p className="text-md text-deepTeal-500">
+                                                                    {type.name}
+                                                                </p>
+                                                                <p className="text-sm dark:text-gray-700">{type.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -442,29 +523,41 @@ export default function ContactForm() {
                                         )}
                                     />
                                     {errors.website && (
-                                        <p className="text-sm text-red-500">{errors.website.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.website.message}
+                                        </p>
                                     )}
                                 </div>
 
                                 {/* Website Style Field */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                         Website Style
                                     </label>
                                     <Controller
                                         name="style"
                                         control={control}
                                         render={( { field } ) => (
-                                            <Select value={field.value} onValueChange={field.onChange}>
+                                            <Select
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                            >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a style">{field.value || "Select a style"}</SelectValue>
+                                                    <SelectValue placeholder="Select a style">
+                                                        {field.value || "Select a style"}
+                                                    </SelectValue>
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {site_styles.map( ( style, index ) => (
-                                                        <SelectItem key={`${ style.name }_${ index }`} value={style.name}>
+                                                        <SelectItem
+                                                            key={`${ style.name }_${ index }`}
+                                                            value={style.name}
+                                                        >
                                                             <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500">{style.name}</p>
-                                                                <p className="text-sm">{style.description}</p>
+                                                                <p className="text-md text-deepTeal-500">
+                                                                    {style.name}
+                                                                </p>
+                                                                <p className="text-sm dark:text-gray-700">{style.description}</p>
                                                             </div>
                                                         </SelectItem>
                                                     ) )}
@@ -473,7 +566,9 @@ export default function ContactForm() {
                                         )}
                                     />
                                     {errors.style && (
-                                        <p className="text-sm text-red-500">{errors.style.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.style.message}
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -483,17 +578,17 @@ export default function ContactForm() {
                     {/* Section 3: Additional Information */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
                         <div className="md:col-span-1">
-                            <h3 className="text-xl font-semibold text-gray-900">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-deepBlue-400">
                                 Additional Information
                             </h3>
-                            <p className="mt-1 text-sm text-gray-600">
+                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-200">
                                 Any additional details or files you'd like to share.
                             </p>
                         </div>
                         <div className="md:col-span-2 space-y-6">
                             {/* Attachments */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700">
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                     Attachments (optional)
                                 </label>
                                 <div className="space-y-2">
@@ -506,13 +601,17 @@ export default function ContactForm() {
                                     />
 
                                     {attachments?.length === 0 ? (
-                                        <Button
-                                            variant="outline"
-                                            className="w-full text-sm font-medium text-deepTeal-700 border-deepTeal-600 hover:bg-deepTeal-500 hover:text-softNeutral-50"
-                                            onClick={() => fileInputRef.current?.click()}
-                                        >
-                                            Choose File
-                                        </Button>
+                                        <>
+                                            {mounted && (
+                                                <Button
+                                                    variant={isDarkMode ? "secondary" : "default"}
+                                                    className="w-full text-sm font-medium  border-deepTeal-600 dark:border-deepBlue-400 hover:bg-deepTeal-500 hover:text-softNeutral-50"
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                >
+                                                    Choose File
+                                                </Button>
+                                            )}
+                                        </>
                                     ) : (
                                         <div>
                                             {attachments?.map( ( file, index ) => (
@@ -542,7 +641,10 @@ export default function ContactForm() {
                                                 </div>
                                             ) )}
                                             <div className="grid grid-cols-2 items-center gap-4">
-                                                <Button variant="destructive" onClick={handleRemoveAllFiles}>
+                                                <Button
+                                                    variant="destructive"
+                                                    onClick={handleRemoveAllFiles}
+                                                >
                                                     Remove All Files
                                                 </Button>
                                                 <Button
@@ -562,7 +664,7 @@ export default function ContactForm() {
 
                             {/* Message Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700">
+                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400">
                                     Your Message
                                 </label>
                                 <Controller
@@ -578,12 +680,20 @@ export default function ContactForm() {
                                     )}
                                 />
                                 {errors.message && (
-                                    <p className="text-sm text-red-500">{errors.message.message}</p>
+                                    <p className="text-sm text-red-500">
+                                        {errors.message.message}
+                                    </p>
                                 )}
                             </div>
-                            <Button type="submit" className="justify-self-end w-full md:w-auto">
-                                Submit
-                            </Button>
+                            {mounted && (
+                                <Button
+                                    variant={isDarkMode ? "secondary" : "default"}
+                                    type="submit"
+                                    className="justify-self-end w-full md:w-auto"
+                                >
+                                    Submit
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </form>

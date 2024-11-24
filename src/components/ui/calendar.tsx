@@ -27,7 +27,7 @@ function Calendar( {
             defaultMonth={defaultMonth}
             showOutsideDays={showOutsideDays}
             numberOfMonths={2}
-            className={cn( "p-4 bg-white border border-deepTeal-400 rounded-md", className )}
+            className={cn( "p-4 bg-white ring-1 ring-deepTeal-200 border  dark:border-deepBlue-400 rounded-md", className )}
             classNames={{
                 months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                 month: "space-y-4",
@@ -38,8 +38,8 @@ function Calendar( {
                     buttonVariants( { variant: "outline" } ),
                     "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
                 ),
-                nav_button_previous: "absolute left-1 ring-transparent",
-                nav_button_next: "absolute right-1 ring-transparent",
+                nav_button_previous: "absolute left-1 ",
+                nav_button_next: "absolute right-1",
                 table: "w-full border-collapse space-y-1",
                 head_row: "flex",
                 head_cell:
