@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { ChevronDown, Sun, Moon } from "lucide-react";
 import { encodeUrlSafeBase64 } from "@/lib/utils";
-import { website_types } from "../../types/constants";
-import Link from "next/link";
+import { ChevronDown, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { website_types } from "../../types/constants";
 import { Button } from "./ui/button";
 
 export default function Header() {
@@ -25,8 +25,6 @@ export default function Header() {
     }, [] );
 
     const isDarkMode = theme === 'dark';
-
-    // Dropdown functionality remains the same
 
     const toggleDropdown = () => setDropdownOpen( !dropdownOpen );
 
@@ -54,23 +52,38 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <div className="flex items-center">
-                    <Link href="/" className="text-3xl font-bold text-deepTeal-600 dark:text-white">
+                    <Link
+                        href="/"
+                        className="text-3xl font-bold text-deepTeal-600 dark:text-white"
+                    >
                         CompanyLogo
                     </Link>
                 </div>
 
                 {/* Navigation Links */}
                 <nav className="hidden md:flex space-x-8 text-sm font-semibold text-softNeutral-800 dark:text-softNeutral-200">
-                    <Link href="/" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                    <Link
+                        href="/"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
                         Home
                     </Link>
-                    <Link href="/about" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                    <Link
+                        href="/about"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
                         About
                     </Link>
-                    <Link href="/portfolio" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                    <Link
+                        href="/portfolio"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
                         Portfolio
                     </Link>
-                    <Link href="/websites" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                    <Link
+                        href="/websites"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
                         Websites
                     </Link>
 
@@ -81,7 +94,9 @@ export default function Header() {
                             onClick={toggleDropdown}
                             className="inline-flex items-center gap-x-1 text-sm font-semibold"
                         >
-                            <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">About</span>
+                            <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                                About
+                            </span>
                             <ChevronDown aria-hidden="true" className="h-5 w-5" />
                         </button>
 
@@ -116,7 +131,10 @@ export default function Header() {
                     >
                         Pricing
                     </Link>
-                    <Link href="/contact" className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                    <Link
+                        href="/contact"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
                         Contact
                     </Link>
                 </nav>

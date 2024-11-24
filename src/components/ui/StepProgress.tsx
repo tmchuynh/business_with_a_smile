@@ -17,11 +17,11 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                 // Mapping step states to colors based on the new color scheme
                 const stateStyles = {
                     completed:
-                        "text-softNeutral-100 border-deepTeal-600 dark:border-deepBlue-400 bg-deepTeal-500 dark:bg-deepBlue-400 dark:text-deepBlue-200", // Muted Green
+                        "text-softNeutral-100 border-deepTeal-600 dark:border-deepBlue-400 bg-deepTeal-500 dark:bg-deepBlue-400 dark:text-deepBlue-200",
                     current:
-                        "text-deepBlue-600 bg-deepBlue-100 border-deepBlue-300 dark:bg-deepTeal-200 dark:border-deepTeal-700 dark:text-deepTeal-400", // Deep Teal
+                        "text-deepBlue-600 bg-deepBlue-100 border-deepBlue-300 dark:bg-deepTeal-200 dark:border-deepTeal-700 dark:text-deepTeal-400",
                     upcoming:
-                        "text-softNeutral-900 bg-softNeutral-100 border-softNeutral-300 dark:bg-softNeutral-800 dark:border-softNeutral-700 dark:text-softNeutral-400", // Soft Neutral
+                        "text-softNeutral-900 bg-softNeutral-100 border-softNeutral-300 dark:bg-softNeutral-800 dark:border-softNeutral-700 dark:text-softNeutral-400",
                 };
 
                 // Icons based on state

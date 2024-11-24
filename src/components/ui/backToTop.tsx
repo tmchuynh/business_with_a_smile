@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ChevronUp, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ChevronUp, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react";
 import { Button } from "./button";
 
 const BackToTopButton = () => {

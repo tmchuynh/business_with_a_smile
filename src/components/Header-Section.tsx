@@ -16,8 +16,8 @@ export default function HeaderSection() {
                             </h2>
                             <dl className="mt-10 max-w-xl space-y-8 text-softNeutral-600 dark:text-softNeutral-50 lg:max-w-none">
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-deepTeal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-deepTeal-600" />
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
+                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Brand Identity
                                     </dt>
                                     <dd className="inline pl-2">
@@ -25,8 +25,8 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-deepTeal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-deepTeal-600" />
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
+                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Enhanced User Experience
                                     </dt>
                                     <dd className="inline pl-2">
@@ -34,8 +34,8 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-deepTeal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-deepTeal-600" />
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
+                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         Increased Conversions
                                     </dt>
                                     <dd className="inline pl-2">
@@ -43,8 +43,8 @@ export default function HeaderSection() {
                                     </dd>
                                 </div>
                                 <div className="relative pl-9">
-                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-deepTeal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-deepTeal-600" />
+                                    <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
+                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
                                         SEO-Optimized Design
                                     </dt>
                                     <dd className="inline pl-2">

@@ -1,5 +1,3 @@
-// Timeline.tsx (As provided)
-
 import React from "react";
 
 interface TimelineItem {

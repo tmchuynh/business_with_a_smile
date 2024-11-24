@@ -1,4 +1,4 @@
-import { CheckIcon, LockIcon, ShieldIcon, CloudIcon, ServerIcon, KeyIcon, DatabaseIcon, WifiIcon } from 'lucide-react';
+import { CheckIcon, CloudIcon, DatabaseIcon, LockIcon, ServerIcon, ShieldIcon, WifiIcon } from 'lucide-react';
 
 const reasons = [
     {

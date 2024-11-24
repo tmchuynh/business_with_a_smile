@@ -3,12 +3,12 @@ import React from "react";
 interface Line {
     prefix?: string;
     content: string;
-    className?: string; // For optional styling of individual lines
+    className?: string;
 }
 
 interface MockupCodeProps {
-    lines: Line[]; // Array of lines to display in the mockup
-    className?: string; // Optional additional styling for the wrapper
+    lines: Line[];
+    className?: string;
 }
 
 export const MockupCode: React.FC<MockupCodeProps> = ( { lines, className = "" } ) => {

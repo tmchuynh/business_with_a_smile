@@ -39,25 +39,39 @@ export const presets = [
     }
 ];
 
+export const stats = [
+    { id: 16, name: 'Maintenance contracts', value: 6, suffix: "contracts" },
+    { id: 1, name: 'Websites designed and developed', value: 150, suffix: "websites" },
+    { id: 15, name: 'Average project duration', value: 8, suffix: "weeks" },
+    { id: 3, name: 'Websites launched per month', value: 7, suffix: "websites" },
+    { id: 8, name: 'Customer satisfaction rate', value: 92, suffix: "%" },
+    { id: 2, name: 'Clients served', value: 25, suffix: "clients" },
+];
+
 export const projects = [
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
-    { title: 'Blog Design', description: 'A responsive blog with easy-to-read layout and SEO optimization.', imgUrl: '/path-to-image2.jpg' },
-    { title: 'Corporate Website', description: 'A professional website for a business with all essential features.', imgUrl: '/path-to-image3.jpg' },
     { title: 'Landing Page', description: 'A high-converting landing page with clean UI/UX design.', imgUrl: '/path-to-image4.jpg' },
+    { title: 'Blog Design', description: 'A responsive blog with easy-to-read layout and SEO optimization.', imgUrl: '/path-to-image2.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'E-commerce Website', description: 'An online store with smooth checkout flow and beautiful design.', imgUrl: '/path-to-image1.jpg' },
+    { title: 'Corporate Website', description: 'A professional website for a business with all essential features.', imgUrl: '/path-to-image3.jpg' },
 ];
 
 export const testimonials = [
     {
-        name: 'Jessica D.',
-        text: 'Tina was incredible! She took the time to understand our needs and delivered a website that exceeded our expectations. The process was smooth, and the support post-launch has been amazing.',
+        name: 'Grace V.',
+        text: 'Tina exceeded our expectations. Her process was collaborative, and she truly understood our needs. The new website is intuitive, stylish, and performs beautifully on all devices. I would highly recommend her for any web development project.',
+        rating: 5,
+    },
+    {
+        name: 'John A.',
+        text: 'Tina was fantastic! She delivered a responsive and feature-rich website that works perfectly on all devices. Her technical expertise and creative approach really set them apart from other agencies we’ve worked with.',
         rating: 5,
     },
     {
@@ -67,44 +81,13 @@ export const testimonials = [
         rating: 5,
     },
     {
-        name: 'Thomas H.',
-        text: 'We partnered with Tina for our e-commerce site, and she really brought our vision to life. The attention to detail, from design to functionality, was top-notch. We’ve seen a significant boost in traffic and sales.',
-        rating: 5,
+        name: 'Daniel C.',
+        text: 'Our new website is exactly what we envisioned—simple, sleek, and easy to navigate. Tina understood our business goals and delivered a website that aligns perfectly with our vision. It was an excellent experience from start to finish.',
+        rating: 4,
     },
     {
         name: 'Olivia M.',
         text: 'I couldn’t be happier with the website redesign that Tina delivered. She was responsive, creative, and helped us streamline the user experience. The result is a clean, modern site that perfectly matches our brand.',
-        rating: 4,
-    },
-    {
-        name: 'Matthew C.',
-        text: 'We had a complex set of requirements, and Tina delivered on every aspect. She took the time to understand our needs, and the project was completed on time. Our website is now faster, cleaner, and much easier to navigate.',
-        rating: 4,
-    },
-    {
-        name: 'Sam H.',
-        company: 'First Galaxy Inc.',
-        text: 'Tina completely revamped our property listings site. She worked closely with us throughout the project and made sure we were always in the loop. The final product is stunning and user-friendly.',
-        rating: 5,
-    },
-    {
-        name: 'Emma D.',
-        text: 'Working with Tina was an absolute pleasure. From the initial consultation to the final launch, she was professional, creative, transparent, and delivered a website that perfectly represents our brand. We’ve already seen an increase in engagement!',
-        rating: 5,
-    },
-    {
-        name: 'Jacob S. H.',
-        text: 'We approached Tina for a complete redesign of our website, and she didn’t disappoint. The team listened to our feedback and provided great insights, resulting in a modern, user-friendly website that functions seamlessly.',
-        rating: 5,
-    },
-    {
-        name: 'Lily R.',
-        text: 'The website Tina designed for us has been a game-changer. It’s fast, responsive, and beautifully designed. Our clients love it, and we’re seeing an uptick in inquiries and conversions. Highly recommend them for any web project!',
-        rating: 5,
-    },
-    {
-        name: 'Daniel C.',
-        text: 'Our new website is exactly what we envisioned—simple, sleek, and easy to navigate. Tina understood our business goals and delivered a website that aligns perfectly with our vision. It was an excellent experience from start to finish.',
         rating: 4,
     },
     {
@@ -113,8 +96,28 @@ export const testimonials = [
         rating: 5,
     },
     {
-        name: 'John A.',
-        text: 'Tina was fantastic! She delivered a responsive and feature-rich website that works perfectly on all devices. Her technical expertise and creative approach really set them apart from other agencies we’ve worked with.',
+        name: 'Lily R.',
+        text: 'The website Tina designed for us has been a game-changer. It’s fast, responsive, and beautifully designed. Our clients love it, and we’re seeing an uptick in inquiries and conversions. Highly recommend them for any web project!',
+        rating: 5,
+    },
+    {
+        name: 'Matthew C.',
+        text: 'We had a complex set of requirements, and Tina delivered on every aspect. She took the time to understand our needs, and the project was completed on time. Our website is now faster, cleaner, and much easier to navigate.',
+        rating: 4,
+    },
+    {
+        name: 'Jacob S. H.',
+        text: 'We approached Tina for a complete redesign of our website, and she didn’t disappoint. The team listened to our feedback and provided great insights, resulting in a modern, user-friendly website that functions seamlessly.',
+        rating: 5,
+    },
+    {
+        name: 'Emma D.',
+        text: 'Working with Tina was an absolute pleasure. From the initial consultation to the final launch, she was professional, creative, transparent, and delivered a website that perfectly represents our brand. We’ve already seen an increase in engagement!',
+        rating: 5,
+    },
+    {
+        name: 'Jessica D.',
+        text: 'Tina was incredible! She took the time to understand our needs and delivered a website that exceeded our expectations. The process was smooth, and the support post-launch has been amazing.',
         rating: 5,
     },
     {
@@ -123,13 +126,19 @@ export const testimonials = [
         rating: 4,
     },
     {
-        name: 'Ryan P.',
-        text: 'I’m so pleased with the website that Tina developed for us. She took our vague ideas and turned them into a stunning, functional site. She was professional throughout, and the project was completed on time and within budget.',
+        name: 'Thomas H.',
+        text: 'We partnered with Tina for our e-commerce site, and she really brought our vision to life. The attention to detail, from design to functionality, was top-notch. We’ve seen a significant boost in traffic and sales.',
         rating: 5,
     },
     {
-        name: 'Grace V.',
-        text: 'Tina exceeded our expectations. Her process was collaborative, and she truly understood our needs. The new website is intuitive, stylish, and performs beautifully on all devices. I would highly recommend her for any web development project.',
+        name: 'Sam H.',
+        company: 'First Galaxy Inc.',
+        text: 'Tina completely revamped our property listings site. She worked closely with us throughout the project and made sure we were always in the loop. The final product is stunning and user-friendly.',
+        rating: 5,
+    },
+    {
+        name: 'Ryan P.',
+        text: 'I’m so pleased with the website that Tina developed for us. She took our vague ideas and turned them into a stunning, functional site. She was professional throughout, and the project was completed on time and within budget.',
         rating: 5,
     },
     {

@@ -1,4 +1,4 @@
-import { Phone, Globe, CheckCircle } from 'lucide-react';
+import { CheckCircle, Globe, Phone } from 'lucide-react';
 import Stats from './ui/stats';
 
 const features = [

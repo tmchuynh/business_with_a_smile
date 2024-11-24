@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,7 @@ const AccordionItem = React.forwardRef<
 >( ( { className, ...props }, ref ) => (
     <AccordionPrimitive.Item
         ref={ref}
-        className={cn( "border-b border-softNeutral-200", className )} // Adding softNeutral border
+        className={cn( "border-b border-softNeutral-200", className )}
         {...props}
     />
 ) );
@@ -54,4 +54,4 @@ const AccordionContent = React.forwardRef<
 ) );
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

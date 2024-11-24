@@ -1,10 +1,10 @@
 "use client";
 
 import { Star } from 'lucide-react';
-import Marquee from './ui/marquee';
 import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { testimonials } from '../../types/constants';
+import Marquee from './ui/marquee';
 
 export default function Testimonials() {
     const { theme } = useTheme();

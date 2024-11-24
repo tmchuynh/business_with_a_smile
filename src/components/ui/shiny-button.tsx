@@ -1,16 +1,16 @@
 "use client";
 
-import React from "react";
+import { cn } from "@/lib/utils";
 import {
     motion,
     type AnimationProps,
     type HTMLMotionProps,
 } from "framer-motion";
-import { cn } from "@/lib/utils";
+import React from "react";
 
-// Update with your color theme
-const primaryColor = "hsl(var(--primary))";  // You can customize this value or use a dynamic CSS variable if set in your theme
-const secondaryColor = "hsl(var(--secondary))";  // Add your secondary color here if needed
+
+const primaryColor = "hsl(var(--primary))";
+const secondaryColor = "hsl(var(--secondary))";
 
 const animationProps = {
     initial: { "--x": "100%", scale: 0.8 },

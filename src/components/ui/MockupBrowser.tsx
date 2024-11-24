@@ -1,9 +1,9 @@
 import React from "react";
 
 interface MockupBrowserProps {
-    url: string; // The URL to display in the toolbar
-    children: React.ReactNode; // The content to display inside the browser window
-    className?: string; // Optional additional styling for the wrapper
+    url: string;
+    children: React.ReactNode;
+    className?: string;
 }
 
 export const MockupBrowser: React.FC<MockupBrowserProps> = ( { url, children, className = "" } ) => {

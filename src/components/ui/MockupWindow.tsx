@@ -2,8 +2,8 @@ import React from "react";
 
 interface MockupWindowProps {
     children: React.ReactNode;
-    className?: string; // For additional styling if needed
-    contentClassName?: string; // For content-specific styles
+    className?: string;
+    contentClassName?: string;
 }
 
 export const MockupWindow: React.FC<MockupWindowProps> = ( {

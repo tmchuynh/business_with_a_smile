@@ -1,13 +1,5 @@
+import { stats } from "../../../types/constants";
 import NumberTicker from "./number-ticker";
-
-const stats = [
-    { id: 16, name: 'Maintenance contracts', value: 6, suffix: "contracts" },
-    { id: 1, name: 'Websites designed and developed', value: 150, suffix: "websites" },
-    { id: 15, name: 'Average project duration', value: 8, suffix: "weeks" },
-    { id: 3, name: 'Websites launched per month', value: 7, suffix: "websites" },
-    { id: 8, name: 'Customer satisfaction rate', value: 92, suffix: "%" },
-    { id: 2, name: 'Clients served', value: 25, suffix: "clients" },
-];
 
 export default function Stats() {
     return (
