@@ -22,7 +22,7 @@ const buttonVariants = cva(
                 link:
                     "text-deepTeal-500 underline-offset-4 underline hover:no-underline hover:ring-1 hover:ring-deepTeal-500",
                 neutral:
-                    "bg-softNeutral-50 text-softNeutral-800 hover:bg-softNeutral-500 hover:text-softNeutral-100 shadow-md",
+                    "bg-softNeutral-50 text-softNeutral-800 hover:bg-softNeutral-200 shadow-md",
             },
             size: {
                 default: "h-9 px-4 py-5 w-full",
