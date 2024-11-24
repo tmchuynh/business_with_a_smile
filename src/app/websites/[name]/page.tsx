@@ -5,7 +5,10 @@ import { useState, useEffect } from "react";
 import { website_types } from "../../../../types/constants";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import { decodeUrlSafeBase64 } from "@/lib/utils";
+import { classNames, decodeUrlSafeBase64 } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { features } from "process";
+import { CheckIcon } from "lucide-react";
 
 export default function WebsiteTypes() {
     const { theme } = useTheme();
@@ -18,31 +21,57 @@ export default function WebsiteTypes() {
 
     const searchParams = useSearchParams();
     const index = searchParams.get( 'index' );
-    const websiteType = website_types[parseInt( decodeUrlSafeBase64( index! ) )];
+    const website = website_types[parseInt( decodeUrlSafeBase64( index! ) )];
 
     return (
-        <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
-            <div className="max-w-4xl mx-auto text-center mb-12">
+        <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max max-w-4xl mx-auto">
+            <div className="text-center mb-12">
                 <h6>Flexible Payment Options</h6>
-                <h1>{websiteType.name}</h1>
-                <h2>
-                    {websiteType.introduction}
-                </h2>
+                <h1>{website.name}</h1>
+
+                {mounted && (
+                    <>
+                        {website.popular ? (
+                            <Badge
+                                variant={isDarkMode ? "outline" : "ghost"}
+                                className="mt-5 uppercase"
+                            >
+                                Popular
+                            </Badge>
+                        ) : (
+                            ""
+                        )}
+                    </>
+                )}
+
+                <h2>{website.introduction}</h2>
             </div>
             <div className="max-w-3xl mx-auto">
                 <div className="p-8 space-y-4">
-                    <ul>
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
-                    </ul>
+                    <div>
+                        <h3>Features</h3>
+                        <ul>
+                            {website.other_info.features.map( ( feature, index ) => (
+                                <li key={index} className="flex gap-x-2">
+                                    <CheckIcon
+                                        className={classNames(
+                                            website.popular
+                                                ? "text-deepTeal-300"
+                                                : "text-deepTeal-600",
+                                            "h-5 w-8 flex-none"
+                                        )}
+                                    />
+                                    {feature}
+                                </li>
+                            ) )}
+                        </ul>
+                    </div>
                 </div>
                 {mounted && (
-                    <Button
-                        variant={isDarkMode ? "secondary" : "default"}
-                    >Choose This Type</Button>
+                    <Button variant={isDarkMode ? "secondary" : "default"}>
+                        Choose This Type
+                    </Button>
                 )}
-
             </div>
         </div>
     );

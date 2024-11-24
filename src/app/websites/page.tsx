@@ -115,7 +115,6 @@ export default function Pricing() {
                                     {website.other_info.features.map( ( feature ) => (
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
-                                                aria-hidden="true"
                                                 className={classNames(
                                                     website.popular
                                                         ? "text-deepTeal-300"

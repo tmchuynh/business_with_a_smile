@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import { decodeUrlSafeBase64 } from "@/lib/utils";
 import { paymentPlans } from "../../../../../../types/constants";
 import { useTheme } from "next-themes";
+import { Badge } from "@/components/ui/badge";
 
 export default function PaymentDetails() {
     const router = useRouter();
@@ -45,6 +46,20 @@ export default function PaymentDetails() {
                 <h2>
                     {plan.description}
                 </h2>
+                {mounted && (
+                    <>
+                        {plan.popular ? (
+                            <Badge
+                                variant={isDarkMode ? "outline" : "default"}
+                                className="mt-5 uppercase"
+                            >
+                                Popular
+                            </Badge>
+                        ) : (
+                            ""
+                        )}
+                    </>
+                )}
             </div>
 
             <div className="max-w-3xl mx-auto">
@@ -61,7 +76,7 @@ export default function PaymentDetails() {
                             >
                                 <CheckIcon
                                     className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
-                                    aria-hidden="true"
+
                                 />
                                 <p className="ml-3">{detail}</p>
                             </li>
@@ -82,7 +97,7 @@ export default function PaymentDetails() {
                             >
                                 <CheckIcon
                                     className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
-                                    aria-hidden="true"
+
                                 />
                                 <p className="ml-3">{feature}</p>
                             </li>

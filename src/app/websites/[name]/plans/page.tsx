@@ -110,7 +110,6 @@ export default function PaymentOptions() {
                                 {plan.benefits.map( ( benefit, index ) => (
                                     <li key={`${ benefit }_${ index }`} className="flex gap-x-2">
                                         <CheckIcon
-                                            aria-hidden="true"
                                             className={classNames(
                                                 plan.popular
                                                     ? "text-deepTeal-300"
