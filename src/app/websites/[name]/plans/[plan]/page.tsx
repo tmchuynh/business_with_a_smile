@@ -38,7 +38,8 @@ export default function PaymentDetails() {
     return (
         <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
             <div className="max-w-4xl mx-auto text-center mb-12">
-                <h1 className="text-deepTeal-500 dark:text-deepBlue-500">
+                <h6>Payment Option</h6>
+                <h1>
                     {plan.name}
                 </h1>
                 <h2>

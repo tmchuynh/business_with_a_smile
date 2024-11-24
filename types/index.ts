@@ -41,7 +41,7 @@ export interface PaymentPlan {
     features: string[];
     benefits: string[];
     details: string[];
-    isPopular: boolean;
+    popular: boolean;
     paymentSchedule: PaymentScheduleItem[];
 }
 

@@ -45,7 +45,7 @@ export default function PaymentOptions() {
                     <div
                         key={`${ plan.id }_${ index }`}
                         className={classNames(
-                            plan.isPopular
+                            plan.popular
                                 ? "relative bg-gradient-to-br from-deepTeal-500 to-deepBlue-900 text-white shadow-xl hover:scale-105"
                                 : "bg-white dark:bg-gray-200 ring-1 ring-teal-200 hover:ring-teal-300",
                             "rounded-3xl p-8 ring-1 ring-teal-900/10 hover:shadow-xl flex flex-col justify-between space-y-4 transition-all duration-300"
@@ -55,7 +55,7 @@ export default function PaymentOptions() {
                             <h3
                                 id={plan.id}
                                 className={classNames(
-                                    plan.isPopular
+                                    plan.popular
                                         ? "text-softNeutral-200"
                                         : "text-deepTeal-600 dark:text-deepBlue-600",
                                     "text-xl font-semibold"
@@ -66,7 +66,7 @@ export default function PaymentOptions() {
                             <p className="mt-4 flex items-baseline gap-x-2">
                                 <span
                                     className={classNames(
-                                        plan.isPopular ? "text-white" : "text-softNeutral-900 ",
+                                        plan.popular ? "text-white" : "text-softNeutral-900 ",
                                         "text-5xl font-semibold tracking-tight"
                                     )}
                                 >
@@ -74,7 +74,7 @@ export default function PaymentOptions() {
                                 </span>
                                 <span
                                     className={classNames(
-                                        plan.isPopular
+                                        plan.popular
                                             ? "text-softNeutral-300"
                                             : "text-softNeutral-600 dark:text-softNeutral-900",
                                         "text-base"
@@ -89,7 +89,7 @@ export default function PaymentOptions() {
                             </p>
                             <p
                                 className={classNames(
-                                    plan.isPopular
+                                    plan.popular
                                         ? "text-softNeutral-300"
                                         : "text-softNeutral-600 dark:text-softNeutral-900",
                                     "mt-4 text-base"
@@ -101,7 +101,7 @@ export default function PaymentOptions() {
                             <ul
                                 role="list"
                                 className={classNames(
-                                    plan.isPopular
+                                    plan.popular
                                         ? "text-softNeutral-300"
                                         : "text-softNeutral-600 dark:text-softNeutral-900",
                                     "mt-4 space-y-2 text-sm sm:mt-8"
@@ -112,7 +112,7 @@ export default function PaymentOptions() {
                                         <CheckIcon
                                             aria-hidden="true"
                                             className={classNames(
-                                                plan.isPopular
+                                                plan.popular
                                                     ? "text-deepTeal-300"
                                                     : "text-deepTeal-600",
                                                 "h-5 w-5 flex-none"
@@ -127,7 +127,7 @@ export default function PaymentOptions() {
                         {mounted && (
                             <Button
                                 variant={
-                                    plan.isPopular
+                                    plan.popular
                                         ? isDarkMode
                                             ? "outline"
                                             : "default"

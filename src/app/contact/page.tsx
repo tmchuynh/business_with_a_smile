@@ -15,7 +15,7 @@ import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { FormData } from "../../../types";
-import { paymentPlans, presets, site_styles, tiers, website_types } from "../../../types/constants";
+import { paymentPlans, presets, site_styles, website_types } from "../../../types/constants";
 import { useTheme } from "next-themes";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
@@ -169,9 +169,9 @@ export default function ContactForm() {
 
     if ( payment && tier ) {
         const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
-        const websiteIndex = tiers.findIndex( site => site.name == tier );
+        const websiteIndex = website_types.findIndex( site => site.name == tier );
         const plan = paymentPlans[paymentIndex];
-        const website = tiers[websiteIndex];
+        const website = website_types[websiteIndex];
         setValue( "payment", plan.name );
         setValue( "website", website.name );
     }

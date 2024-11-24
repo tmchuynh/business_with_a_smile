@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
 import ImportanceOfWebDesign from '@/components/Importance-of-Web-Design';
-import { tiers } from '../../../types/constants';
+import { website_types } from '../../../types/constants';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
@@ -57,11 +57,11 @@ export default function Pricing() {
                         </p>
                     </div>
 
-                    {tiers.map( ( tier, tierIdx ) => (
+                    {website_types.map( ( website, tierIdx ) => (
                         <div
-                            key={`${ tier.id }_${ tierIdx }`}
+                            key={`${ website.id }_${ tierIdx }`}
                             className={classNames(
-                                tier.featured
+                                website.popular
                                     ? "relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 shadow-2xl hover:scale-105"
                                     : "bg-white dark:bg-gray-200 ring-teal-200 hover:ring-teal-300 ",
                                 "rounded-3xl ring-1 ring-deepTeal-900/10 p-8 transition-all duration-300 flex flex-col justify-between mx-8 lg:mx-0  h-[37rem]"
@@ -70,54 +70,54 @@ export default function Pricing() {
                             <div className="flex flex-col justify-evenly h-[25rem]">
                                 <div>
                                     <h3
-                                        id={tier.id}
+                                        id={website.id}
                                         className={classNames(
-                                            tier.featured
+                                            website.popular
                                                 ? "text-softNeutral-200 "
                                                 : "text-deepTeal-600 dark:text-deepBlue-600",
                                             "text-base/7 font-semibold "
                                         )}
                                     >
-                                        {tier.name}
+                                        {website.name}
                                     </h3>
                                     <p className="mt-3 flex items-baseline gap-x-2">
                                         <span
                                             className={classNames(
-                                                tier.featured
+                                                website.popular
                                                     ? "text-white"
                                                     : "text-softNeutral-900 ",
                                                 "text-5xl font-semibold tracking-tight"
                                             )}
                                         >
-                                            {tier.priceStartingAt}
+                                            {website.startingPrice}
                                         </span>
                                     </p>
                                     <p
                                         className={classNames(
-                                            tier.featured
+                                            website.popular
                                                 ? "text-softNeutral-300"
                                                 : "text-softNeutral-600 dark:text-softNeutral-900",
                                             "mt-6 text-base/7"
                                         )}
                                     >
-                                        {tier.description}
+                                        {website.description}
                                     </p>
                                 </div>
                                 <ul
                                     role="list"
                                     className={classNames(
-                                        tier.featured
+                                        website.popular
                                             ? "text-softNeutral-300"
                                             : "text-softNeutral-600 dark:text-softNeutral-900",
                                         "mt-4 space-y-2 text-sm/6 sm:mt-8"
                                     )}
                                 >
-                                    {tier.features.map( ( feature ) => (
+                                    {website.other_info.features.map( ( feature ) => (
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
                                                 aria-hidden="true"
                                                 className={classNames(
-                                                    tier.featured
+                                                    website.popular
                                                         ? "text-deepTeal-300"
                                                         : "text-deepTeal-600",
                                                     "h-5 w-8 flex-none"
@@ -131,7 +131,7 @@ export default function Pricing() {
                             {mounted && (
                                 <Button
                                     variant={
-                                        tier.featured
+                                        website.popular
                                             ? isDarkMode
                                                 ? "outline"
                                                 : "default"
@@ -140,7 +140,7 @@ export default function Pricing() {
                                                 : "outline"
                                     }
                                     className="mt-8"
-                                    onClick={() => navigate( tier.name )}
+                                    onClick={() => navigate( website.name )}
                                 >
                                     Get Started Today
                                 </Button>

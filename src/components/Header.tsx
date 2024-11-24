@@ -103,15 +103,16 @@ export default function Header() {
                         {dropdownOpen && (
                             <div
                                 ref={dropdownRef}
-                                className="absolute left-1/2 z-10 gap-3 mt-5 w-[55rem] -translate-x-3/4 bg-white dark:bg-softGray-900 shadow-lg rounded-lg p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-7xl"
+                                className="absolute left-1/2 z-10 gap-3 mt-5 w-[55rem] -translate-x-3/4 bg-white dark:bg-softGray-900 dark:border-softNeutral-100 border shadow-lg rounded-lg p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-7xl"
                             >
                                 {website_types.map( ( item, index ) => (
                                     <Link
-                                        href={`/websites/${ item.name }`}
+                                        href={`/websites/${ encodeUrlSafeBase64( item.name ) }?index=${ encodeUrlSafeBase64( ( index ).toString() ) }`}
                                         key={`${ item.name }_${ index }`}
                                         className="font-semibold text-softNeutral-900 text-ellipsis dark:text-softNeutral-300"
+                                        onClick={() => setDropdownOpen( false )} // Close dropdown when a link is clicked
                                     >
-                                        <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-gray-50 h-full overflow-clip dark:hover:bg-gray-600">
+                                        <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-softNeutral-50 dark:hover:bg-softGray-950 h-full overflow-clip">
                                             <div className="text-lg text-deepTeal-500 dark:text-deepTeal-400">
                                                 {item.name}
                                                 <p className="mt-1 text-softNeutral-600 text-sm text-pretty dark:text-softNeutral-400">
