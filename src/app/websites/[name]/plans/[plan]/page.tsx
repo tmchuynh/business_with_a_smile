@@ -5,7 +5,7 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import { Timeline } from "@/components/ui/timeline";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { decodeUrlSafeBase64 } from "@/lib/utils";
+import { classNames, decodeUrlSafeBase64 } from "@/lib/utils";
 import { paymentPlans } from "../../../../../../types/constants";
 import { useTheme } from "next-themes";
 import { Badge } from "@/components/ui/badge";
@@ -50,7 +50,7 @@ export default function PaymentDetails() {
                     <>
                         {plan.popular ? (
                             <Badge
-                                variant={isDarkMode ? "outline" : "default"}
+                                variant={isDarkMode ? "outline" : "ghost"}
                                 className="mt-5 uppercase"
                             >
                                 Popular
@@ -68,15 +68,19 @@ export default function PaymentDetails() {
                     <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
                         How It Works
                     </h2>
-                    <ul className="space-y-4">
+                    <ul className="space-y-1">
                         {plan.details.map( ( detail, index ) => (
                             <li
                                 key={index}
-                                className="flex items-center dark:text-softNeutral-200"
+                                className="flex items-center"
                             >
                                 <CheckIcon
-                                    className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
-
+                                    className={classNames(
+                                        isDarkMode
+                                            ? "text-deepBlue-200"
+                                            : "text-deepTeal-600",
+                                        "h-5 w-8 flex-none"
+                                    )}
                                 />
                                 <p className="ml-3">{detail}</p>
                             </li>
@@ -89,15 +93,19 @@ export default function PaymentDetails() {
                     <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
                         Features
                     </h2>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1">
                         {plan.features.map( ( feature, index ) => (
                             <li
                                 key={index}
-                                className="flex items-center dark:text-softNeutral-200"
+                                className="flex items-center"
                             >
                                 <CheckIcon
-                                    className="h-6 w-6 text-deepTeal-600 dark:text-deepBlue-400 mt-1 flex-shrink-0"
-
+                                    className={classNames(
+                                        isDarkMode
+                                            ? "text-deepBlue-200"
+                                            : "text-deepTeal-600",
+                                        "h-5 w-8 flex-none"
+                                    )}
                                 />
                                 <p className="ml-3">{feature}</p>
                             </li>

@@ -116,8 +116,8 @@ export default function Pricing() {
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
                                                 className={classNames(
-                                                    website.popular
-                                                        ? "text-deepTeal-300"
+                                                    isDarkMode
+                                                        ? "text-deepBlue-200"
                                                         : "text-deepTeal-600",
                                                     "h-5 w-8 flex-none"
                                                 )}

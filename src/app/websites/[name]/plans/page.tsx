@@ -111,10 +111,10 @@ export default function PaymentOptions() {
                                     <li key={`${ benefit }_${ index }`} className="flex gap-x-2">
                                         <CheckIcon
                                             className={classNames(
-                                                plan.popular
-                                                    ? "text-deepTeal-300"
+                                                isDarkMode
+                                                    ? "text-deepBlue-200"
                                                     : "text-deepTeal-600",
-                                                "h-5 w-5 flex-none"
+                                                "h-5 w-8 flex-none"
                                             )}
                                         />
                                         {benefit}
