@@ -124,7 +124,7 @@ export default function WebsiteTypes() {
                         <h3>Project Requirements</h3>
                         <ul className="space-y-1">
                             {website.other_info.requirements.map( ( item, index ) => (
-                                <li key={index} className="flex items-center gap-x-2">
+                                <li key={index} className="flex gap-x-2">
                                     <CheckIcon
                                         className={classNames(
                                             isDarkMode

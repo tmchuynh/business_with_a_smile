@@ -8,6 +8,7 @@ import ImportanceOfWebDesign from '@/components/Importance-of-Web-Design';
 import { website_types } from '../../../types/constants';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { Badge } from '@/components/ui/badge';
 
 export default function Pricing() {
     const router = useRouter();
@@ -28,12 +29,8 @@ export default function Pricing() {
             <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-28 lg:px-8">
                 <div className="text-center mb-12">
                     <div className="mx-auto max-w-4xl text-center">
-                        <h6>
-                            Pricing Plans
-                        </h6>
-                        <h1>
-                            Find the Perfect Customizations for Your Needs
-                        </h1>
+                        <h6>Pricing Plans</h6>
+                        <h1>Find the Perfect Customizations for Your Needs</h1>
                         <h2 className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 dark:text-softNeutral-50 sm:text-xl">
                             Explore affordable pricing options designed to help you engage
                             your audience, build lasting customer loyalty, and boost your
@@ -69,17 +66,33 @@ export default function Pricing() {
                         >
                             <div className="flex flex-col justify-evenly h-[25rem]">
                                 <div>
-                                    <h3
-                                        id={website.id}
-                                        className={classNames(
-                                            website.popular
-                                                ? "text-softNeutral-200 "
-                                                : "text-deepTeal-600 dark:text-deepBlue-600",
-                                            "text-base/7 font-semibold "
+                                    <div className='flex justify-between items-end'>
+                                        <h3
+                                            id={website.id}
+                                            className={classNames(
+                                                website.popular
+                                                    ? "text-softNeutral-200 "
+                                                    : "text-deepTeal-600 dark:text-deepBlue-600",
+                                                "text-base/7 font-semibold "
+                                            )}
+                                        >
+                                            {website.name}
+                                        </h3>
+                                        {mounted && (
+                                            <>
+                                                {website.popular ? (
+                                                    <Badge
+                                                        variant={isDarkMode ? "outline" : "ghost"}
+                                                        className="mt-5 uppercase self-start"
+                                                    >
+                                                        Popular
+                                                    </Badge>
+                                                ) : (
+                                                    ""
+                                                )}
+                                            </>
                                         )}
-                                    >
-                                        {website.name}
-                                    </h3>
+                                    </div>
                                     <p className="mt-3 flex items-baseline gap-x-2">
                                         <span
                                             className={classNames(
@@ -92,6 +105,7 @@ export default function Pricing() {
                                             {website.startingPrice}
                                         </span>
                                     </p>
+
                                     <p
                                         className={classNames(
                                             website.popular
@@ -116,9 +130,13 @@ export default function Pricing() {
                                         <li key={feature} className="flex gap-x-2">
                                             <CheckIcon
                                                 className={classNames(
-                                                    isDarkMode
-                                                        ? "text-deepBlue-200"
-                                                        : "text-deepTeal-600",
+                                                    website.popular
+                                                        ? isDarkMode
+                                                            ? "text-deepBlue-200"
+                                                            : "text-deepTeal-200"
+                                                        : isDarkMode
+                                                            ? "text-deepBlue-600"
+                                                            : "text-deepTeal-500",
                                                     "h-5 w-8 flex-none"
                                                 )}
                                             />

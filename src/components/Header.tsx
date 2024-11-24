@@ -9,34 +9,56 @@ import { website_types } from "../../types/constants";
 import { Button } from "./ui/button";
 
 export default function Header() {
-    const [dropdownOpen, setDropdownOpen] = useState( false );
+    // State and refs for the "Pricing" dropdown
+    const [pricingDropdownOpen, setPricingDropdownOpen] = useState( false );
+    const pricingDropdownRef = useRef<HTMLDivElement>( null );
+    const pricingButtonRef = useRef<HTMLButtonElement>( null );
 
-    // Explicitly define the type of refs
-    const dropdownRef = useRef<HTMLDivElement>( null );
-    const buttonRef = useRef<HTMLButtonElement>( null );
+    // State and refs for the "About" dropdown
+    const [aboutDropdownOpen, setAboutDropdownOpen] = useState( false );
+    const aboutDropdownRef = useRef<HTMLDivElement>( null );
+    const aboutButtonRef = useRef<HTMLButtonElement>( null );
+
     const { theme, setTheme } = useTheme();
 
     // Ensure the component is mounted before accessing theme
     const [mounted, setMounted] = useState( false );
     useEffect( () => setMounted( true ), [] );
 
-    React.useEffect( () => {
-        setMounted( true );
-    }, [] );
+    const isDarkMode = theme === "dark";
 
-    const isDarkMode = theme === 'dark';
+    // Toggle functions for each dropdown
+    const togglePricingDropdown = () => {
+        setPricingDropdownOpen( !pricingDropdownOpen );
+        // Optionally close the other dropdown
+        if ( aboutDropdownOpen ) setAboutDropdownOpen( false );
+    };
 
-    const toggleDropdown = () => setDropdownOpen( !dropdownOpen );
+    const toggleAboutDropdown = () => {
+        setAboutDropdownOpen( !aboutDropdownOpen );
+        // Optionally close the other dropdown
+        if ( pricingDropdownOpen ) setPricingDropdownOpen( false );
+    };
 
     useEffect( () => {
         const handleClickOutside = ( event: MouseEvent ) => {
+            // Close Pricing Dropdown if clicked outside
             if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains( event.target as Node ) &&
-                buttonRef.current &&
-                !buttonRef.current.contains( event.target as Node )
+                pricingDropdownRef.current &&
+                !pricingDropdownRef.current.contains( event.target as Node ) &&
+                pricingButtonRef.current &&
+                !pricingButtonRef.current.contains( event.target as Node )
             ) {
-                setDropdownOpen( false );
+                setPricingDropdownOpen( false );
+            }
+            // Close About Dropdown if clicked outside
+            if (
+                aboutDropdownRef.current &&
+                !aboutDropdownRef.current.contains( event.target as Node ) &&
+                aboutButtonRef.current &&
+                !aboutButtonRef.current.contains( event.target as Node )
+            ) {
+                setAboutDropdownOpen( false );
             }
         };
 
@@ -45,7 +67,7 @@ export default function Header() {
         return () => {
             document.removeEventListener( "click", handleClickOutside );
         };
-    }, [] );
+    }, [pricingDropdownOpen, aboutDropdownOpen] );
 
     return (
         <header className="bg-white dark:bg-softGray-900">
@@ -74,46 +96,36 @@ export default function Header() {
                     >
                         About
                     </Link>
-                    <Link
-                        href="/portfolio"
-                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
-                    >
-                        Portfolio
-                    </Link>
-                    <Link
-                        href="/websites"
-                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
-                    >
-                        Websites
-                    </Link>
 
-                    {/* Solutions Dropdown */}
+                    {/* About Dropdown */}
                     <div className="relative">
                         <button
-                            ref={buttonRef}
-                            onClick={toggleDropdown}
+                            ref={aboutButtonRef}
+                            onClick={toggleAboutDropdown}
                             className="inline-flex items-center gap-x-1 text-sm font-semibold"
                         >
                             <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
-                                About
+                                Website Details
                             </span>
                             <ChevronDown className="h-5 w-5" />
                         </button>
 
-                        {dropdownOpen && (
+                        {aboutDropdownOpen && (
                             <div
-                                ref={dropdownRef}
+                                ref={aboutDropdownRef}
                                 className="absolute left-1/2 z-10 gap-3 mt-5 w-[55rem] -translate-x-3/4 bg-white dark:bg-softGray-900 dark:border-softNeutral-100 border shadow-lg rounded-lg p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:max-w-7xl"
                             >
                                 {website_types.map( ( item, index ) => (
                                     <Link
-                                        href={`/websites/${ encodeUrlSafeBase64( item.name ) }?index=${ encodeUrlSafeBase64( ( index ).toString() ) }`}
+                                        href={`/websites/${ encodeUrlSafeBase64(
+                                            item.name
+                                        ) }?index=${ encodeUrlSafeBase64( index.toString() ) }`}
                                         key={`${ item.name }_${ index }`}
                                         className="font-semibold text-softNeutral-900 text-ellipsis dark:text-softNeutral-300"
-                                        onClick={() => setDropdownOpen( false )} // Close dropdown when a link is clicked
+                                        onClick={() => setAboutDropdownOpen( false )}
                                     >
                                         <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-softNeutral-50 dark:hover:bg-softGray-950 h-full overflow-clip">
-                                            <div className="text-lg text-deepTeal-500 dark:text-deepTeal-400">
+                                            <div className="text-lg text-deepTeal-500 dark:text-deepBlue-400">
                                                 {item.name}
                                                 <p className="mt-1 text-softNeutral-600 text-sm text-pretty dark:text-softNeutral-400">
                                                     {item.description}
@@ -126,12 +138,62 @@ export default function Header() {
                         )}
                     </div>
 
+                    {/* Pricing Dropdown */}
+                    <div className="relative">
+                        <button
+                            ref={pricingButtonRef}
+                            onClick={togglePricingDropdown}
+                            className="inline-flex items-center gap-x-1 text-sm font-semibold"
+                        >
+                            <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
+                                Pricing
+                            </span>
+                            <ChevronDown className="h-5 w-5" />
+                        </button>
+                        {pricingDropdownOpen && (
+                            <div
+                                ref={pricingDropdownRef}
+                                className="absolute left-1/2 z-10 gap-3 mt-5 w-[20rem] -translate-x-1/2 bg-white dark:bg-softGray-900 dark:border-softNeutral-100 border shadow-lg rounded-lg p-2"
+                            >
+                                <Link
+                                    href={`/websites`}
+                                    className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                                    onClick={() => setPricingDropdownOpen( false )}
+                                >
+                                    <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-softNeutral-50 dark:hover:bg-softGray-950 h-full overflow-clip">
+                                        <div className="text-lg text-deepTeal-500 dark:text-deepBlue-400">
+                                            Website Prices
+                                            <p className="mt-1 text-softNeutral-600 text-sm text-pretty dark:text-softNeutral-400">
+                                                Discover transparent pricing for every project size.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link
+                                    href={`/websites/${ encodeUrlSafeBase64( "business" ) }/plans`}
+                                    className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                                    onClick={() => setPricingDropdownOpen( false )}
+                                >
+                                    <div className="group relative flex items-start gap-x-6 rounded-lg p-4 hover:bg-softNeutral-50 dark:hover:bg-softGray-950 h-full overflow-clip">
+                                        <div className="text-lg text-deepTeal-500 dark:text-deepBlue-400">
+                                            Payment Plans
+                                            <p className="mt-1 text-softNeutral-600 text-sm text-pretty dark:text-softNeutral-400">
+                                                Flexible payment options tailored to your needs.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
                     <Link
-                        href={`/websites/${ encodeUrlSafeBase64( "business" ) }/plans`}
+                        href="/portfolio"
                         className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
                     >
-                        Pricing
+                        Portfolio
                     </Link>
+
                     <Link
                         href="/contact"
                         className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"

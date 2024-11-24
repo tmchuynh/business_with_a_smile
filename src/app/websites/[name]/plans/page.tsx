@@ -7,6 +7,7 @@ import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
 import { paymentPlans } from '../../../../../types/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
 
 
 export default function PaymentOptions() {
@@ -52,17 +53,33 @@ export default function PaymentOptions() {
                         )}
                     >
                         <div>
-                            <h3
-                                id={plan.id}
-                                className={classNames(
-                                    plan.popular
-                                        ? "text-softNeutral-200"
-                                        : "text-deepTeal-600 dark:text-deepBlue-600",
-                                    "text-xl font-semibold"
+                            <div className='flex justify-between items-end'>
+                                <h3
+                                    id={plan.id}
+                                    className={classNames(
+                                        plan.popular
+                                            ? "text-softNeutral-200"
+                                            : "text-deepTeal-600 dark:text-deepBlue-600",
+                                        "text-xl font-semibold"
+                                    )}
+                                >
+                                    {plan.name}
+                                </h3>
+                                {mounted && (
+                                    <>
+                                        {plan.popular ? (
+                                            <Badge
+                                                variant={isDarkMode ? "outline" : "ghost"}
+                                                className="mt-5 uppercase self-start"
+                                            >
+                                                Popular
+                                            </Badge>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </>
                                 )}
-                            >
-                                {plan.name}
-                            </h3>
+                            </div>
                             <p className="mt-4 flex items-baseline gap-x-2">
                                 <span
                                     className={classNames(
@@ -87,6 +104,7 @@ export default function PaymentOptions() {
                                             : "payments"}
                                 </span>
                             </p>
+
                             <p
                                 className={classNames(
                                     plan.popular

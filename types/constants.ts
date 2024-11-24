@@ -96,73 +96,73 @@ export const projects = [
     {
         title: "Landing Page",
         description: "A high-converting landing page with clean UI/UX design.",
-        imgUrl: "/path-to-image4.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "Blog Design",
         description:
             "A responsive blog with easy-to-read layout and SEO optimization.",
-        imgUrl: "/path-to-image2.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "E-commerce Website",
         description:
             "An online store with smooth checkout flow and beautiful design.",
-        imgUrl: "/path-to-image1.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
     {
         title: "Corporate Website",
         description:
             "A professional website for a business with all essential features.",
-        imgUrl: "/path-to-image3.jpg",
+        imgUrl: "/images/tech.jpeg",
     },
 ];
 

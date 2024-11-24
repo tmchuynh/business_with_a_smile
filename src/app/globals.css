@@ -137,6 +137,10 @@ body {
 		@apply text-xl font-semibold text-teal-700 dark:text-deepBlue-400;
 	}
 
+	h4 {
+		@apply text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-400 mb-4;
+	}
+
 	h6 {
 		@apply text-base uppercase font-semibold text-teal-600 dark:text-deepBlue-400;
 	}
