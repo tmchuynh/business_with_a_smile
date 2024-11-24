@@ -24,7 +24,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ( {
         <Popover className="relative">
             <PopoverButton className="inline-flex items-center gap-x-1 text-sm font-semibold text-deepTeal-700 hover:text-deepTeal-900 focus:outline-none focus:ring-2 focus:ring-deepTeal-500">
                 <span>{label}</span>
-                <ChevronDownIcon aria-hidden="true" className="w-5 h-5" />
+                <ChevronDownIcon className="w-5 h-5" />
             </PopoverButton>
 
             <PopoverPanel
@@ -40,7 +40,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ( {
                             >
                                 <div className="mt-1 flex w-11 h-11 flex-none items-center justify-center rounded-lg bg-softNeutral-100 group-hover:bg-softNeutral-200">
                                     <item.icon
-                                        aria-hidden="true"
+
                                         className="w-6 h-6 text-deepTeal-600 group-hover:text-deepTeal-800"
                                     />
                                 </div>
@@ -72,7 +72,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ( {
                                     className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-deepTeal-700 hover:bg-deepTeal-100"
                                 >
                                     <item.icon
-                                        aria-hidden="true"
+
                                         className="w-5 h-5 flex-none text-softNeutral-500"
                                     />
                                     {item.name}

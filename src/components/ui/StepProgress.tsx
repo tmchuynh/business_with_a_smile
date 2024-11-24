@@ -29,7 +29,7 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                     completed: (
                         <svg
                             className="w-5 h-5 text-deepTeal-700 dark:text-deepTeal-400"
-                            aria-hidden="true"
+
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 16 12"
@@ -46,7 +46,7 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                     current: (
                         <svg
                             className="w-5 h-5 text-deepTeal-700 dark:text-deepTeal-400"
-                            aria-hidden="true"
+
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 14 10"
@@ -63,7 +63,7 @@ export const StepProgress: React.FC<StepProgressProps> = ( { steps } ) => {
                     upcoming: (
                         <svg
                             className="w-5 h-5 text-softNeutral-500 dark:text-softNeutral-400"
-                            aria-hidden="true"
+
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 16 16"
