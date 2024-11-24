@@ -8,6 +8,7 @@ import { paymentPlans } from '../../../../../types/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { HeaderImage } from '@/components/ui/header-image';
 
 
 export default function PaymentOptions() {
@@ -29,7 +30,8 @@ export default function PaymentOptions() {
     }
 
     return (
-        <div className="relative isolate bg-softNeutral-50 dark:bg-softGray-900 px-6 py-24 sm:py-32 lg:px-8">
+        <div className="relative isolate bg-softNeutral-50 dark:bg-softGray-900 sm:pb-32">
+            <HeaderImage url={'/images/mountain.jpg'} />
             <div className="text-center mb-12">
                 <div className="mx-auto max-w-4xl">
                     <h6>Flexible Payment Options</h6>

@@ -16,7 +16,6 @@ export default function PortfolioSection() {
                     Explore a selection of projects we’ve delivered for our clients, highlighting innovation, creativity, and results.
                 </h2>
             </div>
-
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-11/12 mx-auto">
                 {projects.map( ( project, idx ) => (
                     <div key={idx} className="group relative hover:scale-105 transition-all duration-300 border-2 border-softNeutral-50 rounded-xl shadow-lg overflow-hidden motion-reduce:transition-none">

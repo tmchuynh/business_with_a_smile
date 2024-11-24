@@ -17,6 +17,7 @@ import * as yup from 'yup';
 import { FormData } from "../../../types";
 import { paymentPlans, presets, site_styles, website_types } from "../../../types/constants";
 import { useTheme } from "next-themes";
+import { HeaderImage } from "@/components/ui/header-image";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -177,21 +178,22 @@ export default function ContactForm() {
     }
 
     return (
-        <section className="py-16 px-4 md:px-16 relative mx-auto w-11/12">
+        <section className="pb-16 relative">
+            <HeaderImage url={'/images/mountain.jpg'} />
             <div className="text-center mb-12">
                 <h6>
                     Bring Your Vision to Life
                 </h6>
-                <h1 className="mt-2 text-4xl font-semibold tracking-tight text-softNeutral-900 dark:text-softNeutral-50 sm:text-5xl">
+                <h1>
                     Contact Us
                 </h1>
-                <h2 className="mt-4 text-lg text-softNeutral-600 dark:text-softNeutral-200">
+                <h2>
                     Ready to take the next step? Reach out to us today, and let’s turn
                     your ideas into reality.
                 </h2>
             </div>
 
-            <div className="my-16 mx-auto">
+            <div className="my-16 mx-auto px-4 md:px-16 w-11/12">
                 <form
                     onSubmit={handleSubmit( onSubmit )}
                     className="space-y-12 divide-y"
@@ -202,7 +204,7 @@ export default function ContactForm() {
                             <h3>
                                 Personal Information
                             </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                            <p>
                                 Tell us about yourself and how to reach you.
                             </p>
                         </div>
@@ -363,7 +365,7 @@ export default function ContactForm() {
                             <h3>
                                 Project Details
                             </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                            <p>
                                 Let us know more about your project requirements.
                             </p>
                         </div>
@@ -579,7 +581,7 @@ export default function ContactForm() {
                             <h3>
                                 Additional Information
                             </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                            <p>
                                 Any additional details or files you'd like to share.
                             </p>
                         </div>

@@ -9,6 +9,7 @@ import { classNames, decodeUrlSafeBase64 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { features } from "process";
 import { CheckIcon } from "lucide-react";
+import { HeaderImage } from "@/components/ui/header-image";
 
 export default function WebsiteTypes() {
     const { theme } = useTheme();
@@ -24,7 +25,8 @@ export default function WebsiteTypes() {
     const website = website_types[parseInt( decodeUrlSafeBase64( index! ) )];
 
     return (
-        <div className="py-10 lg:py-52 px-6 mt-16 lg:px-8 h-max">
+        <div className="pb-20 h-max">
+            <HeaderImage url={'/images/mountain.jpg'} />
             <div className="text-center mb-12 max-w-4xl mx-auto">
                 <h6>Flexible Payment Options</h6>
                 <h1>{website.name}</h1>
@@ -43,7 +45,6 @@ export default function WebsiteTypes() {
                         )}
                     </>
                 )}
-
                 <h2>{website.introduction}</h2>
             </div>
             <div className="max-w-6xl mx-auto">

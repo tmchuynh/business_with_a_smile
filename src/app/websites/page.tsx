@@ -9,6 +9,7 @@ import { website_types } from '../../../types/constants';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Badge } from '@/components/ui/badge';
+import { HeaderImage } from '@/components/ui/header-image';
 
 export default function Pricing() {
     const router = useRouter();
@@ -26,12 +27,13 @@ export default function Pricing() {
 
     return (
         <>
-            <div className="relative isolate bg-white dark:bg-softGray-900 px-6 py-28 lg:px-8">
+            <div className="relative isolate bg-white dark:bg-softGray-900">
+                <HeaderImage url={'/images/mountain.jpg'} />
                 <div className="text-center mb-12">
                     <div className="mx-auto max-w-4xl text-center">
                         <h6>Pricing Plans</h6>
                         <h1>Find the Perfect Customizations for Your Needs</h1>
-                        <h2 className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-softNeutral-600 dark:text-softNeutral-50 sm:text-xl">
+                        <h2>
                             Explore affordable pricing options designed to help you engage
                             your audience, build lasting customer loyalty, and boost your
                             sales.
@@ -41,14 +43,14 @@ export default function Pricing() {
 
                 <div className="mx-auto grid items-center max-w-lg grid-cols-1 mt-20 gap-8 lg:max-w-6xl lg:grid-cols-3">
                     <div className="mx-auto max-w-4xl text-center">
-                        <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 dark:text-deepBlue-400 text-4xl">
+                        <h4>
                             Are You a Student?
                         </h4>
-                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-softNeutral-50">
+                        <p className='w-3/4 mx-auto'>
                             Enjoy a 60% discount on your first purchase with our exclusive
                             student discount.
                         </p>
-                        <p className="mt-2 text-lg text-softNeutral-600 dark:text-softNeutral-50">
+                        <p className='w-3/4 mx-auto'>
                             Simply upload a photo of your current student ID card with your
                             project submission.
                         </p>
@@ -166,10 +168,10 @@ export default function Pricing() {
                     ) )}
 
                     <div className="mx-auto max-w-4xl text-center">
-                        <h4 className="mt-2 text-balance font-semibold tracking-tight text-softNeutral-900 dark:text-deepBlue-400 text-4xl">
+                        <h4>
                             Need ongoing maintenance?
                         </h4>
-                        <p className="mt-6 text-lg text-softNeutral-600 dark:text-softNeutral-50">
+                        <p className='w-3/4 mx-auto'>
                             Upgrade with our add-ons for ongoing maintenance and support.
                         </p>
                         <form className="flex items-center gap-3 justify-center mx-auto my-3">

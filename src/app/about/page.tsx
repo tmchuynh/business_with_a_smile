@@ -28,14 +28,25 @@ export default function AboutPage() {
             {/* Values Section with Cards */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto">
-                    <h4 className="mb-6">Our Values</h4>
+                    <div className="text-center mb-12">
+                        <h6>
+                            Guiding Principles That Define Us
+                        </h6>
+                        <h1>
+                            Our Values
+                        </h1>
+                        <h2>
+                            Our core values drive everything we do, shaping the way we work and the solutions we create. Let’s build something meaningful together.
+                        </h2>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                         <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                             <div className="mb-4">
                                 <Lightbulb className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Innovation</h6>
+                            <h6>Innovation</h6>
                             <p>
                                 Innovation is at the heart of everything we do. We thrive on exploring new ideas, embracing change, and finding creative solutions to challenges. Our commitment to innovation drives us to deliver exceptional value and stay ahead in an ever-evolving digital landscape.
                             </p>
@@ -45,7 +56,7 @@ export default function AboutPage() {
                             <div className="mb-4">
                                 <ShieldCheck className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Integrity</h6>
+                            <h6>Integrity</h6>
                             <p>
                                 Integrity is the foundation of our work. With honesty and transparency at our core, we foster trust and build lasting relationships with our clients. Every decision we make reflects our unwavering commitment to doing what’s right, ensuring your success is always our priority.
                             </p>
@@ -55,7 +66,7 @@ export default function AboutPage() {
                             <div className="mb-4">
                                 <Star className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Excellence</h6>
+                            <h6>Excellence</h6>
                             <p>
                                 Excellence is our standard, not an option. We are dedicated to delivering high-quality solutions that not only meet but consistently exceed expectations. With an unwavering focus on precision, innovation, and client satisfaction, we strive to set the benchmark in everything we do.
                             </p>
@@ -65,7 +76,7 @@ export default function AboutPage() {
                             <div className="mb-4">
                                 <Users className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Customer Focus</h6>
+                            <h6>Customer Focus</h6>
                             <p>
                                 Our customers are the center of everything we do. By deeply understanding your needs, goals, and challenges, we deliver tailored solutions that drive exceptional value and lasting satisfaction. Your success is our success.
                             </p>
@@ -75,7 +86,7 @@ export default function AboutPage() {
                             <div className="mb-4">
                                 <PenTool className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Creativity</h6>
+                            <h6>Creativity</h6>
                             <p>
                                 Creativity fuels our approach to every project. We thrive on crafting fresh ideas, innovative designs, and unique solutions that stand out. For us, creativity isn’t just a process—it’s a mindset that shapes every decision.
                             </p>
@@ -85,7 +96,7 @@ export default function AboutPage() {
                             <div className="mb-4">
                                 <Eye className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
                             </div>
-                            <h6 className="text-lg font-semibold">Vision</h6>
+                            <h6>Vision</h6>
                             <p>
                                 We are committed to looking beyond the immediate needs of today, helping you prepare for the opportunities and challenges of tomorrow. With a clear vision of success, we design solutions that evolve with your business and the ever-changing digital world.
                             </p>
@@ -97,12 +108,18 @@ export default function AboutPage() {
             {/* Call to Action */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto text-center">
-                    <h4>
-                        Ready to Start Your Project?
-                    </h4>
-                    <p className="text-lg leading-relaxed mb-8">
-                        Let's work together to bring your vision to life. Get in touch with us today!
-                    </p>
+                    <div className="text-center mb-12">
+                        <h6>
+                            Crafting Stories That Matter
+                        </h6>
+                        <h1>
+                            Ready to Start Your Project?
+                        </h1>
+                        <h2>
+                            Together, we can transform your ideas into something extraordinary. Reach out to us today and let’s make it happen!
+                        </h2>
+                    </div>
+
                     {mounted && (
                         <Button
                             className="w-1/4 mx-auto"
@@ -117,11 +134,20 @@ export default function AboutPage() {
 
             {/* Hero Section */}
             <section className="py-16 px-6">
+                <div className="text-center mb-12">
+                    <h6>
+                        Crafting Stories That Matter
+                    </h6>
+                    <h1>
+                        About Us
+                    </h1>
+                    <h2>
+                        At our core, we’re passionate about transforming ideas into impactful realities. Let’s collaborate and create something extraordinary together.
+                    </h2>
+                </div>
+
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
                     <div className="w-1/2 mr-9 text-balance">
-                        <h4>
-                            About Us
-                        </h4>
                         <p>
                             At [Your Company Name], we’re more than just web developers – we’re partners in your digital journey. Passionate about crafting exceptional websites, we focus on helping businesses thrive and grow in today’s ever-evolving digital world.
                         </p>
@@ -153,9 +179,18 @@ export default function AboutPage() {
             {/* Team Section */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto">
-                    <h4>
-                        Meet the Team
-                    </h4>
+                    <div className="text-center mb-12">
+                        <h6>
+                            The People Behind the Vision
+                        </h6>
+                        <h1>
+                            Meet The Team
+                        </h1>
+                        <h2>
+                            Our dedicated team is here to bring your ideas to life. Together, we’ll collaborate to create solutions that inspire, engage, and deliver results.
+                        </h2>
+                    </div>
+
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Team Member 1 */}
                         <div className="flex flex-col items-center text-center">
@@ -200,7 +235,18 @@ export default function AboutPage() {
             {/* Mission */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto text-pretty">
-                    <h4>Our Mission</h4>
+                    <div className="text-center mb-12">
+                        <h6>
+                            Turning Ideas Into Impact
+                        </h6>
+                        <h1>
+                            Our Mission
+                        </h1>
+                        <h2>
+                            Let’s take your vision to the next level. Together, we’ll create solutions that bring your ideas to life and drive meaningful results.
+                        </h2>
+                    </div>
+
                     <p>
                         At our core, our mission is to empower businesses to reach new heights. We strive to craft websites that go beyond aesthetics—websites that captivate, inspire, and deliver real impact. Our goal is to create digital experiences that not only showcase your brand's unique essence but also drive growth, amplify visibility, and transform your vision into measurable success.
                     </p>
@@ -214,7 +260,17 @@ export default function AboutPage() {
             {/* Background Story */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto text-pretty">
-                    <h4>Our Story</h4>
+                    <div className="text-center mb-12">
+                        <h6>
+                            Every Great Story Starts with a Vision
+                        </h6>
+                        <h1>
+                            Our Story
+                        </h1>
+                        <h2>
+                            Let us help you bring your vision to life. Together, we’ll turn your ideas into a compelling story that drives success and inspires action.
+                        </h2>
+                    </div>
                     <p>
                         Established in 2010, we started as a small startup with a bold mission: to empower businesses by delivering cutting-edge web solutions. Armed with big dreams and a passion for innovation, we embarked on a journey to transform how businesses establish and grow their online presence.
                     </p>

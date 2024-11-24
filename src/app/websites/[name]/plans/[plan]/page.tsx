@@ -65,9 +65,9 @@ export default function PaymentDetails() {
             <div className="max-w-3xl mx-auto">
                 {/* In-depth Details */}
                 <div className="mb-12">
-                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
+                    <h4>
                         How It Works
-                    </h2>
+                    </h4>
                     <ul className="space-y-1">
                         {plan.details.map( ( detail, index ) => (
                             <li
@@ -90,9 +90,9 @@ export default function PaymentDetails() {
 
                 {/* Features */}
                 <div className="mb-12">
-                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500">
+                    <h4>
                         Features
-                    </h2>
+                    </h4>
                     <ul className="space-y-1">
                         {plan.features.map( ( feature, index ) => (
                             <li
@@ -115,9 +115,9 @@ export default function PaymentDetails() {
 
                 {/* Payment Timeline */}
                 <div className="mb-12">
-                    <h2 className="text-3xl font-bold text-deepTeal-600 dark:text-deepBlue-500 -mb-6">
+                    <h4 className="-mb-7">
                         Payment Schedule
-                    </h2>
+                    </h4>
                     <Timeline items={plan.paymentSchedule} />
                 </div>
 
