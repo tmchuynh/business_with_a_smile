@@ -1,6 +1,20 @@
+"use client";
+
+import { classNames } from '@/lib/utils';
 import { CheckIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
 export default function HeaderSection() {
+    const { theme } = useTheme();
+    const [mounted, setMounted] = useState( false );
+    useEffect( () => {
+        setMounted( true );
+    }, [] );
+
+    const isDarkMode = theme === 'dark';
+
+
     return (
         <div className="overflow-hidden bg-white dark:bg-softGray-900 py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -17,7 +31,14 @@ export default function HeaderSection() {
                             <dl className="mt-10 max-w-xl space-y-8 text-softNeutral-600 dark:text-softNeutral-50 lg:max-w-none">
                                 <div className="relative pl-9">
                                     <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
+                                        <CheckIcon
+                                            className={classNames(
+                                                isDarkMode
+                                                    ? "text-deepBlue-200"
+                                                    : "text-deepTeal-600",
+                                                "h-5 w-8 inline-block absolute -left-0"
+                                            )}
+                                        />
                                         Brand Identity
                                     </dt>
                                     <dd className="inline pl-2">
@@ -26,7 +47,14 @@ export default function HeaderSection() {
                                 </div>
                                 <div className="relative pl-9">
                                     <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
+                                        <CheckIcon
+                                            className={classNames(
+                                                isDarkMode
+                                                    ? "text-deepBlue-200"
+                                                    : "text-deepTeal-600",
+                                                "h-5 w-8 inline-block absolute -left-0"
+                                            )}
+                                        />
                                         Enhanced User Experience
                                     </dt>
                                     <dd className="inline pl-2">
@@ -35,7 +63,14 @@ export default function HeaderSection() {
                                 </div>
                                 <div className="relative pl-9">
                                     <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
+                                        <CheckIcon
+                                            className={classNames(
+                                                isDarkMode
+                                                    ? "text-deepBlue-200"
+                                                    : "text-deepTeal-600",
+                                                "h-5 w-8 inline-block absolute -left-0"
+                                            )}
+                                        />
                                         Increased Conversions
                                     </dt>
                                     <dd className="inline pl-2">
@@ -44,7 +79,14 @@ export default function HeaderSection() {
                                 </div>
                                 <div className="relative pl-9">
                                     <dt className="inline font-semibold dark:text-deepBlue-400 dark:font-bold text-teal-700">
-                                        <CheckIcon className="absolute left-1 top-1 h-5 w-5 text-teal-600" />
+                                        <CheckIcon
+                                            className={classNames(
+                                                isDarkMode
+                                                    ? "text-deepBlue-200"
+                                                    : "text-deepTeal-600",
+                                                "h-5 w-8 inline-block absolute -left-0"
+                                            )}
+                                        />
                                         SEO-Optimized Design
                                     </dt>
                                     <dd className="inline pl-2">

@@ -5,49 +5,49 @@ const reasons = [
         title: 'Showcase Your Unique Brand Identity',
         description:
             'A personalized website ensures that your unique voice, colors, and style are woven into every page, creating a distinct impression that sets you apart from competitors.',
-        icon: <CheckIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <CheckIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Highlight Your Strengths',
         description:
             'Your business has unique strengths—whether it’s unparalleled customer service, innovative products, or expertise. A customized website focuses on what makes you exceptional and communicates that to your audience.',
-        icon: <LockIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <LockIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Reflect Your Personality',
         description:
             'Your website is an extension of you. From its tone and layout to visuals and messaging, a tailored site brings your personality to life, creating deeper connections with your audience.',
-        icon: <ShieldIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <ShieldIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Connect with Your Audience',
         description:
             'People connect with authenticity. A personalized website creates a relatable, authentic experience that builds trust and engagement with your visitors.',
-        icon: <CloudIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <CloudIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Drive Engagement Through Purposeful Design',
         description:
             'A custom site is designed with your goals in mind. Strategic calls-to-action, intuitive navigation, and targeted content ensure your visitors stay engaged and take meaningful actions.',
-        icon: <DatabaseIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <DatabaseIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Build a Lasting Impression',
         description:
             'A personalized, polished website reflects professionalism and credibility, ensuring visitors remember your business for all the right reasons.',
-        icon: <ServerIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <ServerIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Support Your Business Goals',
         description:
             'Every aspect of your website can be honed to match your objectives, whether it’s driving sales, generating leads, or showcasing your expertise.',
-        icon: <WifiIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <WifiIcon className="h-7 w-7 text-white" />,
     },
     {
         title: 'Adapt to Your Unique Needs',
         description:
             'From custom integrations to tailored features, a personalized website adapts to your specific business model, helping you work smarter, not harder.',
-        icon: <CloudIcon className="h-7 w-7 text-white dark:text-softNeutral-900" />,
+        icon: <CloudIcon className="h-7 w-7 text-white" />,
     },
 ];
 
