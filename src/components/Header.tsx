@@ -97,7 +97,7 @@ export default function Header() {
                             <span className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400">
                                 About
                             </span>
-                            <ChevronDown aria-hidden="true" className="h-5 w-5" />
+                            <ChevronDown className="h-5 w-5" />
                         </button>
 
                         {dropdownOpen && (
