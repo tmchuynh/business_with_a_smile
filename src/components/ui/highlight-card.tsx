@@ -41,7 +41,7 @@ const HighlightedCard: React.FC<HighlightedCardProps> = ( {
             )}
             <div className="profile__info text-center mt-6 px-6">
                 <h3>{title}</h3>
-                <p className='w-8/12 mx-auto'>{description}</p>
+                <p className='w-11/12 mx-auto'>{description}</p>
             </div>
             {stats ? (
                 <div className="profile__stats mt-6 flex justify-around align-top gap-4 px-6">
