@@ -43,27 +43,28 @@ const HighlightedCard: React.FC<HighlightedCardProps> = ( {
                 <h3>{title}</h3>
                 <p className='w-8/12 mx-auto'>{description}</p>
             </div>
-            <div className="profile__stats mt-6 flex justify-around align-top gap-4 px-6">
-                {stats ? (
-                    stats.map( ( stat, index ) => (
+            {stats ? (
+                <div className="profile__stats mt-6 flex justify-around align-top gap-4 px-6">
+                    {stats.map( ( stat, index ) => (
                         <div key={index} className="profile__stats__item text-center">
                             <h6>{stat.label}</h6>
                             <h5>{stat.value}</h5>
                         </div>
-                    ) )
-                ) : null}
-            </div>
-            <div className="profile__cta mt-6 px-6">
-                {mounted && (
-                    <Button
-                        onClick={onActionClick}
-                        className="w-1/4 mx-auto"
-                        variant={isDarkMode ? "secondary" : "outline"}
-                    >
-                        {actionText}
-                    </Button>
-                )}
-            </div>
+                    ) )}
+                </div> ) : ''}
+            {actionText ? (
+                <div className="profile__cta mt-6 px-6">
+                    {mounted && (
+                        <Button
+                            onClick={onActionClick}
+                            className="w-1/4 mx-auto"
+                            variant={isDarkMode ? "secondary" : "outline"}
+                        >
+                            {actionText}
+                        </Button>
+                    )}
+                </div>
+            ) : ''}
         </div>
     );
 };
