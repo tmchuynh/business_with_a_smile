@@ -26,7 +26,7 @@ export interface FormData {
     preset?: string;
 
     message?: string;
-    dueDate: string;
+    dueDate: Date;
     phone: string;
     communicationMethod: string;
     attachments?: File[];
@@ -36,17 +36,73 @@ export interface FormData {
 export interface PaymentPlan {
     name: string;
     id: string;
-    price: string;
+    price: number | string;
     description: string;
     features: string[];
     benefits: string[];
     details: string[];
+    discounts: number;
+    fee: number;
+    firstPayment: number;
     popular: boolean;
     paymentSchedule: PaymentScheduleItem[];
+}
+
+export interface Prices {
+    website: Object;
+    payment: Object;
+    date: Object;
+    style?: Object;
+    firstPayment: Object;
+    total: Object;
 }
 
 export interface PaymentScheduleItem {
     title: string;
     date: string;
     description: string;
+}
+
+export interface Preset {
+    value: string;
+    description: string;
+}
+
+export interface Styles {
+    name: string;
+    description: string;
+}
+
+export interface Stats {
+    id: number;
+    name: string;
+    value: number;
+    suffix?: string;
+    prefix?: string;
+}
+
+export interface Project {
+    title: string;
+    description: string;
+    imgUrl: string;
+}
+
+export interface Testimonial {
+    name: string;
+    text: string;
+    company?: string;
+    rating: number;
+}
+
+export interface Website {
+    name: string;
+    id: string;
+    introduction: string;
+    description: string;
+    startingPrice: number;
+    ideal_payment_plan: string;
+    popular: boolean;
+    who: string[];
+    occasions: string[];
+    other_info: Object;
 }

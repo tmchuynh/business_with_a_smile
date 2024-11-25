@@ -21,7 +21,6 @@ export default function PaymentDetails() {
 
     const isDarkMode = theme === 'dark';
     const planName = useParams().plan!.toString();
-    console.log( planName );
     const name = decodeUrlSafeBase64( planName );
 
     const plan = paymentPlans.find( ( p ) => p.name === name );

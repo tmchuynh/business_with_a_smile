@@ -43,7 +43,7 @@ export default function PaymentOptions() {
                     </h2>
                 </div>
             </div>
-            <div className="mx-auto m-7 grid h-screen max-w-lg grid-cols-1 gap-y-6 sm:grid-cols-2 gap-x-8 lg:max-w-7xl">
+            <div className="mx-auto m-7 grid min-h-screen max-w-lg grid-cols-1 gap-y-6 lg:grid-cols-2 gap-x-8 lg:max-w-7xl">
                 {paymentPlans.map( ( plan, index ) => (
                     <div
                         key={`${ plan.id }_${ index }`}

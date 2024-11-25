@@ -1,6 +1,6 @@
-import { PaymentPlan } from ".";
+import { PaymentPlan, Preset, Project, Stats, Styles, Testimonial, Website } from ".";
 
-export const site_styles = [
+export const site_styles: Styles[] = [
     {
         name: "Luxury & Premium",
         description: "Sophisticated designs for high-end brands.",
@@ -55,7 +55,7 @@ export const site_styles = [
     },
 ];
 
-export const presets = [
+export const presets: Preset[] = [
     {
         value: "60 days",
         description: "2 months",
@@ -78,7 +78,7 @@ export const presets = [
     },
 ];
 
-export const stats = [
+export const stats: Stats[] = [
     { id: 16, name: "Maintenance contracts", value: 6, suffix: "contracts" },
     {
         id: 1,
@@ -92,7 +92,7 @@ export const stats = [
     { id: 2, name: "Clients served", value: 25, suffix: "clients" },
 ];
 
-export const projects = [
+export const projects: Project[] = [
     {
         title: "Landing Page",
         description: "A high-converting landing page with clean UI/UX design.",
@@ -166,7 +166,7 @@ export const projects = [
     },
 ];
 
-export const testimonials = [
+export const testimonials: Testimonial[] = [
     {
         name: "Grace V.",
         text: "Tina exceeded our expectations. Her process was collaborative, and she truly understood our needs. The new website is intuitive, stylish, and performs beautifully on all devices. I would highly recommend her for any web development project.",
@@ -251,7 +251,7 @@ export const testimonials = [
     },
 ];
 
-export const website_types = [
+export const website_types: Website[] = [
     {
         name: "Personal Website",
         id: "personal",
@@ -259,7 +259,7 @@ export const website_types = [
         introduction:
             "A personal website is your digital calling card, reflecting your professional journey, skills, and personal interests. It's an excellent way to build your personal brand, share your portfolio, and connect with like-minded individuals or potential employers. By presenting yourself authentically online, you can open doors to new opportunities and collaborations.",
         ideal_payment_plan: "Deferred Payment Plan",
-        startingPrice: "$1,000",
+        startingPrice: 1000,
         popular: false,
         who: [
             "Job seekers and professionals",
@@ -306,7 +306,7 @@ export const website_types = [
         introduction:
             "A content website serves as a platform for individuals or organizations to regularly publish content on topics they are passionate about. It allows you to share insights, stories, articles, and updates, fostering engagement with your audience. By consistently providing valuable content, you can build a loyal readership and establish authority in your niche.",
         ideal_payment_plan: "Subscription Plan",
-        startingPrice: "$1,200",
+        startingPrice: 1200,
         popular: true,
         who: [
             "Writers and authors",
@@ -354,7 +354,7 @@ export const website_types = [
         introduction:
             "An event website serves as the central hub for all information related to your upcoming event. It enables you to showcase event details, speaker bios, schedules, and venue information. Attendees can register, purchase tickets, and stay updated, enhancing their overall experience and engagement with your event.",
         ideal_payment_plan: "Three Milestone Plan",
-        startingPrice: "$1,200",
+        startingPrice: 1200,
         popular: false,
         who: [
             "Event planners and coordinators",
@@ -400,7 +400,7 @@ export const website_types = [
         introduction:
             "An informational website provides comprehensive content on specific topics, serving as a resource for visitors seeking knowledge or solutions. It can include articles, tutorials, FAQs, and guides. Organizations use informational websites to educate their audience, establish credibility, and become authoritative voices in their industry.",
         ideal_payment_plan: "Monthly Payment Plan",
-        startingPrice: "$1,300",
+        startingPrice: 1300,
         popular: false,
         who: [
             "Educational institutions",
@@ -447,7 +447,7 @@ export const website_types = [
         introduction:
             "A portfolio website is designed to showcase your best work in a visually appealing and organized manner. Ideal for creatives like designers, artists, and photographers, it allows you to present projects, case studies, and testimonials. This type of website helps you attract clients or job offers by demonstrating your expertise and unique style.",
         ideal_payment_plan: "50/50 Split",
-        startingPrice: "$1,500",
+        startingPrice: 1500,
         popular: true,
         who: [
             "Graphic and web designers",
@@ -495,7 +495,7 @@ export const website_types = [
         introduction:
             "A non-profit organization website communicates your mission, values, and impact to the public. It provides a platform to share stories, campaigns, and upcoming events. By facilitating donations and volunteer sign-ups, it helps you mobilize support and amplify your cause.",
         ideal_payment_plan: "Deferred Payment Plan",
-        startingPrice: "$2,000",
+        startingPrice: 2000,
         popular: false,
         who: [
             "Charitable organizations",
@@ -542,7 +542,7 @@ export const website_types = [
         introduction:
             "A professional business website serves as the digital storefront for your company, highlighting your products, services, and brand story. It builds credibility with potential customers and partners by providing essential information and demonstrating professionalism. An effective business website can enhance your marketing efforts and drive growth.",
         ideal_payment_plan: "Upfront Advantage Plan",
-        startingPrice: "$2,500",
+        startingPrice: 2500,
         popular: true,
         who: [
             "Small to large businesses",
@@ -589,7 +589,7 @@ export const website_types = [
         introduction:
             "A membership website restricts access to certain content or features to registered members. It enables you to offer premium content, courses, or communities to subscribers. By providing value through exclusivity, you can foster a dedicated user base and generate recurring revenue.",
         ideal_payment_plan: "Subscription Plan",
-        startingPrice: "$3,000",
+        startingPrice: 3000,
         popular: false,
         who: [
             "Content creators offering premium material",
@@ -636,7 +636,7 @@ export const website_types = [
         introduction:
             "An e-commerce website enables businesses to sell products or services directly to consumers over the internet. It includes features like product catalogs, shopping carts, and secure payment gateways. By offering a seamless online shopping experience, you can reach a global audience and increase sales around the clock.",
         ideal_payment_plan: "Monthly Payment Plan",
-        startingPrice: "$4,000",
+        startingPrice: 4000,
         popular: false,
         who: [
             "Retail businesses",
@@ -682,7 +682,7 @@ export const website_types = [
         introduction:
             "A custom website is a fully bespoke online presence built from the ground up to align with your specific goals and brand identity. It offers complete flexibility in design, functionality, and user experience. By addressing your unique requirements, a custom website can provide a competitive advantage and effectively support your business objectives.",
         ideal_payment_plan: "Pay-As-You-Go Plan",
-        startingPrice: "$5,000+",
+        startingPrice: 5500,
         popular: true,
         who: [
             "Businesses with unique requirements",
@@ -726,7 +726,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Upfront Advantage Plan",
         id: "upfront-advantage",
-        price: "1",
+        price: 1,
         description:
             "Maximize savings and priority service with full upfront payment.",
         features: [
@@ -746,6 +746,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Ideal for clients ready to invest upfront for maximum savings.",
         ],
         popular: true,
+        discounts: 10,
+        fee: 0,
+        firstPayment: 100,
         paymentSchedule: [
             {
                 title: "Full Payment",
@@ -757,7 +760,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "50/50 Split",
         id: "fifty-fifty",
-        price: "2",
+        price: 2,
         description: "Split your project cost into two easy payments.",
         features: [
             "50% upfront to begin the project.",
@@ -774,6 +777,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Balance due upon completion ensures quality and satisfaction.",
         ],
         popular: false,
+        discounts: 0,
+        fee: 0,
+        firstPayment: 50,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
@@ -790,7 +796,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Three Milestone Plan",
         id: "three-milestones",
-        price: "3",
+        price: 3,
         description: "Align payments with project milestones for better control.",
         features: [
             "25% upfront, 25% midway, 50% before launch.",
@@ -807,6 +813,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Ensures you stay informed and engaged throughout the process.",
         ],
         popular: false,
+        discounts: 0,
+        fee: 0,
+        firstPayment: 25,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
@@ -828,7 +837,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Monthly Payment Plan",
         id: "monthly-plan",
-        price: "6",
+        price: 6,
         description: "Ease your cash flow with equal monthly payments.",
         features: [
             "Spread costs over 6 months with a 20% upfront deposit.",
@@ -846,6 +855,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Includes an administrative fee for extended payment schedules.",
         ],
         popular: false,
+        discounts: 0,
+        fee: 0,
+        firstPayment: 20,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
@@ -880,6 +892,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Allows you to adjust the project at every stage.",
         ],
         popular: false,
+        discounts: 0,
+        fee: 250,
+        firstPayment: 30,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
@@ -915,6 +930,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Perfect for businesses seeking a long-term partnership.",
         ],
         popular: true,
+        discounts: 0,
+        fee: 0,
+        firstPayment: 40,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
@@ -949,6 +967,9 @@ export const paymentPlans: PaymentPlan[] = [
             "Allows you to start the project with minimal upfront costs.",
         ],
         popular: false,
+        discounts: 0,
+        fee: 150,
+        firstPayment: 15,
         paymentSchedule: [
             {
                 title: "Initial Deposit",
