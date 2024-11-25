@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Eye, Lightbulb, PenTool, ShieldCheck, Star, Users } from "lucide-react";
 import { HeaderImage } from "@/components/ui/header-image";
+import HighlightedCard from "@/components/ui/highlight-card";
 
 export default function AboutPage() {
     const { theme } = useTheme();
@@ -25,6 +26,7 @@ export default function AboutPage() {
     return (
         <div className="text-softNeutral-800 dark:text-softNeutral-200">
             <HeaderImage url={'/images/mountain.jpg'} />
+
             {/* Values Section with Cards */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto">
@@ -41,66 +43,41 @@ export default function AboutPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <HighlightedCard
+                            Icon={Lightbulb}
+                            title="Innovation"
+                            description="Innovation is at the heart of everything we do. We thrive on exploring new ideas, embracing change, and finding creative solutions to challenges. Our commitment to innovation drives us to deliver exceptional value and stay ahead in an ever-evolving digital landscape."
+                        />
 
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <Lightbulb className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Innovation</h6>
-                            <p>
-                                Innovation is at the heart of everything we do. We thrive on exploring new ideas, embracing change, and finding creative solutions to challenges. Our commitment to innovation drives us to deliver exceptional value and stay ahead in an ever-evolving digital landscape.
-                            </p>
-                        </div>
+                        <HighlightedCard
+                            Icon={ShieldCheck}
+                            title="Integrity"
+                            description="Integrity is the foundation of our work. With honesty and transparency at our core, we foster trust and build lasting relationships with our clients. Every decision we make reflects our unwavering commitment to doing what’s right, ensuring your success is always our priority."
+                        />
 
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <ShieldCheck className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Integrity</h6>
-                            <p>
-                                Integrity is the foundation of our work. With honesty and transparency at our core, we foster trust and build lasting relationships with our clients. Every decision we make reflects our unwavering commitment to doing what’s right, ensuring your success is always our priority.
-                            </p>
-                        </div>
+                        <HighlightedCard
+                            Icon={Star}
+                            title="Excellence"
+                            description="Excellence is our standard, not an option. We are dedicated to delivering high-quality solutions that not only meet but consistently exceed expectations. With an unwavering focus on precision, innovation, and client satisfaction, we strive to set the benchmark in everything we do."
+                        />
 
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <Star className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Excellence</h6>
-                            <p>
-                                Excellence is our standard, not an option. We are dedicated to delivering high-quality solutions that not only meet but consistently exceed expectations. With an unwavering focus on precision, innovation, and client satisfaction, we strive to set the benchmark in everything we do.
-                            </p>
-                        </div>
+                        <HighlightedCard
+                            Icon={Users}
+                            title="Customer Focus"
+                            description="Our customers are the center of everything we do. By deeply understanding your needs, goals, and challenges, we deliver tailored solutions that drive exceptional value and lasting satisfaction. Your success is our success."
+                        />
 
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <Users className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Customer Focus</h6>
-                            <p>
-                                Our customers are the center of everything we do. By deeply understanding your needs, goals, and challenges, we deliver tailored solutions that drive exceptional value and lasting satisfaction. Your success is our success.
-                            </p>
-                        </div>
+                        <HighlightedCard
+                            Icon={PenTool}
+                            title="Creativity"
+                            description="Creativity fuels our approach to every project. We thrive on crafting fresh ideas, innovative designs, and unique solutions that stand out. For us, creativity isn’t just a process—it’s a mindset that shapes every decision."
+                        />
 
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <PenTool className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Creativity</h6>
-                            <p>
-                                Creativity fuels our approach to every project. We thrive on crafting fresh ideas, innovative designs, and unique solutions that stand out. For us, creativity isn’t just a process—it’s a mindset that shapes every decision.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col items-center text-center bg-white border-2 border-softNeutral-50 dark:bg-softGray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="mb-4">
-                                <Eye className="h-10 w-10 text-deepTeal-200 dark:text-deepBlue-300" />
-                            </div>
-                            <h6>Vision</h6>
-                            <p>
-                                We are committed to looking beyond the immediate needs of today, helping you prepare for the opportunities and challenges of tomorrow. With a clear vision of success, we design solutions that evolve with your business and the ever-changing digital world.
-                            </p>
-                        </div>
+                        <HighlightedCard
+                            Icon={Eye}
+                            title="Vision"
+                            description="We are committed to looking beyond the immediate needs of today, helping you prepare for the opportunities and challenges of tomorrow. With a clear vision of success, we design solutions that evolve with your business and the ever-changing digital world."
+                        />
                     </div>
                 </div>
             </section>
