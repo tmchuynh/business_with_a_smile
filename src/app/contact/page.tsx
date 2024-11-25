@@ -20,6 +20,7 @@ import { useTheme } from "next-themes";
 import { HeaderImage } from "@/components/ui/header-image";
 import { useEffect, useRef, useState } from "react";
 import { PricingDetails } from "@/components/Price-Details";
+import { log } from "console";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -71,7 +72,7 @@ export default function ContactForm() {
     const [prices, setPrices] = useState<Prices>( {
         website: { name: '', price: 0 },
         payment: { name: '', percentage: 0, fee: 0, discount: 0 },
-        date: {},
+        date: { months: '', days: 0 },
         style: { name: '' },
         firstPayment: {},
         total: { amount: 0 },
@@ -99,8 +100,14 @@ export default function ContactForm() {
             const days = calculateDateDifference( new Date, selectedDate );
             const months = ( days / 30 ).toFixed( 2 );
             prices.date = { [`${ months } months`]: days };
-            console.log( prices );
             setValue( "dueDate", selectedDate );
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                date: {
+                    months: `${ months } months`,
+                    days: days
+                }
+            } ) );
             setOpenPopover( false );
         }
     };
@@ -151,22 +158,27 @@ export default function ContactForm() {
 
     const updateTotal = () => {
         const percentage = prices.payment.percentage / 100;
-        const firstPayment = prices.website.price * percentage;
-        prices.firstPayment = { ["amount"]: firstPayment };
-
-
         const discount = prices.payment.discount || 0;
         const percent = discount / 100;
         const start = prices.website.price;
         if ( discount > 0 ) {
             const discountedAmount = start - ( start * percent );
-            prices.total = { ["amount"]: discountedAmount };
-
             const firstPayment = discountedAmount * percentage;
-            prices.firstPayment = { ["amount"]: firstPayment };
+
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                total: discountedAmount,
+                firstPayment: { amount: firstPayment },
+            } ) );
         }
         else {
             const totalAmount = prices.payment.fee + start;
+            const firstPayment = prices.website.price * percentage;
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                total: totalAmount,
+                firstPayment: { amount: firstPayment },
+            } ) );
             prices.total = { ["amount"]: totalAmount };
         }
     };
@@ -174,18 +186,24 @@ export default function ContactForm() {
     const findPaymentPlan = ( plan: string ): PaymentPlan => {
         const paymentIndex = paymentPlans.findIndex( p => p.name === plan );
         const payment = paymentPlans[paymentIndex];
-        prices.payment = { ["name"]: payment.name, ["percentage"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
         prices.total = prices.website.price + payment.fee;
         updateTotal();
-        console.log( prices );
         return paymentPlans[paymentIndex];
     };
 
     const findWebsite = ( website: string ): Website => {
         const websiteIndex = website_types.findIndex( site => site.name === website );
         const site = website_types[websiteIndex];
-        prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
-        prices.total = site.startingPrice;
+
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            website: {
+                name: site.name,
+                price: site.startingPrice
+            },
+            total: site.startingPrice,
+        } ) );
+
         updateTotal();
         console.log( prices );
         return website_types[websiteIndex];
@@ -232,15 +250,25 @@ export default function ContactForm() {
     const findStyle = ( style: string ): Styles => {
         const styleIndex = site_styles.findIndex( styles => styles.name === style );
         const styles = site_styles[styleIndex];
-        prices.style = { ["name"]: styles.name };
-        console.log( prices );
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            style: {
+                name: styles.name,
+            }
+        } ) );
         return site_styles[styleIndex];
     };
 
     const findPreset = ( preset: string ): Preset => {
         const presetIndex = presets.findIndex( p => p.description === preset );
         const months = presets[presetIndex];
-        prices.date = { [months.description]: parseInt( removeLetters( months.value ) ) };
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            date: {
+                months: [months.description],
+                days: parseInt( removeLetters( months.value ) )
+            }
+        } ) );
         console.log( prices );
         return presets[presetIndex];
     };
@@ -248,8 +276,6 @@ export default function ContactForm() {
     function removeLetters( value: string ) {
         return value.replace( /[^0-9]/g, "" );
     }
-
-
 
     return (
         <section className="pb-16 relative">
