@@ -35,8 +35,8 @@ const HighlightedCard: React.FC<HighlightedCardProps> = ( {
     return (
         <div className="relative border-2 border-neutral-100 shadow-lg rounded-lg mt-16 mx-7 pt-10 pb-4 transition-all duration-200 ease-in-out hover:shadow-xl">
             {Icon && (
-                <div className="flex justify-center items-center bg-white -mt-20 mx-auto w-24 h-24 rounded-full border-4 border-deepTeal-400 dark:border-deepBlue-400 shadow-lg">
-                    <Icon className="h-10 w-10 text-deepTeal-500 dark:text-teal-40" />
+                <div className="flex justify-center items-center bg-white dark:bg-softGray-900 -mt-20 mx-auto w-24 h-24 rounded-full border-4 border-deepTeal-400 dark:border-deepBlue-500 shadow-lg">
+                    <Icon className="h-10 w-10 text-deepTeal-800 dark:text-deepBlue-200" />
                 </div>
             )}
             <div className="profile__info text-center mt-6 px-6">
