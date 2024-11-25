@@ -1,6 +1,5 @@
 "use client";
 import { useTheme } from 'next-themes';
-import { useRouter } from 'next/navigation';
 import React, { ForwardRefExoticComponent, RefAttributes, useEffect, useState } from 'react';
 import { Button } from './button';
 import { LucideProps } from 'lucide-react';
@@ -11,7 +10,7 @@ interface HighlightedCardProps {
     actionText?: string;
     Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
     onActionClick?: () => void;
-    stats: {
+    stats?: {
         label: string;
         value: string;
     }[];
@@ -26,7 +25,6 @@ const HighlightedCard: React.FC<HighlightedCardProps> = ( {
     stats,
 } ) => {
     const { theme } = useTheme();
-    const router = useRouter();
     const [mounted, setMounted] = useState( false );
     useEffect( () => {
         setMounted( true );
@@ -46,12 +44,14 @@ const HighlightedCard: React.FC<HighlightedCardProps> = ( {
                 <p className='w-8/12 mx-auto'>{description}</p>
             </div>
             <div className="profile__stats mt-6 flex justify-around align-top gap-4 px-6">
-                {stats.map( ( stat, index ) => (
-                    <div key={index} className="profile__stats__item text-center">
-                        <h6>{stat.label}</h6>
-                        <h5>{stat.value}</h5>
-                    </div>
-                ) )}
+                {stats ? (
+                    stats.map( ( stat, index ) => (
+                        <div key={index} className="profile__stats__item text-center">
+                            <h6>{stat.label}</h6>
+                            <h5>{stat.value}</h5>
+                        </div>
+                    ) )
+                ) : null}
             </div>
             <div className="profile__cta mt-6 px-6">
                 {mounted && (
