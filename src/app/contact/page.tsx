@@ -20,7 +20,6 @@ import { useTheme } from "next-themes";
 import { HeaderImage } from "@/components/ui/header-image";
 import { useEffect, useRef, useState } from "react";
 import { PricingDetails } from "@/components/Price-Details";
-import { log } from "console";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -72,7 +71,7 @@ export default function ContactForm() {
     const [prices, setPrices] = useState<Prices>( {
         website: { name: '', price: 0 },
         payment: { name: '', percentage: 0, fee: 0, discount: 0 },
-        date: { months: '', days: 0 },
+        date: { months: '', days: 0, date: '' },
         style: { name: '' },
         firstPayment: {},
         total: { amount: 0 },
@@ -87,6 +86,7 @@ export default function ContactForm() {
 
     const [date, setDate] = useState<Date | undefined>( undefined );
     const [phone, setPhone] = useState( "" );
+    const [selectedMonth, setSelectedMonth] = useState<Date | null>( null );
     const [mounted, setMounted] = useState( false );
     useEffect( () => setMounted( true ), [] );
 
@@ -97,17 +97,26 @@ export default function ContactForm() {
 
         if ( selectedDate && selectedDate >= minDate ) {
             setDate( selectedDate );
+            setSelectedMonth( new Date( selectedDate.getFullYear(), selectedDate.getMonth(), 1 ) );
             const days = calculateDateDifference( new Date, selectedDate );
             const months = ( days / 30 ).toFixed( 2 );
-            prices.date = { [`${ months } months`]: days };
-            setValue( "dueDate", selectedDate );
+
+            const date = new Date();
+            const monthsAmount = parseInt( removeLetters( months ) );
+            date.setMonth( date.getMonth() + monthsAmount );
+
             setPrices( ( prevPrices ) => ( {
                 ...prevPrices,
                 date: {
                     months: `${ months } months`,
-                    days: days
+                    days: days,
+                    date: formatDate( selectedDate ),
                 }
             } ) );
+            prices.date = { ['months']: `${ months } months`, ['days']: days, ['date']: formatDate( selectedDate ) };
+            setValue( "dueDate", selectedDate );
+            updateTotal();
+            console.log( prices );
             setOpenPopover( false );
         }
     };
@@ -157,59 +166,48 @@ export default function ContactForm() {
     };
 
     const updateTotal = () => {
-        const percentage = prices.payment.percentage / 100;
-        const discount = prices.payment.discount || 0;
-        const percent = discount / 100;
-        const start = prices.website.price;
-        if ( discount > 0 ) {
-            const discountedAmount = start - ( start * percent );
-            const firstPayment = discountedAmount * percentage;
-
-            setPrices( ( prevPrices ) => ( {
-                ...prevPrices,
-                total: discountedAmount,
-                firstPayment: { amount: firstPayment },
-            } ) );
-        }
-        else {
-            const totalAmount = prices.payment.fee + start;
-            const firstPayment = prices.website.price * percentage;
-            setPrices( ( prevPrices ) => ( {
-                ...prevPrices,
-                total: totalAmount,
-                firstPayment: { amount: firstPayment },
-            } ) );
-            prices.total = { ["amount"]: totalAmount };
-        }
-        console.log( prices );
     };
 
-    const findPaymentPlan = ( plan: string ): PaymentPlan => {
-        const paymentIndex = paymentPlans.findIndex( p => p.name === plan );
-        const payment = paymentPlans[paymentIndex];
-        prices.total = prices.website.price + payment.fee;
-        prices.payment = { ["name"]: payment.name, ["percentage"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
-        setPrices( ( prevPrices ) => ( {
-            ...prevPrices,
-            payment: {
-                name: payment.name,
-                percentage: payment.percentage,
-                fee: payment.fee,
-                discount: payment.discount,
-            },
-        } ) );
-        updateTotal();
-        return paymentPlans[paymentIndex];
+    const findPaymentPlan = ( plan: string ): PaymentPlan | null => {
+        const payment = paymentPlans.find( p => p.name === plan );
+        if ( payment ) {
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                payment: {
+                    name: payment.name,
+                    firstPayment: payment.firstPayment,
+                    fee: payment.fee,
+                    discount: payment.discounts,
+                },
+            } ) );
+            setValue( "payment", payment.name );
+            prices.payment = { ["name"]: payment.name, ["firstPayment"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
+            prices.total = prices.website.price + prices.payment.fee;
+            updateTotal();
+            return payment;
+        }
+
+        return null;
     };
 
-    const findWebsite = ( website: string ): Website => {
-        const websiteIndex = website_types.findIndex( site => site.name === website );
-        const site = website_types[websiteIndex];
-        prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
-        prices.total = site.startingPrice;
+    const findWebsite = ( website: string ): Website | null => {
+        const site = website_types.find( site => site.name === website );
+        if ( site ) {
+            setValue( "website", site.name );
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                website: {
+                    name: site.name,
+                    price: site.startingPrice,
+                },
+            } ) );
+            prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
+            prices.total = site.startingPrice;
+            updateTotal();
+            return site;
+        }
 
-        updateTotal();
-        return website_types[websiteIndex];
+        return null;
     };
 
     const searchParams = useSearchParams();
@@ -222,19 +220,27 @@ export default function ContactForm() {
             const tier = decodeUrlSafeBase64( websiteType );
             console.log( payment, tier );
 
-            findWebsite( tier );
             findPaymentPlan( payment );
+            findWebsite( tier );
 
-            const plan = paymentPlans.find( ( p ) => p.name === payment );
-            const website = website_types.find( ( w ) => w.name === tier );
+            const paymentContainer = document.querySelector( ".payment-selector" );
+            const paymentSelector = paymentContainer!.querySelector( "Select" );
+            console.log( paymentSelector );
 
-            if ( plan ) {
-                setValue( "payment", plan.name );
-            }
+            const websiteContainer = document.querySelector( ".website-selector" );
+            const websiteSelector = websiteContainer!.querySelector( "Select" );
+            console.log( websiteSelector );
 
-            if ( website ) {
-                setValue( "website", website.name );
-            }
+            // const plan = paymentPlans.find( ( p ) => p.name === payment );
+            // const website = website_types.find( ( w ) => w.name === tier );
+
+            // if ( plan ) {
+            //     setValue( "payment", plan.name );
+            // }
+
+            // if ( website ) {
+            //     setValue( "website", website.name );
+            // }
         }
     }, [paymentPlan, websiteType] );
 
@@ -261,18 +267,36 @@ export default function ContactForm() {
         return site_styles[styleIndex];
     };
 
-    const findPreset = ( preset: string ): Preset => {
-        const presetIndex = presets.findIndex( p => p.description === preset );
-        const months = presets[presetIndex];
-        setPrices( ( prevPrices ) => ( {
-            ...prevPrices,
-            date: {
-                months: [months.description],
-                days: parseInt( removeLetters( months.value ) )
-            }
-        } ) );
-        console.log( prices );
-        return presets[presetIndex];
+    const findPreset = ( preset: string ): Preset | null => {
+        const presetTime = presets.find( p => p.description === preset );
+        if ( presetTime ) {
+            const date = new Date();
+            const monthsAmount = parseInt( removeLetters( presetTime.description ) );
+            date.setMonth( date.getMonth() + monthsAmount );
+
+            const daysAmount = Math.trunc( monthsAmount / 30 );
+
+            const newDate = addDays( new Date(), daysAmount );
+            setDate( newDate );
+            setSelectedMonth( new Date( newDate.getFullYear(), newDate.getMonth(), 1 ) );
+
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                date: {
+                    months: presetTime.description,
+                    days: parseInt( removeLetters( presetTime.value ) ),
+                    date: formatDate( date ),
+                }
+            } ) );
+
+            prices.date = { ['months']: `${ monthsAmount } months`, ['days']: parseInt( removeLetters( presetTime.value ) ), ['date']: formatDate( date ) };
+
+            setValue( "dueDate", date );
+            updateTotal();
+            console.log( prices );
+            return presetTime;
+        }
+        return null;
     };
 
     function removeLetters( value: string ) {
@@ -544,7 +568,7 @@ export default function ContactForm() {
                                 </div>
 
                                 {/* Chosen Payment Plan Field */}
-                                <div className="space-y-2">
+                                <div className="space-y-2 payment-selector">
                                     <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Chosen Payment Plan
                                     </label>
@@ -592,7 +616,7 @@ export default function ContactForm() {
                             </div>
 
                             {/* Website Type and Website Style Fields */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 website-selector">
                                 {/* Website Type Field */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
