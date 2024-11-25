@@ -68,14 +68,6 @@ export const presets: Preset[] = [
         value: "120 days",
         description: "4 months",
     },
-    {
-        value: "180 days",
-        description: "5 months",
-    },
-    {
-        value: "240 days",
-        description: "6 months",
-    },
 ];
 
 export const stats: Stats[] = [

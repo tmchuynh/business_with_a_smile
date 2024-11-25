@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn, decodeUrlSafeBase64, formatDate, formatPhoneNumber } from "@/lib/utils";
+import { cn, decodeUrlSafeBase64, formatCurrency, formatDate, formatPhoneNumber } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDays } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -19,6 +19,7 @@ import { paymentPlans, presets, site_styles, website_types } from "../../../type
 import { useTheme } from "next-themes";
 import { HeaderImage } from "@/components/ui/header-image";
 import { useEffect, useRef, useState } from "react";
+import { PricingDetails } from "@/components/Price-Details";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -68,12 +69,12 @@ export default function ContactForm() {
     } );
 
     const [prices, setPrices] = useState<Prices>( {
-        website: {},
-        payment: {},
+        website: { name: '', price: 0 },
+        payment: { name: '', percentage: 0, fee: 0, discount: 0 },
         date: {},
-        style: {},
+        style: { name: '' },
         firstPayment: {},
-        total: {},
+        total: { amount: 0 },
     } );
 
     const fileInputRef = useRef<HTMLInputElement>( null );
@@ -148,63 +149,74 @@ export default function ContactForm() {
         }
     };
 
-    const findItem = <T extends { name?: string; description?: string; }>(
-        items: T[],
-        key: string,
-        value: string
-    ): T | undefined => {
-        return items.find( ( item ) => item[key as keyof T] === value );
+    const updateTotal = () => {
+        const percentage = prices.payment.percentage / 100;
+        const firstPayment = prices.website.price * percentage;
+        prices.firstPayment = { ["amount"]: firstPayment };
+
+
+        const discount = prices.payment.discount || 0;
+        const percent = discount / 100;
+        const start = prices.website.price;
+        if ( discount > 0 ) {
+            const discountedAmount = start - ( start * percent );
+            prices.total = { ["amount"]: discountedAmount };
+
+            const firstPayment = discountedAmount * percentage;
+            prices.firstPayment = { ["amount"]: firstPayment };
+        }
+        else {
+            const totalAmount = prices.payment.fee + start;
+            prices.total = { ["amount"]: totalAmount };
+        }
     };
 
-    const updatePrices = ( key: keyof Prices, data: object ) => {
-        setPrices( ( prevPrices ) => ( {
-            ...prevPrices,
-            [key]: data,
-        } ) );
-        console.log( 'Prices:', prices );
+    const findPaymentPlan = ( plan: string ): PaymentPlan => {
+        const paymentIndex = paymentPlans.findIndex( p => p.name === plan );
+        const payment = paymentPlans[paymentIndex];
+        prices.payment = { ["name"]: payment.name, ["percentage"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
+        prices.total = prices.website.price + payment.fee;
+        updateTotal();
+        console.log( prices );
+        return paymentPlans[paymentIndex];
+    };
+
+    const findWebsite = ( website: string ): Website => {
+        const websiteIndex = website_types.findIndex( site => site.name === website );
+        const site = website_types[websiteIndex];
+        prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
+        prices.total = site.startingPrice;
+        updateTotal();
+        console.log( prices );
+        return website_types[websiteIndex];
     };
 
     const searchParams = useSearchParams();
-    const paymentPlanParam = searchParams.get( 'paymentMethod' );
-    const websiteTypeParam = searchParams.get( 'website' );
+    const paymentPlan = searchParams.get( "paymentMethod" );
+    const websiteType = searchParams.get( "website" );
 
-    const parsePrice = ( priceStr: string ): number => {
-        const numericStr = priceStr.replace( /[^0-9.-]+/g, '' );
-        return parseFloat( numericStr );
-    };
+    // Only decode if the value exists
+    let payment: string | null = null;
+    let tier: string | null = null;
 
-    useEffect( () => {
-        if ( paymentPlanParam && websiteTypeParam ) {
-            const payment = decodeUrlSafeBase64( paymentPlanParam );
-            const tier = decodeUrlSafeBase64( websiteTypeParam );
+    if ( paymentPlan ) {
+        payment = decodeUrlSafeBase64( paymentPlan );
+    }
 
-            const plan = findItem( paymentPlans, 'name', payment );
-            const website = findItem( website_types, 'name', tier );
+    if ( websiteType ) {
+        tier = decodeUrlSafeBase64( websiteType );
+    }
 
-            if ( plan ) {
-                setValue( 'payment', plan.name );
-                updatePrices( 'payment', { name: plan.name, amount: plan.firstPayment } );
-                const fee = prices.total.amount + plan.fee;
-                console.log( "fee: ", fee );
-                updatePrices( 'total', { amount: fee } );
-            }
-
-            if ( website ) {
-                setValue( 'website', website.name );
-                updatePrices( 'website', { name: website.name, price: website.startingPrice } );
-                updatePrices( 'total', { amount: website.startingPrice } );
-            }
-
-            if ( website && plan ) {
-                const percentage = plan.firstPayment / 100;
-                const firstPayment = website.startingPrice * percentage;
-                updatePrices( "firstPayment", { amount: firstPayment } );
-            }
-
-            console.log( 'Payment:', plan?.name );
-            console.log( 'Website:', website?.name );
-        }
-    }, [paymentPlanParam, websiteTypeParam] );
+    if ( payment && tier ) {
+        const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
+        const websiteIndex = website_types.findIndex( site => site.name == tier );
+        findWebsite( tier );
+        findPaymentPlan( payment );
+        const plan = paymentPlans[paymentIndex];
+        const website = website_types[websiteIndex];
+        setValue( "payment", plan.name );
+        setValue( "website", website.name );
+    }
 
     const onSubmit = ( data: FormData ) => {
         console.log( {
@@ -236,6 +248,8 @@ export default function ContactForm() {
     function removeLetters( value: string ) {
         return value.replace( /[^0-9]/g, "" );
     }
+
+
 
     return (
         <section className="pb-16 relative">
@@ -514,27 +528,7 @@ export default function ContactForm() {
                                                 value={field.value}
                                                 onValueChange={( newValue ) => {
                                                     field.onChange( newValue );
-
-                                                    const plan = findItem( paymentPlans, 'name', newValue );
-
-                                                    if ( plan ) {
-                                                        console.log( plan );
-                                                        updatePrices( 'payment', {
-                                                            name: plan.name,
-                                                            amount: plan.firstPayment
-                                                        } );
-
-                                                        // Calculate the new total amount
-                                                        const newTotalAmount = prices.website.price + plan.fee;
-
-                                                        // Update prices.total.amount
-                                                        updatePrices( 'total', { amount: newTotalAmount } );
-
-                                                        const percentage = plan.firstPayment / 100;
-                                                        const firstPayment = percentage * newTotalAmount;
-                                                        updatePrices( 'firstPayment', { amount: firstPayment } );
-                                                        console.log( prices );
-                                                    }
+                                                    findPaymentPlan( newValue );
                                                 }}
                                             >
                                                 <SelectTrigger>
@@ -585,22 +579,7 @@ export default function ContactForm() {
                                                 onValueChange={( newValue ) => {
                                                     // Update the form field value
                                                     field.onChange( newValue );
-
-                                                    // Find the selected website type
-                                                    const website = findItem( website_types, 'name', newValue );
-
-                                                    // Update the prices state
-                                                    if ( website ) {
-                                                        updatePrices( 'website', {
-                                                            name: website.name,
-                                                            price: website.startingPrice,
-                                                        } );
-                                                        updatePrices( 'total', { amount: website.startingPrice } );
-
-                                                        const percentage = prices.payment.amount / 100;
-                                                        const firstPayment = percentage * website.startingPrice;
-                                                        updatePrices( 'firstPayment', { amount: firstPayment } );
-                                                    }
+                                                    findWebsite( newValue );
                                                 }}
                                             >
                                                 <SelectTrigger>
@@ -814,23 +793,7 @@ export default function ContactForm() {
                                     Payment Breakdown
                                 </label>
                                 <div className="border border-softNeutral-300 dark:border-softNeutral-700 rounded-lg p-4">
-                                    <ul className="space-y-3">
-                                        {/* {calculatedPayments.map((payment, index) => (
-                        <li key={index} className="flex justify-between">
-                            <div>
-                                <span className="font-medium text-deepTeal-600 dark:text-deepBlue-400">
-                                    {payment.label}
-                                </span>
-                                <p className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
-                                    Due: {payment.dueDate}
-                                </p>
-                            </div>
-                            <p className="font-semibold text-softNeutral-900 dark:text-softNeutral-50">
-                                ${payment.amount.toFixed(2)}
-                            </p>
-                        </li>
-                    ))} */}
-                                    </ul>
+                                    <PricingDetails prices={prices} />
                                 </div>
                             </div>
 
