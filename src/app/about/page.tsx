@@ -27,6 +27,39 @@ export default function AboutPage() {
         <div className="text-softNeutral-800 dark:text-softNeutral-200">
             <HeaderImage url={'/images/mountain.jpg'} />
 
+            {/* Background Story */}
+            <section className="py-16 px-6">
+                <div className="max-w-7xl mx-auto text-pretty">
+                    <div className="text-center mb-12">
+                        <h6>
+                            Every Great Story Starts with a Vision
+                        </h6>
+                        <h1>
+                            Our Story
+                        </h1>
+                        <h2>
+                            Let us help you bring your vision to life. Together, we’ll turn your ideas into a compelling story that drives success and inspires action.
+                        </h2>
+                    </div>
+                    <p>
+                        Established in 2010, we started as a small startup with a bold mission: to empower businesses by delivering cutting-edge web solutions. Armed with big dreams and a passion for innovation, we embarked on a journey to transform how businesses establish and grow their online presence.
+                    </p>
+                    <p>
+                        What began as a modest operation quickly gained momentum as we partnered with businesses across industries, from local entrepreneurs to global enterprises. Over the years, we’ve evolved into a full-service digital agency, offering a comprehensive range of services designed to help our clients thrive in an increasingly digital world.
+                    </p>
+                    <p>
+                        Our journey has been driven by a steadfast commitment to quality, innovation, and client success. At our core, we believe that a website should do more than look good—it should be a powerful tool that drives engagement, enhances user experiences, and achieves tangible results. This belief has shaped every project we’ve taken on and every solution we’ve delivered.
+                    </p>
+                    <p>
+                        As we’ve grown, so has our dedication to staying ahead of the curve. From embracing the latest technologies to refining our strategies for an ever-evolving digital landscape, we continue to push boundaries to ensure our clients always have a competitive edge.
+                    </p>
+                    <p>
+                        Today, our story is not just about where we’ve been—it’s about where we’re headed. We remain passionate about helping businesses succeed online, working tirelessly to craft solutions that reflect their unique identity, meet their goals, and create lasting impact. At [Your Company Name], our story is about empowering yours.
+                    </p>
+
+                </div>
+            </section>
+
             {/* Values Section with Cards */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto">
@@ -153,62 +186,6 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Team Section */}
-            <section className="py-16 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <h6>
-                            The People Behind the Vision
-                        </h6>
-                        <h1>
-                            Meet The Team
-                        </h1>
-                        <h2>
-                            Our dedicated team is here to bring your ideas to life. Together, we’ll collaborate to create solutions that inspire, engage, and deliver results.
-                        </h2>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {/* Team Member 1 */}
-                        <div className="flex flex-col items-center text-center">
-                            <Image
-                                src="/images/avatar.jpg"
-                                alt="Team Member 1"
-                                width={200}
-                                height={200}
-                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
-                            />
-                            <h3>Jane Doe</h3>
-                            <p>CEO & Founder</p>
-                        </div>
-                        {/* Team Member 2 */}
-                        <div className="flex flex-col items-center text-center">
-                            <Image
-                                src="/images/avatar.jpg"
-                                alt="Team Member 2"
-                                width={200}
-                                height={200}
-                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
-                            />
-                            <h3>John Smith</h3>
-                            <p>Lead Developer</p>
-                        </div>
-                        {/* Team Member 3 */}
-                        <div className="flex flex-col items-center text-center">
-                            <Image
-                                src="/images/avatar.jpg"
-                                alt="Team Member 3"
-                                width={200}
-                                height={200}
-                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
-                            />
-                            <h3>Emily Johnson</h3>
-                            <p>Design Director</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Mission */}
             <section className="py-16 px-6">
                 <div className="max-w-7xl mx-auto text-pretty">
@@ -234,38 +211,60 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Background Story */}
-            <section className="py-16 px-6">
-                <div className="max-w-7xl mx-auto text-pretty">
+
+            {/* Team Section */}
+            {/* <section className="py-16 px-6">
+                <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
                         <h6>
-                            Every Great Story Starts with a Vision
+                            The People Behind the Vision
                         </h6>
                         <h1>
-                            Our Story
+                            Meet The Team
                         </h1>
                         <h2>
-                            Let us help you bring your vision to life. Together, we’ll turn your ideas into a compelling story that drives success and inspires action.
+                            Our dedicated team is here to bring your ideas to life. Together, we’ll collaborate to create solutions that inspire, engage, and deliver results.
                         </h2>
                     </div>
-                    <p>
-                        Established in 2010, we started as a small startup with a bold mission: to empower businesses by delivering cutting-edge web solutions. Armed with big dreams and a passion for innovation, we embarked on a journey to transform how businesses establish and grow their online presence.
-                    </p>
-                    <p>
-                        What began as a modest operation quickly gained momentum as we partnered with businesses across industries, from local entrepreneurs to global enterprises. Over the years, we’ve evolved into a full-service digital agency, offering a comprehensive range of services designed to help our clients thrive in an increasingly digital world.
-                    </p>
-                    <p>
-                        Our journey has been driven by a steadfast commitment to quality, innovation, and client success. At our core, we believe that a website should do more than look good—it should be a powerful tool that drives engagement, enhances user experiences, and achieves tangible results. This belief has shaped every project we’ve taken on and every solution we’ve delivered.
-                    </p>
-                    <p>
-                        As we’ve grown, so has our dedication to staying ahead of the curve. From embracing the latest technologies to refining our strategies for an ever-evolving digital landscape, we continue to push boundaries to ensure our clients always have a competitive edge.
-                    </p>
-                    <p>
-                        Today, our story is not just about where we’ve been—it’s about where we’re headed. We remain passionate about helping businesses succeed online, working tirelessly to craft solutions that reflect their unique identity, meet their goals, and create lasting impact. At [Your Company Name], our story is about empowering yours.
-                    </p>
 
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="flex flex-col items-center text-center">
+                            <Image
+                                src="/images/avatar.jpg"
+                                alt="Team Member 1"
+                                width={200}
+                                height={200}
+                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
+                            />
+                            <h3>Jane Doe</h3>
+                            <p>CEO & Founder</p>
+                        </div>
+                        <div className="flex flex-col items-center text-center">
+                            <Image
+                                src="/images/avatar.jpg"
+                                alt="Team Member 2"
+                                width={200}
+                                height={200}
+                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
+                            />
+                            <h3>John Smith</h3>
+                            <p>Lead Developer</p>
+                        </div>
+                        <div className="flex flex-col items-center text-center">
+                            <Image
+                                src="/images/avatar.jpg"
+                                alt="Team Member 3"
+                                width={200}
+                                height={200}
+                                className="rounded-full mb-4 transition-all duration-300 hover:scale-110 shadow-md dark:shadow-deepBlue-400/50 dark:shadow-lg"
+                            />
+                            <h3>Emily Johnson</h3>
+                            <p>Design Director</p>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </section> */}
+
         </div>
     );
 }
