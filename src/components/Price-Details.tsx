@@ -14,7 +14,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                     {prices.website.name}
                 </p>
                 <p className="text-gray-600 dark:text-gray-300">
-                    Price: {formatCurrency( prices.website.price )}
+                    Price: {prices.website.price}
                 </p>
             </div>
 
@@ -40,11 +40,11 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                     Percentage: {prices.payment.percentage}%
                 </p>
                 <p className="text-gray-600 dark:text-gray-300">
-                    Fee: {formatCurrency( prices.payment.fee )}
+                    Fee: {prices.payment.fee}
                 </p>
                 {prices.payment.discount > 0 && (
                     <p className="text-gray-600 dark:text-gray-300">
-                        Discount: {formatCurrency( prices.payment.discount )}
+                        Discount: {prices.payment.discount}
                     </p>
                 )}
             </div>
@@ -55,7 +55,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                     First Payment
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                    {formatCurrency( prices.firstPayment.amount )}
+                    {prices.firstPayment.amount}
                 </p>
             </div>
 
@@ -65,7 +65,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                     Total Amount
                 </h3>
                 <p className="text-2xl font-bold text-deepTeal-600 dark:text-deepTeal-400">
-                    {formatCurrency( prices.total.amount )}
+                    {prices.total.amount}
                 </p>
             </div>
         </>

@@ -181,12 +181,23 @@ export default function ContactForm() {
             } ) );
             prices.total = { ["amount"]: totalAmount };
         }
+        console.log( prices );
     };
 
     const findPaymentPlan = ( plan: string ): PaymentPlan => {
         const paymentIndex = paymentPlans.findIndex( p => p.name === plan );
         const payment = paymentPlans[paymentIndex];
         prices.total = prices.website.price + payment.fee;
+        prices.payment = { ["name"]: payment.name, ["percentage"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            payment: {
+                name: payment.name,
+                percentage: payment.percentage,
+                fee: payment.fee,
+                discount: payment.discount,
+            },
+        } ) );
         updateTotal();
         return paymentPlans[paymentIndex];
     };
@@ -194,18 +205,10 @@ export default function ContactForm() {
     const findWebsite = ( website: string ): Website => {
         const websiteIndex = website_types.findIndex( site => site.name === website );
         const site = website_types[websiteIndex];
-
-        setPrices( ( prevPrices ) => ( {
-            ...prevPrices,
-            website: {
-                name: site.name,
-                price: site.startingPrice
-            },
-            total: site.startingPrice,
-        } ) );
+        prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
+        prices.total = site.startingPrice;
 
         updateTotal();
-        console.log( prices );
         return website_types[websiteIndex];
     };
 
@@ -213,28 +216,27 @@ export default function ContactForm() {
     const paymentPlan = searchParams.get( "paymentMethod" );
     const websiteType = searchParams.get( "website" );
 
-    // Only decode if the value exists
-    let payment: string | null = null;
-    let tier: string | null = null;
+    useEffect( () => {
+        if ( paymentPlan && websiteType ) {
+            const payment = decodeUrlSafeBase64( paymentPlan );
+            const tier = decodeUrlSafeBase64( websiteType );
+            console.log( payment, tier );
 
-    if ( paymentPlan ) {
-        payment = decodeUrlSafeBase64( paymentPlan );
-    }
+            findWebsite( tier );
+            findPaymentPlan( payment );
 
-    if ( websiteType ) {
-        tier = decodeUrlSafeBase64( websiteType );
-    }
+            const plan = paymentPlans.find( ( p ) => p.name === payment );
+            const website = website_types.find( ( w ) => w.name === tier );
 
-    if ( payment && tier ) {
-        const paymentIndex = paymentPlans.findIndex( plan => plan.name === payment );
-        const websiteIndex = website_types.findIndex( site => site.name == tier );
-        findWebsite( tier );
-        findPaymentPlan( payment );
-        const plan = paymentPlans[paymentIndex];
-        const website = website_types[websiteIndex];
-        setValue( "payment", plan.name );
-        setValue( "website", website.name );
-    }
+            if ( plan ) {
+                setValue( "payment", plan.name );
+            }
+
+            if ( website ) {
+                setValue( "website", website.name );
+            }
+        }
+    }, [paymentPlan, websiteType] );
 
     const onSubmit = ( data: FormData ) => {
         console.log( {
