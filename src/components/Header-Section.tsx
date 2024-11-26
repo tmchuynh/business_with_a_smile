@@ -3,15 +3,10 @@
 import { classNames } from '@/lib/utils';
 import { CheckIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function HeaderSection() {
     const { theme } = useTheme();
-    const [mounted, setMounted] = useState( false );
-    useEffect( () => {
-        setMounted( true );
-    }, [] );
-
     const isDarkMode = theme === 'dark';
 
 
@@ -97,7 +92,7 @@ export default function HeaderSection() {
                         </div>
                     </div>
 
-                    <img
+                    <Image
                         src="https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png"
                         alt="Product screenshot"
                         className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"

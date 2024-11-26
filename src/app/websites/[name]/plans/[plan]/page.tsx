@@ -13,6 +13,7 @@ import { HeaderImage } from "@/components/ui/header-image";
 
 export default function PaymentDetails() {
     const router = useRouter();
+    const params = useParams<{ name: string; plan: string; }>();
     const { theme } = useTheme();
     const [mounted, setMounted] = useState( false );
     useEffect( () => {
@@ -28,8 +29,6 @@ export default function PaymentDetails() {
     if ( !plan ) {
         return <p>Plan not found.</p>;
     }
-
-    const params = useParams<{ name: string; plan: string; }>();
 
     function navigate() {
         const { name, plan } = params;

@@ -27,7 +27,7 @@ export function classNames( ...classes: string[] ) {
 }
 
 export const encodeUrlSafeBase64 = ( str: string ): string => {
-    let base64 = btoa( unescape( encodeURIComponent( str ) ) );
+    const base64 = btoa( unescape( encodeURIComponent( str ) ) );
     return base64.replace( /\+/g, "-" ).replace( /\//g, "_" ).replace( /=+$/, "" );
 };
 
@@ -46,7 +46,7 @@ export const formatCurrency = ( amount: number ): string => {
     return `$${ amount.toFixed( 2 ).replace( /\d(?=(\d{3})+\.)/g, '$&,' ) }`;
 };
 
-export let USDollar = new Intl.NumberFormat( 'en-US', {
+export const USDollar = new Intl.NumberFormat( 'en-US', {
     style: 'currency',
     currency: 'USD',
 } );

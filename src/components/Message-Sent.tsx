@@ -1,16 +1,16 @@
 "use client";
 
-import React from "react";
 import {
     AlertDialog,
-    AlertDialogTrigger,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogFooter,
-    AlertDialogTitle,
-    AlertDialogDescription,
     AlertDialogAction,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import React from "react";
 
 const MessageSentDialogWithAnimation = () => {
     const [open, setOpen] = React.useState( false );

@@ -9,9 +9,6 @@ import {
 import React from "react";
 
 
-const primaryColor = "hsl(var(--primary))";
-const secondaryColor = "hsl(var(--secondary))";
-
 const animationProps = {
     initial: { "--x": "100%", scale: 0.8 },
     animate: { "--x": "-100%", scale: 1 },

@@ -8,7 +8,6 @@ interface MarqueeProps {
     vertical?: boolean;
     repeat?: number;
     duration?: number;
-    [key: string]: any;
 }
 
 export default function Marquee( {

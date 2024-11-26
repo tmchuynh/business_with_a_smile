@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { classNames, decodeUrlSafeBase64, encodeUrlSafeBase64 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { features } from "process";
 import { CheckIcon } from "lucide-react";
 import { HeaderImage } from "@/components/ui/header-image";
 

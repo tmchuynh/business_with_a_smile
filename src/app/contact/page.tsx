@@ -12,14 +12,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
-import { cn, decodeUrlSafeBase64, formatCurrency, formatDate, formatPhoneNumber } from "@/lib/utils";
+import { cn, decodeUrlSafeBase64, formatDate } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addDays, setDate } from "date-fns";
+import { addDays } from "date-fns";
 import { CalendarIcon, CheckCheck, CircleAlert, Info, Loader, OctagonAlert } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useSearchParams } from "next/navigation";
 import * as React from "react";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as yup from 'yup';
@@ -107,12 +107,10 @@ export default function ContactForm() {
 
     const [date, setDate] = useState<Date | undefined>( undefined );
     const [dialogOpen, setDialogOpen] = useState( false );
-    const [selectedMonth, setSelectedMonth] = useState<Date | null>( null );
     const [mounted, setMounted] = useState( false );
 
     useEffect( () => {
         setMounted( true );
-        console.log( prices );
     }, [] );
 
     useEffect( () => {
@@ -123,14 +121,14 @@ export default function ContactForm() {
             findPaymentPlan( payment );
             findWebsite( tier );
         }
-    }, [paymentPlan, websiteType] );
+    } );
 
     useEffect( () => {
         const phoneValue = getValues( 'phone' );
         if ( phoneValue ) {
             setValue( 'phone', phoneValue );
         }
-    }, [watch( 'phone' )] );
+    } );
 
     const showErrorsAsToasts = () => {
         let delay = 0;
@@ -142,7 +140,7 @@ export default function ContactForm() {
             error: <OctagonAlert className="pr-2 h-7 w-7" />,
             loading: <Loader className="pr-2 h-7 w-7" />,
         };
-        for ( const [key, value] of Object.entries( errors ) ) {
+        for ( const [, value] of Object.entries( errors ) ) {
             setTimeout( () => {
                 toast( value.message, {
                     icon: icons.error
@@ -158,7 +156,6 @@ export default function ContactForm() {
 
         if ( selectedDate && selectedDate >= minDate ) {
             setDate( selectedDate );
-            setSelectedMonth( new Date( selectedDate.getFullYear(), selectedDate.getMonth(), 1 ) );
             const days = calculateDateDifference( new Date, selectedDate );
             const months = ( days / 30 ).toFixed( 2 );
 
@@ -194,7 +191,6 @@ export default function ContactForm() {
 
             const newDate = addDays( new Date(), daysAmount );
             setDate( newDate );
-            setSelectedMonth( new Date( newDate.getFullYear(), newDate.getMonth(), 1 ) );
 
             setPrices( ( prevPrices ) => ( {
                 ...prevPrices,
@@ -274,7 +270,7 @@ export default function ContactForm() {
         let totalPayment = prices.website.startingPrice;
         const dateDays = prices.date.days;
         let fee = prices.payment.fee;
-        let discountedPrice = totalPayment;
+        const discountedPrice = totalPayment;
 
         const discountPercent = prices.payment.discount;
         const startingPrice = prices.website.startingPrice;
@@ -401,7 +397,6 @@ export default function ContactForm() {
         prices.firstPayment = { ["amount"]: 0 };
         prices.total = { ["amount"]: 0 };
         setDate( new Date() );
-        setSelectedMonth( new Date() );
         setValue( "name", '' );
         setValue( 'email', '' );
         setValue( 'phone', '' );

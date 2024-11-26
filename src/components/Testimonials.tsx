@@ -1,23 +1,13 @@
 "use client";
 
 import { Star } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 import { testimonials } from '../../types/constants';
 import Marquee from './ui/marquee';
 
 export default function Testimonials() {
-    const { theme } = useTheme();
-    const [mounted, setMounted] = useState( false );
-    useEffect( () => {
-        setMounted( true );
-    }, [] );
-
     const midpoint = Math.floor( testimonials.length / 2 );
     const firstHalf = testimonials.slice( 0, midpoint );
     const secondHalf = testimonials.slice( midpoint );
-
-    const isDarkMode = theme === 'dark';
 
     return (
         <section className="py-10 lg:py-20 w-full">

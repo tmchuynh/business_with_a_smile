@@ -4,8 +4,7 @@ import { useTheme } from "next-themes";
 import { cva } from "class-variance-authority";
 import { Toaster as Sonner } from "sonner";
 import "../../app/globals.css";
-import { cn } from "@/lib/utils"; // Assuming a utility for merging classNames
-import { CheckCheck, Info, CircleAlert, OctagonAlert, Loader } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type ToasterProps = React.ComponentProps<typeof Sonner> & {
     variant?: "default" | "error" | "success" | "warning" | "info";

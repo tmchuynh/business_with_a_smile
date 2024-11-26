@@ -1,6 +1,6 @@
+import { USDollar } from "@/lib/utils";
 import React from "react";
 import { Prices } from "../../types";
-import { USDollar } from "@/lib/utils";
 
 export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
     return (
