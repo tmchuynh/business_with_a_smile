@@ -146,6 +146,20 @@ export default {
                 sm: "calc(var(--radius) - 4px)",
             },
             keyframes: {
+                flyAway: {
+                    '0%': {
+                        transform: 'translate(0, 0) rotate(0deg)',
+                        opacity: '1',
+                    },
+                    '50%': {
+                        transform: 'translate(150px, -50px) rotate(20deg)',
+                        opacity: '0.7',
+                    },
+                    '100%': {
+                        transform: 'translate(300px, -100px) rotate(45deg)',
+                        opacity: '0',
+                    },
+                },
                 marquee: {
                     from: {
                         transform: "translateX(0)",
@@ -237,6 +251,7 @@ export default {
                 },
             },
             animation: {
+                fly: 'flyAway 2s ease-in-out forwards',
                 marquee: "marquee var(--duration) infinite linear",
                 "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
                 "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",

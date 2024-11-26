@@ -8,9 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { cn, decodeUrlSafeBase64, formatCurrency, formatDate, formatPhoneNumber } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addDays } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { addDays, setDate } from "date-fns";
+import { CalendarIcon, CheckCheck, CircleAlert, Info, Loader, OctagonAlert } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from 'yup';
@@ -20,6 +22,7 @@ import { useTheme } from "next-themes";
 import { HeaderImage } from "@/components/ui/header-image";
 import { useEffect, useRef, useState } from "react";
 import { PricingDetails } from "@/components/Price-Details";
+import { AlertDialogHeader, AlertDialogFooter, AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription } from "@/components/ui/alert-dialog";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -30,17 +33,30 @@ const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     message: yup.string(),
     preset: yup.string(),
     dueDate: yup.date().required( 'Please select a due date' ),
-    phone: yup.string().required( 'Phone number is required' ),
-    communicationMethod: yup.string().required( 'Please select a communication method' ),
-    discordUsername: yup.string().when( 'communicationMethod', ( value: any, schema: any ) => {
-        const communicationMethod = value as string;
-        if ( communicationMethod === 'Discord' ) {
+    phone: yup
+        .string()
+        .required( 'Phone number is required' )
+        .test(
+            'valid-phone',
+            'Please enter a valid phone number',
+            ( value ) => {
+                const digits = value ? value.replace( /\D/g, '' ) : '';
+                return digits.length === 10;
+            }
+        ),
+
+    communicationMethod: yup
+        .string()
+        .required( 'Please select a communication method' ),
+    discordUsername: yup.string().when( 'communicationMethod', ( communicationMethod, schema ) => {
+        if ( communicationMethod && communicationMethod.toString().toLowerCase() === 'discord' ) {
             return schema.required( 'Please enter your Discord username' );
         }
-        return schema.notRequired();
+        return schema.nullable();
     } ),
     attachments: yup.array().of( yup.mixed<File>().required() ),
 } );
+
 
 export default function ContactForm() {
     const {
@@ -70,7 +86,7 @@ export default function ContactForm() {
 
     const [prices, setPrices] = useState<Prices>( {
         website: { name: '', startingPrice: 0 },
-        payment: { name: '', percentage: 0, fee: 0, discount: 0 },
+        payment: { name: '', percentage: 0, fee: 0, discount: 0, firstPayment: 0 },
         date: { months: '', days: 0, date: formatDate( new Date() ) },
         style: { name: '' },
         firstPayment: {},
@@ -85,6 +101,7 @@ export default function ContactForm() {
 
     const [date, setDate] = useState<Date | undefined>( undefined );
     const [phone, setPhone] = useState( "" );
+    const [dialogOpen, setDialogOpen] = useState( false );
     const [selectedMonth, setSelectedMonth] = useState<Date | null>( null );
     const [mounted, setMounted] = useState( false );
     useEffect( () => {
@@ -106,6 +123,32 @@ export default function ContactForm() {
         }
     }, [paymentPlan, websiteType] );
 
+    useEffect( () => {
+        const phoneValue = getValues( 'phone' );
+        if ( phoneValue ) {
+            setValue( 'phone', phoneValue );
+        }
+    }, [watch( 'phone' )] );
+
+    const showErrorsAsToasts = () => {
+        let delay = 0;
+        console.log( errors );
+        const icons = {
+            success: <CheckCheck className="pr-2 h-7 w-7" />,
+            info: <Info className="pr-2 h-7 w-7" />,
+            warning: <CircleAlert className="pr-2 h-7 w-7" />,
+            error: <OctagonAlert className="pr-2 h-7 w-7" />,
+            loading: <Loader className="pr-2 h-7 w-7" />,
+        };
+        for ( const [key, value] of Object.entries( errors ) ) {
+            setTimeout( () => {
+                toast( value.message, {
+                    icon: icons.error
+                } );
+            }, delay );
+            delay += 1000;
+        }
+    };
 
     const handleDateSelect = ( selectedDate: Date | undefined ) => {
         const minDate = new Date();
@@ -207,12 +250,25 @@ export default function ContactForm() {
         setValue( 'attachments', [] );
     };
 
-    const handlePhoneChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-        const formattedPhone = formatPhoneNumber( e.target.value );
-        if ( formattedPhone.replace( /\D/g, '' ).length <= 10 ) {
-            setValue( 'phone', formattedPhone );
+    const formatPhoneNumber = ( value: string ) => {
+        if ( !value ) return value;
+
+        // Remove all non-digit characters
+        const phoneNumber = value.replace( /\D/g, '' );
+
+        // Limit to 10 digits
+        const phoneNumberLength = phoneNumber.length;
+        if ( phoneNumberLength < 4 ) return phoneNumber;
+        if ( phoneNumberLength < 7 ) {
+            return `(${ phoneNumber.slice( 0, 3 ) }) ${ phoneNumber.slice( 3 ) }`;
         }
+        return `(${ phoneNumber.slice( 0, 3 ) }) ${ phoneNumber.slice(
+            3,
+            6
+        ) }-${ phoneNumber.slice( 6, 10 ) }`;
     };
+
+
 
     const updateTotal = () => {
         let totalPayment = prices.website.startingPrice;
@@ -312,11 +368,57 @@ export default function ContactForm() {
             title: 'Form Submitted',
             description: data,
         } );
+        showErrorsAsToasts();
+        setDialogOpen( true );
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            website: {
+                name: '',
+                startingPrice: 0,
+            },
+            payment: {
+                name: '',
+                firstPayment: 0,
+                fee: 0,
+                discount: 0,
+            },
+            date: {
+                months: '',
+                days: 0,
+                date: formatDate( new Date() ),
+            },
+            style: {
+                name: '',
+            },
+            firstPayment: {},
+            total: { amount: 0 },
+        } ) );
+        prices.website = { ["name"]: '', ["startingPrice"]: 0 };
+        prices.payment = { ["name"]: '', ["percentage"]: 0, ["fee"]: 0, ["discount"]: 0 };
+        prices.date = { ["months"]: '', ["days"]: 0, ["date"]: formatDate( new Date() ) };
+        prices.style = { ["name"]: '' };
+        prices.firstPayment = {};
+        prices.total = { ["amount"]: 0 };
+        setDate( new Date() );
+        setSelectedMonth( new Date() );
+        setValue( "name", '' );
+        setValue( 'email', '' );
+        setValue( 'phone', '' );
+        setValue( 'style', '' );
+        setValue( 'payment', '' );
+        setValue( 'website', '' );
+        setValue( 'message', '' );
+        setValue( 'preset', '' );
+        setValue( 'dueDate', new Date() );
+        setValue( 'communicationMethod', '' );
+        setValue( 'attachments', [] );
+        setValue( 'discordUsername', '' );
     };
 
     // Get the current attachments from the form state
     const attachments = watch( "attachments" );
     const communicationMethod = watch( 'communicationMethod' );
+    console.log( 'Communication Method:', communicationMethod );
 
     const findStyle = ( style: string ): Styles => {
         const styleIndex = site_styles.findIndex( styles => styles.name === style );
@@ -353,7 +455,7 @@ export default function ContactForm() {
 
             <div className="my-16 mx-auto px-4 md:px-16 w-11/12">
                 <form
-                    onSubmit={handleSubmit( onSubmit )}
+                    onSubmit={handleSubmit( onSubmit, showErrorsAsToasts )}
                     className="space-y-12 divide-y"
                 >
                     {/* Section 1: Personal Information */}
@@ -383,11 +485,6 @@ export default function ContactForm() {
                                         />
                                     )}
                                 />
-                                {errors.name && (
-                                    <p className="text-sm text-red-500">
-                                        {errors.name.message}
-                                    </p>
-                                )}
                             </div>
 
                             {/* Email and Phone Number Fields */}
@@ -408,11 +505,6 @@ export default function ContactForm() {
                                             />
                                         )}
                                     />
-                                    {errors.email && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.email.message}
-                                        </p>
-                                    )}
                                 </div>
 
                                 {/* Phone Number Field */}
@@ -420,17 +512,29 @@ export default function ContactForm() {
                                     <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                         Phone Number
                                     </label>
-                                    <Input
-                                        value={phone}
-                                        onChange={handlePhoneChange}
-                                        placeholder="(123) 456-7890"
-                                        className="mt-1"
+                                    <Controller
+                                        name="phone"
+                                        control={control}
+                                        render={( { field } ) => (
+                                            <Input
+                                                {...field}
+                                                type="tel"
+                                                placeholder="Phone Number"
+                                                autoComplete="tel"
+                                                onChange={( e ) => {
+                                                    const inputVal = e.target.value;
+                                                    const formattedPhone = formatPhoneNumber( inputVal );
+
+                                                    // Update only if digits are less than or equal to 10
+                                                    const digits = inputVal.replace( /\D/g, '' );
+                                                    if ( digits.length <= 10 ) {
+                                                        field.onChange( formattedPhone );
+                                                    }
+                                                }}
+                                            />
+                                        )}
                                     />
-                                    {errors.phone && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.phone.message}
-                                        </p>
-                                    )}
+
                                 </div>
                             </div>
 
@@ -447,7 +551,9 @@ export default function ContactForm() {
                                         render={( { field } ) => (
                                             <Select
                                                 value={field.value}
-                                                onValueChange={field.onChange}
+                                                onValueChange={( newValue ) => {
+                                                    field.onChange( newValue );
+                                                }}
                                             >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a method" >
@@ -474,11 +580,6 @@ export default function ContactForm() {
                                             </Select>
                                         )}
                                     />
-                                    {errors.communicationMethod && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.communicationMethod.message}
-                                        </p>
-                                    )}
                                 </div>
 
                                 {/* Discord Username Field */}
@@ -506,11 +607,6 @@ export default function ContactForm() {
                                                 />
                                             )}
                                         />
-                                        {errors.discordUsername && (
-                                            <p className="text-sm text-red-500">
-                                                {errors.discordUsername.message}
-                                            </p>
-                                        )}
                                     </div>
                                 )}
                             </div>
@@ -592,11 +688,6 @@ export default function ContactForm() {
                                             />
                                         </PopoverContent>
                                     </Popover>
-                                    {errors.dueDate && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.dueDate.message}
-                                        </p>
-                                    )}
                                 </div>
 
                                 {/* Chosen Payment Plan Field */}
@@ -638,12 +729,6 @@ export default function ContactForm() {
                                             </Select>
                                         )}
                                     />
-
-                                    {errors.payment && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.payment.message}
-                                        </p>
-                                    )}
                                 </div>
                             </div>
 
@@ -689,11 +774,6 @@ export default function ContactForm() {
                                             </Select>
                                         )}
                                     />
-                                    {errors.website && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.website.message}
-                                        </p>
-                                    )}
                                 </div>
 
                                 {/* Website Style Field */}
@@ -735,11 +815,6 @@ export default function ContactForm() {
                                             </Select>
                                         )}
                                     />
-                                    {errors.style && (
-                                        <p className="text-sm text-red-500">
-                                            {errors.style.message}
-                                        </p>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -848,11 +923,6 @@ export default function ContactForm() {
                                         />
                                     )}
                                 />
-                                {errors.message && (
-                                    <p className="text-sm text-red-500">
-                                        {errors.message.message}
-                                    </p>
-                                )}
                             </div>
                         </div>
                     </div>
@@ -903,7 +973,7 @@ export default function ContactForm() {
                                 <Button
                                     variant={isDarkMode ? "secondary" : "default"}
                                     type="submit"
-                                    className="justify-self-end w-full md:w-auto"
+                                    className="justify-self-start w-full md:w-auto"
                                 >
                                     Submit
                                 </Button>
@@ -911,6 +981,31 @@ export default function ContactForm() {
                         </div>
                     </div>
                 </form>
+
+                {/* Toaster */}
+                <Toaster position="top-right" richColors variant="error" />
+
+                {/* Alert Dialog */}
+                <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Form Submitted Successfully</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Thank you! Your form has been successfully submitted. We’ll get back to
+                                you shortly.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            {mounted && (
+                                <Button
+                                    variant={isDarkMode ? "secondary" : "default"}
+                                    onClick={() => setDialogOpen( false )}>
+                                    Close
+                                </Button>
+                            )}
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
         </section>
     );
