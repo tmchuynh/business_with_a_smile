@@ -129,7 +129,7 @@ function Form() {
             findPaymentPlan( payment );
             findWebsite( tier );
         }
-    }, [] );
+    } );
 
     useEffect( () => {
         const phoneValue = getValues( 'phone' );
