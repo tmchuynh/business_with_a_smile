@@ -48,7 +48,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                         {prices.payment.fee > 0 && (
                             <>
                                 <p className="text-gray-600 dark:text-gray-300 flex justify-between">
-                                    <span className="font-sans">Fee:</span> {USDollar.format( prices.payment.fee )}
+                                    <span className="font-sans">Fee:</span> +{USDollar.format( prices.payment.fee )}
                                 </p>
                             </>
                         )}

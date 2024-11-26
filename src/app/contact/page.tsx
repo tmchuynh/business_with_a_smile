@@ -121,9 +121,7 @@ function Form() {
 
     useEffect( () => {
         setMounted( true );
-    }, [] );
 
-    useEffect( () => {
         if ( paymentPlan && websiteType ) {
             const payment = decodeUrlSafeBase64( paymentPlan );
             const tier = decodeUrlSafeBase64( websiteType );
@@ -131,7 +129,7 @@ function Form() {
             findPaymentPlan( payment );
             findWebsite( tier );
         }
-    } );
+    }, [] );
 
     useEffect( () => {
         const phoneValue = getValues( 'phone' );
@@ -279,19 +277,18 @@ function Form() {
     const updateTotal = () => {
         let totalPayment = prices.website.startingPrice;
         const dateDays = prices.date.days;
-        let fee = prices.payment.fee;
-        const discountedPrice = totalPayment;
+        const fee = prices.payment.fee;
+        let feeIncrease = 0;
 
         const discountPercent = prices.payment.discount;
         const startingPrice = prices.website.startingPrice;
         const firstPaymentPercentage = prices.payment.firstPayment;
         let firstPayment = startingPrice;
 
-
         if ( dateDays > 45 && dateDays < 90 ) {
-            fee += 10;
+            feeIncrease = 10;
         } else if ( dateDays <= 45 ) {
-            fee += 50;
+            feeIncrease = 50;
         }
 
         totalPayment += fee;
@@ -304,7 +301,7 @@ function Form() {
         prices.total = { ["amount"]: totalPayment };
 
         if ( firstPaymentPercentage !== 100 ) {
-            firstPayment = totalPayment - ( firstPaymentPercentage / 100 );
+            firstPayment = totalPayment * ( firstPaymentPercentage / 100 );
         } else {
             firstPayment = totalPayment;
         }
@@ -312,15 +309,15 @@ function Form() {
 
         setPrices( ( prevPrices ) => ( {
             ...prevPrices,
-            total: { ["amount"]: totalPayment },
+            total: { amount: totalPayment },
             payment: {
                 name: prevPrices.payment.name,
                 firstPayment: prevPrices.payment.firstPayment,
-                fee: prevPrices.payment.fee,
+                fee: fee + feeIncrease,
                 discount: prevPrices.payment.discount,
-                discountedPrice: discountedPrice
+                discountedPrice: totalPayment - prevPrices.website.startingPrice
             },
-            firstPayment: { ["amount"]: firstPayment },
+            firstPayment: { amount: firstPayment },
         } ) );
 
         console.log( prices );
@@ -386,6 +383,7 @@ function Form() {
                 firstPayment: 0,
                 fee: 0,
                 discount: 0,
+                discountedPrice: 0,
             },
             date: {
                 months: '',

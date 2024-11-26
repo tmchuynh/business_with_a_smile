@@ -18,10 +18,10 @@ FROM node:18-alpine AS runner
 WORKDIR /
 
 # Set environment to production
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 # Copy only the necessary build and runtime files
-COPY --from=builder ./next.config.ts ./
+COPY --from=builder ./next.config.ts ./next.config.ts
 COPY --from=builder ./public ./public
 COPY --from=builder ./.next ./.next
 COPY --from=builder ./node_modules ./node_modules
