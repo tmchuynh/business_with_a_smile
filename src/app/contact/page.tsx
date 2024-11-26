@@ -1,28 +1,30 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
+import { PricingDetails } from "@/components/Price-Details";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { HeaderImage } from "@/components/ui/header-image";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, decodeUrlSafeBase64, formatCurrency, formatDate, formatPhoneNumber } from "@/lib/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addDays, setDate } from "date-fns";
 import { CalendarIcon, CheckCheck, CircleAlert, Info, Loader, OctagonAlert } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 import * as React from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as yup from 'yup';
 import { FormData, PaymentPlan, Preset, Prices, Styles, Website } from "../../../types";
 import { paymentPlans, presets, site_styles, website_types } from "../../../types/constants";
-import { useTheme } from "next-themes";
-import { HeaderImage } from "@/components/ui/header-image";
-import { useEffect, useRef, useState } from "react";
-import { PricingDetails } from "@/components/Price-Details";
-import { AlertDialogHeader, AlertDialogFooter, AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription } from "@/components/ui/alert-dialog";
 
 const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
     name: yup.string().required( 'Name is required' ),
@@ -59,6 +61,10 @@ const validationSchema: yup.ObjectSchema<FormData> = yup.object().shape( {
 
 
 export default function ContactForm() {
+    const searchParams = useSearchParams();
+    const paymentPlan = searchParams.get( "paymentMethod" );
+    const websiteType = searchParams.get( "website" );
+
     const {
         control,
         handleSubmit,
@@ -100,18 +106,14 @@ export default function ContactForm() {
     const isDarkMode = theme === 'dark';
 
     const [date, setDate] = useState<Date | undefined>( undefined );
-    const [phone, setPhone] = useState( "" );
     const [dialogOpen, setDialogOpen] = useState( false );
     const [selectedMonth, setSelectedMonth] = useState<Date | null>( null );
     const [mounted, setMounted] = useState( false );
+
     useEffect( () => {
         setMounted( true );
         console.log( prices );
     }, [] );
-
-    const searchParams = useSearchParams();
-    const paymentPlan = searchParams.get( "paymentMethod" );
-    const websiteType = searchParams.get( "website" );
 
     useEffect( () => {
         if ( paymentPlan && websiteType ) {
@@ -267,8 +269,6 @@ export default function ContactForm() {
             6
         ) }-${ phoneNumber.slice( 6, 10 ) }`;
     };
-
-
 
     const updateTotal = () => {
         let totalPayment = prices.website.startingPrice;

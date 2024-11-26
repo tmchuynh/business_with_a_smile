@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter } from "next/navigation";
-import { classNames, encodeUrlSafeBase64 } from '@/lib/utils';
+import { classNames, encodeUrlSafeBase64, USDollar } from '@/lib/utils';
 import { paymentPlans } from '../../../../../types/constants';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
@@ -99,9 +99,9 @@ export default function PaymentOptions() {
                                         "text-base"
                                     )}
                                 >
-                                    {["Varies"].includes( plan.price )
-                                        ? ""
-                                        : ["1"].includes( plan.price )
+                                    {( plan.price == 0 )
+                                        ? "Payments Vary"
+                                        : ["1"].includes( USDollar.format( plan.price ) )
                                             ? "payment"
                                             : "payments"}
                                 </span>

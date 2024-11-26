@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { Providers } from "./providers";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/ui/backToTop";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Create Next App",

@@ -866,7 +866,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Pay-As-You-Go Plan",
         id: "pay-as-you-go",
-        price: "Varies",
+        price: 0,
         description: "Pay for each phase as it’s completed.",
         features: [
             "Granular control over costs and timelines.",
@@ -904,7 +904,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Subscription Plan",
         id: "subscription-model",
-        price: "Monthly or Annual",
+        price: 0,
         description: "Ongoing development and maintenance for sustained success.",
         features: [
             "Continuous updates and maintenance services.",
@@ -941,7 +941,7 @@ export const paymentPlans: PaymentPlan[] = [
     {
         name: "Deferred Payment Plan",
         id: "deferred-payment",
-        price: "Flexible",
+        price: 2,
         description: "Start now, pay later with deferred payments.",
         features: [
             "Minimal 15% upfront deposit.",

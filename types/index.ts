@@ -36,7 +36,7 @@ export interface FormData {
 export interface PaymentPlan {
     name: string;
     id: string;
-    price: number | string;
+    price: number;
     description: string;
     features: string[];
     benefits: string[];
@@ -123,5 +123,9 @@ export interface Website {
     popular: boolean;
     who: string[];
     occasions: string[];
-    other_info: Object;
+    other_info: {
+        features: string[];
+        requirements: string[];
+        benefits: string[];
+    };
 }
