@@ -21,6 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as yup from 'yup';
+import { Suspense } from "react";
 import { FormData, PaymentPlan, Preset, Prices, Styles, Website } from "../../../types";
 import { paymentPlans, presets, site_styles, website_types } from "../../../types/constants";
 
@@ -432,575 +433,577 @@ export default function ContactForm() {
     }
 
     return (
-        <section className="pb-16 relative">
-            <HeaderImage url={'/images/mountain.jpg'} />
-            <div className="text-center mb-12">
-                <h6>
-                    Bring Your Vision to Life
-                </h6>
-                <h1>
-                    Contact Us
-                </h1>
-                <h2 className="mt-4 text-lg text-softNeutral-600 dark:text-softNeutral-200">
-                    Ready to take the next step? Reach out to us today, and let’s turn
-                    your ideas into reality.
-                </h2>
-            </div>
+        <Suspense fallback={<div>Loading...</div>}>
+            <section className="pb-16 relative">
+                <HeaderImage url={'/images/mountain.jpg'} />
+                <div className="text-center mb-12">
+                    <h6>
+                        Bring Your Vision to Life
+                    </h6>
+                    <h1>
+                        Contact Us
+                    </h1>
+                    <h2 className="mt-4 text-lg text-softNeutral-600 dark:text-softNeutral-200">
+                        Ready to take the next step? Reach out to us today, and let’s turn
+                        your ideas into reality.
+                    </h2>
+                </div>
 
-            <div className="my-16 mx-auto px-4 md:px-16 w-11/12">
-                <form
-                    onSubmit={handleSubmit( onSubmit, showErrorsAsToasts )}
-                    className="space-y-12 divide-y"
-                >
-                    {/* Section 1: Personal Information */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div className="md:col-span-1">
-                            <h3>
-                                Personal Information
-                            </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
-                                Tell us about yourself and how to reach you.
-                            </p>
-                        </div>
-                        <div className="md:col-span-2 space-y-6">
-                            {/* Name Field */}
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Name
-                                </label>
-                                <Controller
-                                    name="name"
-                                    control={control}
-                                    render={( { field } ) => (
-                                        <Input
-                                            {...field}
-                                            placeholder="John Doe"
-                                            className="mt-1"
-                                        />
-                                    )}
-                                />
+                <div className="my-16 mx-auto px-4 md:px-16 w-11/12">
+                    <form
+                        onSubmit={handleSubmit( onSubmit, showErrorsAsToasts )}
+                        className="space-y-12 divide-y"
+                    >
+                        {/* Section 1: Personal Information */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                            <div className="md:col-span-1">
+                                <h3>
+                                    Personal Information
+                                </h3>
+                                <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                                    Tell us about yourself and how to reach you.
+                                </p>
                             </div>
-
-                            {/* Email and Phone Number Fields */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Email Field */}
+                            <div className="md:col-span-2 space-y-6">
+                                {/* Name Field */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Email
+                                        Name
                                     </label>
                                     <Controller
-                                        name="email"
+                                        name="name"
                                         control={control}
                                         render={( { field } ) => (
                                             <Input
                                                 {...field}
-                                                placeholder="john.doe@example.com"
+                                                placeholder="John Doe"
                                                 className="mt-1"
                                             />
                                         )}
                                     />
                                 </div>
 
-                                {/* Phone Number Field */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Phone Number
-                                    </label>
-                                    <Controller
-                                        name="phone"
-                                        control={control}
-                                        render={( { field } ) => (
-                                            <Input
-                                                {...field}
-                                                type="tel"
-                                                placeholder="Phone Number"
-                                                autoComplete="tel"
-                                                onChange={( e ) => {
-                                                    const inputVal = e.target.value;
-                                                    const formattedPhone = formatPhoneNumber( inputVal );
-
-                                                    // Update only if digits are less than or equal to 10
-                                                    const digits = inputVal.replace( /\D/g, '' );
-                                                    if ( digits.length <= 10 ) {
-                                                        field.onChange( formattedPhone );
-                                                    }
-                                                }}
-                                            />
-                                        )}
-                                    />
-
-                                </div>
-                            </div>
-
-                            {/* Preferred Method of Communication and Discord Username */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Preferred Method of Communication Field */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Preferred Method of Communication
-                                    </label>
-                                    <Controller
-                                        name="communicationMethod"
-                                        control={control}
-                                        render={( { field } ) => (
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={( newValue ) => {
-                                                    field.onChange( newValue );
-                                                }}
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a method" >
-                                                        {field.value || "Select a method"}
-                                                    </SelectValue>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Phone">
-                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                            Phone
-                                                        </span>
-                                                    </SelectItem>
-                                                    <SelectItem value="Discord">
-                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                            Discord
-                                                        </span>
-                                                    </SelectItem>
-                                                    <SelectItem value="Email">
-                                                        <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                            Email
-                                                        </span>
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        )}
-                                    />
-                                </div>
-
-                                {/* Discord Username Field */}
-                                {communicationMethod === "Discord" && (
+                                {/* Email and Phone Number Fields */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* Email Field */}
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                            Discord Username
+                                            Email
                                         </label>
                                         <Controller
-                                            name="discordUsername"
+                                            name="email"
                                             control={control}
                                             render={( { field } ) => (
                                                 <Input
                                                     {...field}
-                                                    placeholder="@YourDiscordUsername"
+                                                    placeholder="john.doe@example.com"
                                                     className="mt-1"
-                                                    value={field.value || ""}
-                                                    onChange={( e ) => {
-                                                        let value = e.target.value;
-                                                        if ( !value.startsWith( "@" ) ) {
-                                                            value = "@ " + value;
-                                                        }
-                                                        field.onChange( value );
-                                                    }}
                                                 />
                                             )}
                                         />
                                     </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Section 2: Project Details */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
-                        <div className="md:col-span-1">
-                            <h3>
-                                Project Details
-                            </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
-                                Let us know more about your project requirements.
-                            </p>
-                        </div>
-                        <div className="md:col-span-2 space-y-6">
-                            {/* Estimated Due Date and Chosen Payment Plan */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                                {/* Estimated Due Date Field */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Estimated Due Date
-                                    </label>
-                                    <Popover open={openPopover} onOpenChange={setOpenPopover}>
-                                        <PopoverTrigger asChild>
-                                            <Button
-                                                variant={"outline"}
-                                                className={cn(
-                                                    "flex justify-start items-center text-left font-normal py-3",
-                                                    !date && "text-muted-foreground"
-                                                )}
-                                                aria-label="Select a date"
-                                                type="button"
-                                            >
-                                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {date ? formatDate( date ) : "Pick a date"}
-                                            </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0 my-2 space-y-3 border-none">
-                                            <Calendar
-                                                mode="single"
-                                                selected={date}
-                                                onSelect={handleDateSelect}
-                                                disabled={{ before: new Date( new Date().setMonth( ( new Date() ).getMonth() + 2 ) ) }}
-                                                initialFocus
-                                            />
-                                            <Controller
-                                                name="preset"
-                                                control={control}
-                                                render={( { field } ) => (
-                                                    <Select
-                                                        onValueChange={( value ) => {
-                                                            const days = removeLetters( value );
-                                                            setDate( addDays( new Date(), parseInt( days ) ) );
-                                                            const months = parseInt( days ) / 30;
-                                                            field.onChange( `${ months } months` );
-                                                            findPreset( `${ months } months` );
-                                                        }}
-                                                        value={field.value}
-                                                    >
-                                                        <SelectTrigger className="dark:text-softNeutral-50">
-                                                            <SelectValue placeholder="Select a Preset" >
-                                                                {field.value || "Select a Preset"}
-                                                            </SelectValue>
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            {presets.map( ( length, index ) => (
-                                                                <SelectItem
-                                                                    key={`${ length } days_${ index }`}
-                                                                    value={length.value}
-                                                                >
-                                                                    {length.description}
-                                                                </SelectItem>
-                                                            ) )}
-                                                        </SelectContent>
-                                                    </Select>
-                                                )}
-                                            />
-                                        </PopoverContent>
-                                    </Popover>
-                                </div>
+                                    {/* Phone Number Field */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Phone Number
+                                        </label>
+                                        <Controller
+                                            name="phone"
+                                            control={control}
+                                            render={( { field } ) => (
+                                                <Input
+                                                    {...field}
+                                                    type="tel"
+                                                    placeholder="Phone Number"
+                                                    autoComplete="tel"
+                                                    onChange={( e ) => {
+                                                        const inputVal = e.target.value;
+                                                        const formattedPhone = formatPhoneNumber( inputVal );
 
-                                {/* Chosen Payment Plan Field */}
-                                <div className="space-y-2 payment-selector">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Chosen Payment Plan
-                                    </label>
-                                    <Controller
-                                        name="payment"
-                                        control={control}
-                                        render={( { field } ) => (
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={( newValue ) => {
-                                                    field.onChange( newValue );
-                                                    findPaymentPlan( newValue );
-                                                }}
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a payment plan">
-                                                        {field.value || "Select a payment plan"}
-                                                    </SelectValue>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {paymentPlans.map( ( plan, index ) => (
-                                                        <SelectItem
-                                                            key={`${ plan.name }_${ index }`}
-                                                            value={plan.name}
-                                                        >
-                                                            <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                                    {plan.name}
-                                                                </p>
-                                                                <p className="text-sm dark:text-softNeutral-200">{plan.description}</p>
-                                                            </div>
-                                                        </SelectItem>
-                                                    ) )}
-                                                </SelectContent>
-                                            </Select>
-                                        )}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Website Type and Website Style Fields */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 website-selector">
-                                {/* Website Type Field */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Website Type
-                                    </label>
-                                    <Controller
-                                        name="website"
-                                        control={control}
-                                        render={( { field } ) => (
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={( newValue ) => {
-                                                    // Update the form field value
-                                                    field.onChange( newValue );
-                                                    findWebsite( newValue );
-                                                }}
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a website type">
-                                                        {field.value || "Select a website type"}
-                                                    </SelectValue>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {website_types.map( ( type, index ) => (
-                                                        <SelectItem
-                                                            key={`${ type.name }_${ index }`}
-                                                            value={type.name}
-                                                        >
-                                                            <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                                    {type.name}
-                                                                </p>
-                                                                <p className="text-sm dark:text-softNeutral-200">{type.description}</p>
-                                                            </div>
-                                                        </SelectItem>
-                                                    ) )}
-                                                </SelectContent>
-                                            </Select>
-                                        )}
-                                    />
-                                </div>
-
-                                {/* Website Style Field */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                        Website Style
-                                    </label>
-                                    <Controller
-                                        name="style"
-                                        control={control}
-                                        render={( { field } ) => (
-                                            <Select
-                                                value={field.value}
-                                                onValueChange={( newValue ) => {
-                                                    field.onChange( newValue );
-                                                    findStyle( newValue );
-                                                }}
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a style">
-                                                        {field.value || "Select a style"}
-                                                    </SelectValue>
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {site_styles.map( ( style, index ) => (
-                                                        <SelectItem
-                                                            key={`${ style.name }_${ index }`}
-                                                            value={style.name}
-                                                        >
-                                                            <div className="block pr-6">
-                                                                <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
-                                                                    {style.name}
-                                                                </p>
-                                                                <p className="text-sm dark:text-softNeutral-200">{style.description}</p>
-                                                            </div>
-                                                        </SelectItem>
-                                                    ) )}
-                                                </SelectContent>
-                                            </Select>
-                                        )}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Section 3: Additional Information */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
-                        <div className="md:col-span-1">
-                            <h3>
-                                Additional Information
-                            </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
-                                Any additional details or files you'd like to share.
-                            </p>
-                        </div>
-                        <div className="md:col-span-2 space-y-6">
-                            {/* Attachments */}
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Attachments (optional)
-                                </label>
-                                <div className="space-y-2">
-                                    <input
-                                        type="file"
-                                        ref={fileInputRef}
-                                        multiple={fileToChangeIndex === null}
-                                        onChange={handleFileChange}
-                                        className="hidden"
-                                    />
-
-                                    {attachments?.length === 0 ? (
-                                        <>
-                                            {mounted && (
-                                                <Button
-                                                    variant={isDarkMode ? "outline" : "default"}
-                                                    onClick={() => fileInputRef.current?.click()}
-                                                >
-                                                    Choose File
-                                                </Button>
+                                                        // Update only if digits are less than or equal to 10
+                                                        const digits = inputVal.replace( /\D/g, '' );
+                                                        if ( digits.length <= 10 ) {
+                                                            field.onChange( formattedPhone );
+                                                        }
+                                                    }}
+                                                />
                                             )}
-                                        </>
-                                    ) : (
-                                        <div>
-                                            {attachments?.map( ( file, index ) => (
-                                                <div
-                                                    key={index}
-                                                    className="grid grid-rows-1 grid-cols-5 items-center gap-2 my-2"
-                                                >
-                                                    <span className="col-span-3">{file.name}</span>
-                                                    <Button
-                                                        variant="outline"
-                                                        className="cols-span-1"
-                                                        onClick={() => {
-                                                            setFileToChangeIndex( index );
-                                                            fileInputRef.current?.click();
-                                                        }}
-                                                    >
-                                                        Change File
-                                                    </Button>
+                                        />
 
-                                                    <Button
-                                                        variant="destructive"
-                                                        className="cols-span-1"
-                                                        onClick={() => handleRemoveFile( index )}
-                                                    >
-                                                        Remove File
-                                                    </Button>
-                                                </div>
-                                            ) )}
-                                            <div className="grid grid-cols-2 items-center gap-4">
-                                                <Button
-                                                    variant="destructive"
-                                                    onClick={handleRemoveAllFiles}
-                                                >
-                                                    Remove All Files
-                                                </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={() => {
-                                                        setFileToChangeIndex( null );
-                                                        fileInputRef.current?.click();
+                                    </div>
+                                </div>
+
+                                {/* Preferred Method of Communication and Discord Username */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* Preferred Method of Communication Field */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Preferred Method of Communication
+                                        </label>
+                                        <Controller
+                                            name="communicationMethod"
+                                            control={control}
+                                            render={( { field } ) => (
+                                                <Select
+                                                    value={field.value}
+                                                    onValueChange={( newValue ) => {
+                                                        field.onChange( newValue );
                                                     }}
                                                 >
-                                                    Upload Another File
-                                                </Button>
-                                            </div>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a method" >
+                                                            {field.value || "Select a method"}
+                                                        </SelectValue>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="Phone">
+                                                            <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                Phone
+                                                            </span>
+                                                        </SelectItem>
+                                                        <SelectItem value="Discord">
+                                                            <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                Discord
+                                                            </span>
+                                                        </SelectItem>
+                                                        <SelectItem value="Email">
+                                                            <span className="mt-1 text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                Email
+                                                            </span>
+                                                        </SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                    </div>
+
+                                    {/* Discord Username Field */}
+                                    {communicationMethod === "Discord" && (
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                                Discord Username
+                                            </label>
+                                            <Controller
+                                                name="discordUsername"
+                                                control={control}
+                                                render={( { field } ) => (
+                                                    <Input
+                                                        {...field}
+                                                        placeholder="@YourDiscordUsername"
+                                                        className="mt-1"
+                                                        value={field.value || ""}
+                                                        onChange={( e ) => {
+                                                            let value = e.target.value;
+                                                            if ( !value.startsWith( "@" ) ) {
+                                                                value = "@ " + value;
+                                                            }
+                                                            field.onChange( value );
+                                                        }}
+                                                    />
+                                                )}
+                                            />
                                         </div>
                                     )}
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Message Field */}
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Your Message
-                                </label>
-                                <Controller
-                                    name="message"
-                                    control={control}
-                                    render={( { field } ) => (
-                                        <Textarea
-                                            {...field}
-                                            id="message"
-                                            rows={4}
-                                            placeholder="Write your message here..."
+                        {/* Section 2: Project Details */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
+                            <div className="md:col-span-1">
+                                <h3>
+                                    Project Details
+                                </h3>
+                                <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                                    Let us know more about your project requirements.
+                                </p>
+                            </div>
+                            <div className="md:col-span-2 space-y-6">
+                                {/* Estimated Due Date and Chosen Payment Plan */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                    {/* Estimated Due Date Field */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Estimated Due Date
+                                        </label>
+                                        <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    variant={"outline"}
+                                                    className={cn(
+                                                        "flex justify-start items-center text-left font-normal py-3",
+                                                        !date && "text-muted-foreground"
+                                                    )}
+                                                    aria-label="Select a date"
+                                                    type="button"
+                                                >
+                                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                                    {date ? formatDate( date ) : "Pick a date"}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0 my-2 space-y-3 border-none">
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={date}
+                                                    onSelect={handleDateSelect}
+                                                    disabled={{ before: new Date( new Date().setMonth( ( new Date() ).getMonth() + 2 ) ) }}
+                                                    initialFocus
+                                                />
+                                                <Controller
+                                                    name="preset"
+                                                    control={control}
+                                                    render={( { field } ) => (
+                                                        <Select
+                                                            onValueChange={( value ) => {
+                                                                const days = removeLetters( value );
+                                                                setDate( addDays( new Date(), parseInt( days ) ) );
+                                                                const months = parseInt( days ) / 30;
+                                                                field.onChange( `${ months } months` );
+                                                                findPreset( `${ months } months` );
+                                                            }}
+                                                            value={field.value}
+                                                        >
+                                                            <SelectTrigger className="dark:text-softNeutral-50">
+                                                                <SelectValue placeholder="Select a Preset" >
+                                                                    {field.value || "Select a Preset"}
+                                                                </SelectValue>
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                {presets.map( ( length, index ) => (
+                                                                    <SelectItem
+                                                                        key={`${ length } days_${ index }`}
+                                                                        value={length.value}
+                                                                    >
+                                                                        {length.description}
+                                                                    </SelectItem>
+                                                                ) )}
+                                                            </SelectContent>
+                                                        </Select>
+                                                    )}
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                    </div>
+
+                                    {/* Chosen Payment Plan Field */}
+                                    <div className="space-y-2 payment-selector">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Chosen Payment Plan
+                                        </label>
+                                        <Controller
+                                            name="payment"
+                                            control={control}
+                                            render={( { field } ) => (
+                                                <Select
+                                                    value={field.value}
+                                                    onValueChange={( newValue ) => {
+                                                        field.onChange( newValue );
+                                                        findPaymentPlan( newValue );
+                                                    }}
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a payment plan">
+                                                            {field.value || "Select a payment plan"}
+                                                        </SelectValue>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {paymentPlans.map( ( plan, index ) => (
+                                                            <SelectItem
+                                                                key={`${ plan.name }_${ index }`}
+                                                                value={plan.name}
+                                                            >
+                                                                <div className="block pr-6">
+                                                                    <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                        {plan.name}
+                                                                    </p>
+                                                                    <p className="text-sm dark:text-softNeutral-200">{plan.description}</p>
+                                                                </div>
+                                                            </SelectItem>
+                                                        ) )}
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
                                         />
-                                    )}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
 
-                    {/* Section 4: Estimated Payments */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
-                        <div className="md:col-span-1">
-                            <h3>
-                                Estimated Payments
-                            </h3>
-                            <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
-                                Review the estimated payments based on your selected website type, payment plan, and due dates.
-                            </p>
-                        </div>
-                        <div className="md:col-span-2 space-y-6">
-                            {/* Payment Summary */}
-                            <div className="space-y-2">
-                                <div className="border border-softNeutral-300 dark:border-softNeutral-700 rounded-lg p-4">
-                                    <PricingDetails prices={prices} />
+                                {/* Website Type and Website Style Fields */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 website-selector">
+                                    {/* Website Type Field */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Website Type
+                                        </label>
+                                        <Controller
+                                            name="website"
+                                            control={control}
+                                            render={( { field } ) => (
+                                                <Select
+                                                    value={field.value}
+                                                    onValueChange={( newValue ) => {
+                                                        // Update the form field value
+                                                        field.onChange( newValue );
+                                                        findWebsite( newValue );
+                                                    }}
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a website type">
+                                                            {field.value || "Select a website type"}
+                                                        </SelectValue>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {website_types.map( ( type, index ) => (
+                                                            <SelectItem
+                                                                key={`${ type.name }_${ index }`}
+                                                                value={type.name}
+                                                            >
+                                                                <div className="block pr-6">
+                                                                    <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                        {type.name}
+                                                                    </p>
+                                                                    <p className="text-sm dark:text-softNeutral-200">{type.description}</p>
+                                                                </div>
+                                                            </SelectItem>
+                                                        ) )}
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                    </div>
+
+                                    {/* Website Style Field */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                            Website Style
+                                        </label>
+                                        <Controller
+                                            name="style"
+                                            control={control}
+                                            render={( { field } ) => (
+                                                <Select
+                                                    value={field.value}
+                                                    onValueChange={( newValue ) => {
+                                                        field.onChange( newValue );
+                                                        findStyle( newValue );
+                                                    }}
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a style">
+                                                            {field.value || "Select a style"}
+                                                        </SelectValue>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {site_styles.map( ( style, index ) => (
+                                                            <SelectItem
+                                                                key={`${ style.name }_${ index }`}
+                                                                value={style.name}
+                                                            >
+                                                                <div className="block pr-6">
+                                                                    <p className="text-md text-deepTeal-500 dark:text-deepBlue-400 font-bold">
+                                                                        {style.name}
+                                                                    </p>
+                                                                    <p className="text-sm dark:text-softNeutral-200">{style.description}</p>
+                                                                </div>
+                                                            </SelectItem>
+                                                        ) )}
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* Fees Information */}
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Additional Fees
-                                </label>
-                                <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
-                                    <p>
-                                        Applicable fees, if any, will be calculated based on the selected payment plan and due dates. Kindly adhere to the payment schedule to avoid potential late fees or additional charges.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Disclaimer Information */}
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Disclaimer
-                                </label>
-                                <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
-                                    <p>
-                                        Please note that the displayed cost is an estimate. A detailed and finalized quote will be sent to your provided email address within 3–5 business days.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {mounted && (
-                                <Button
-                                    variant={isDarkMode ? "secondary" : "default"}
-                                    type="submit"
-                                    className="justify-self-start w-full md:w-auto"
-                                >
-                                    Submit
-                                </Button>
-                            )}
                         </div>
-                    </div>
-                </form>
 
-                {/* Toaster */}
-                <Toaster position="top-right" richColors variant="error" />
+                        {/* Section 3: Additional Information */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
+                            <div className="md:col-span-1">
+                                <h3>
+                                    Additional Information
+                                </h3>
+                                <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                                    Any additional details or files you'd like to share.
+                                </p>
+                            </div>
+                            <div className="md:col-span-2 space-y-6">
+                                {/* Attachments */}
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                        Attachments (optional)
+                                    </label>
+                                    <div className="space-y-2">
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            multiple={fileToChangeIndex === null}
+                                            onChange={handleFileChange}
+                                            className="hidden"
+                                        />
 
-                {/* Alert Dialog */}
-                <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Form Submitted Successfully</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Thank you! Your form has been successfully submitted. We’ll get back to
-                                you shortly.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            {mounted && (
-                                <Button
-                                    variant={isDarkMode ? "secondary" : "default"}
-                                    onClick={() => setDialogOpen( false )}>
-                                    Close
-                                </Button>
-                            )}
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-            </div>
-        </section>
+                                        {attachments?.length === 0 ? (
+                                            <>
+                                                {mounted && (
+                                                    <Button
+                                                        variant={isDarkMode ? "outline" : "default"}
+                                                        onClick={() => fileInputRef.current?.click()}
+                                                    >
+                                                        Choose File
+                                                    </Button>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <div>
+                                                {attachments?.map( ( file, index ) => (
+                                                    <div
+                                                        key={index}
+                                                        className="grid grid-rows-1 grid-cols-5 items-center gap-2 my-2"
+                                                    >
+                                                        <span className="col-span-3">{file.name}</span>
+                                                        <Button
+                                                            variant="outline"
+                                                            className="cols-span-1"
+                                                            onClick={() => {
+                                                                setFileToChangeIndex( index );
+                                                                fileInputRef.current?.click();
+                                                            }}
+                                                        >
+                                                            Change File
+                                                        </Button>
+
+                                                        <Button
+                                                            variant="destructive"
+                                                            className="cols-span-1"
+                                                            onClick={() => handleRemoveFile( index )}
+                                                        >
+                                                            Remove File
+                                                        </Button>
+                                                    </div>
+                                                ) )}
+                                                <div className="grid grid-cols-2 items-center gap-4">
+                                                    <Button
+                                                        variant="destructive"
+                                                        onClick={handleRemoveAllFiles}
+                                                    >
+                                                        Remove All Files
+                                                    </Button>
+                                                    <Button
+                                                        variant="outline"
+                                                        onClick={() => {
+                                                            setFileToChangeIndex( null );
+                                                            fileInputRef.current?.click();
+                                                        }}
+                                                    >
+                                                        Upload Another File
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Message Field */}
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                        Your Message
+                                    </label>
+                                    <Controller
+                                        name="message"
+                                        control={control}
+                                        render={( { field } ) => (
+                                            <Textarea
+                                                {...field}
+                                                id="message"
+                                                rows={4}
+                                                placeholder="Write your message here..."
+                                            />
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Section 4: Estimated Payments */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-5">
+                            <div className="md:col-span-1">
+                                <h3>
+                                    Estimated Payments
+                                </h3>
+                                <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
+                                    Review the estimated payments based on your selected website type, payment plan, and due dates.
+                                </p>
+                            </div>
+                            <div className="md:col-span-2 space-y-6">
+                                {/* Payment Summary */}
+                                <div className="space-y-2">
+                                    <div className="border border-softNeutral-300 dark:border-softNeutral-700 rounded-lg p-4">
+                                        <PricingDetails prices={prices} />
+                                    </div>
+                                </div>
+
+                                {/* Fees Information */}
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                        Additional Fees
+                                    </label>
+                                    <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
+                                        <p>
+                                            Applicable fees, if any, will be calculated based on the selected payment plan and due dates. Kindly adhere to the payment schedule to avoid potential late fees or additional charges.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Disclaimer Information */}
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                        Disclaimer
+                                    </label>
+                                    <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
+                                        <p>
+                                            Please note that the displayed cost is an estimate. A detailed and finalized quote will be sent to your provided email address within 3–5 business days.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {mounted && (
+                                    <Button
+                                        variant={isDarkMode ? "secondary" : "default"}
+                                        type="submit"
+                                        className="justify-self-start w-full md:w-auto"
+                                    >
+                                        Submit
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    </form>
+
+                    {/* Toaster */}
+                    <Toaster position="top-right" richColors variant="error" />
+
+                    {/* Alert Dialog */}
+                    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Form Submitted Successfully</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Thank you! Your form has been successfully submitted. We’ll get back to
+                                    you shortly.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                {mounted && (
+                                    <Button
+                                        variant={isDarkMode ? "secondary" : "default"}
+                                        onClick={() => setDialogOpen( false )}>
+                                        Close
+                                    </Button>
+                                )}
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </div>
+            </section>
+        </Suspense>
     );
 }
