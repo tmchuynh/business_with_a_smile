@@ -137,3 +137,13 @@ export default function PaymentDetails() {
         </div>
     );
 }
+
+
+async function generateStaticParams() {
+    const sites = await fetch( 'https://.../websites' ).then( ( res ) => res.json() );
+
+    return sites.map( ( site: { name: string; plan: string; } ) => ( {
+        name: site.name,
+        plan: site.plan
+    } ) );
+}
