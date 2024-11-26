@@ -49,12 +49,31 @@ export interface PaymentPlan {
 }
 
 export interface Prices {
-    website: Object;
-    payment: Object;
-    date: Object;
-    style?: Object;
-    firstPayment: Object;
-    total: Object;
+    website: {
+        name: string;
+        startingPrice: number;
+    };
+    payment: {
+        name: string;
+        firstPayment: number;
+        fee: number;
+        discount: number;
+        discountedPrice?: number;
+    };
+    date: {
+        months: string;
+        date: string;
+        days: number;
+    };
+    style?: {
+        name: string;
+    };
+    firstPayment: {
+        amount: number;
+    };
+    total: {
+        amount: number;
+    };
 }
 
 export interface PaymentScheduleItem {

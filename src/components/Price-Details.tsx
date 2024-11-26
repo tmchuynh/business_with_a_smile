@@ -52,7 +52,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                                 </p>
                             </>
                         )}
-                        {prices.payment.discount > 0 && (
+                        {prices.payment.discount > 0 && prices.payment.discountedPrice ? (
                             <>
                                 <p className="text-gray-600 dark:text-gray-300 flex justify-between">
                                     <span className="font-sans">Discount:</span> {prices.payment.discount}%
@@ -61,7 +61,7 @@ export const PricingDetails: React.FC<{ prices: Prices; }> = ( { prices } ) => {
                                     <span className="font-sans">Discounted Price:</span> {USDollar.format( prices.payment.discountedPrice )}
                                 </p>
                             </>
-                        )}
+                        ) : ""}
                     </div>
                 </div>
 

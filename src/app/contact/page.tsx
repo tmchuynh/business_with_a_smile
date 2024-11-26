@@ -86,10 +86,10 @@ export default function ContactForm() {
 
     const [prices, setPrices] = useState<Prices>( {
         website: { name: '', startingPrice: 0 },
-        payment: { name: '', percentage: 0, fee: 0, discount: 0, firstPayment: 0 },
+        payment: { name: '', discountedPrice: 0, fee: 0, discount: 0, firstPayment: 0 },
         date: { months: '', days: 0, date: formatDate( new Date() ) },
         style: { name: '' },
-        firstPayment: {},
+        firstPayment: { amount: 0 },
         total: { amount: 0 },
     } );
 
@@ -295,7 +295,7 @@ export default function ContactForm() {
             const discountedPrice = totalPayment - ( totalPayment * percentage );
             totalPayment = discountedPrice;
         }
-        prices.total = totalPayment;
+        prices.total = { ["amount"]: totalPayment };
 
         if ( firstPaymentPercentage !== 100 ) {
             firstPayment = totalPayment - ( firstPaymentPercentage / 100 );
@@ -354,11 +354,10 @@ export default function ContactForm() {
                 },
             } ) );
             prices.website = { ["name"]: site.name, ["startingPrice"]: site.startingPrice };
-            prices.total = site.startingPrice;
+            prices.total = { ["amount"]: site.startingPrice };
             updateTotal();
             return site;
         }
-
         return null;
     };
 
@@ -390,14 +389,16 @@ export default function ContactForm() {
             style: {
                 name: '',
             },
-            firstPayment: {},
+            firstPayment: {
+                amount: 0,
+            },
             total: { amount: 0 },
         } ) );
         prices.website = { ["name"]: '', ["startingPrice"]: 0 };
-        prices.payment = { ["name"]: '', ["percentage"]: 0, ["fee"]: 0, ["discount"]: 0 };
+        prices.payment = { ["name"]: '', ["firstPayment"]: 0, ["fee"]: 0, ["discount"]: 0 };
         prices.date = { ["months"]: '', ["days"]: 0, ["date"]: formatDate( new Date() ) };
         prices.style = { ["name"]: '' };
-        prices.firstPayment = {};
+        prices.firstPayment = { ["amount"]: 0 };
         prices.total = { ["amount"]: 0 };
         setDate( new Date() );
         setSelectedMonth( new Date() );
