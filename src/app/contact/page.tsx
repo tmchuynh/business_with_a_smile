@@ -69,9 +69,9 @@ export default function ContactForm() {
     } );
 
     const [prices, setPrices] = useState<Prices>( {
-        website: { name: '', price: 0 },
+        website: { name: '', startingPrice: 0 },
         payment: { name: '', percentage: 0, fee: 0, discount: 0 },
-        date: { months: '', days: 0, date: '' },
+        date: { months: '', days: 0, date: formatDate( new Date() ) },
         style: { name: '' },
         firstPayment: {},
         total: { amount: 0 },
@@ -83,12 +83,28 @@ export default function ContactForm() {
     const { theme } = useTheme();
     const isDarkMode = theme === 'dark';
 
-
     const [date, setDate] = useState<Date | undefined>( undefined );
     const [phone, setPhone] = useState( "" );
     const [selectedMonth, setSelectedMonth] = useState<Date | null>( null );
     const [mounted, setMounted] = useState( false );
-    useEffect( () => setMounted( true ), [] );
+    useEffect( () => {
+        setMounted( true );
+        console.log( prices );
+    }, [] );
+
+    const searchParams = useSearchParams();
+    const paymentPlan = searchParams.get( "paymentMethod" );
+    const websiteType = searchParams.get( "website" );
+
+    useEffect( () => {
+        if ( paymentPlan && websiteType ) {
+            const payment = decodeUrlSafeBase64( paymentPlan );
+            const tier = decodeUrlSafeBase64( websiteType );
+
+            findPaymentPlan( payment );
+            findWebsite( tier );
+        }
+    }, [paymentPlan, websiteType] );
 
 
     const handleDateSelect = ( selectedDate: Date | undefined ) => {
@@ -119,6 +135,39 @@ export default function ContactForm() {
             console.log( prices );
             setOpenPopover( false );
         }
+    };
+
+
+    const findPreset = ( preset: string ): Preset | null => {
+        const presetTime = presets.find( p => p.description === preset );
+        if ( presetTime ) {
+            const date = new Date();
+            const monthsAmount = parseInt( removeLetters( presetTime.description ) );
+            date.setMonth( date.getMonth() + monthsAmount );
+
+            const daysAmount = Math.trunc( monthsAmount / 30 );
+
+            const newDate = addDays( new Date(), daysAmount );
+            setDate( newDate );
+            setSelectedMonth( new Date( newDate.getFullYear(), newDate.getMonth(), 1 ) );
+
+            setPrices( ( prevPrices ) => ( {
+                ...prevPrices,
+                date: {
+                    months: presetTime.description,
+                    days: parseInt( removeLetters( presetTime.value ) ),
+                    date: formatDate( date ),
+                }
+            } ) );
+
+            prices.date = { ['months']: `${ monthsAmount } months`, ['days']: parseInt( removeLetters( presetTime.value ) ), ['date']: formatDate( date ) };
+
+            setValue( "dueDate", date );
+            updateTotal();
+            console.log( prices );
+            return presetTime;
+        }
+        return null;
     };
 
     const calculateDateDifference = ( date1: Date, date2: Date ) => {
@@ -166,6 +215,53 @@ export default function ContactForm() {
     };
 
     const updateTotal = () => {
+        let totalPayment = prices.website.startingPrice;
+        const dateDays = prices.date.days;
+        let fee = prices.payment.fee;
+        let discountedPrice = totalPayment;
+
+        const discountPercent = prices.payment.discount;
+        const startingPrice = prices.website.startingPrice;
+        const firstPaymentPercentage = prices.payment.firstPayment;
+        let firstPayment = startingPrice;
+
+
+        if ( dateDays > 45 && dateDays < 90 ) {
+            fee += 10;
+        } else if ( dateDays <= 45 ) {
+            fee += 50;
+        }
+
+        totalPayment += fee;
+
+        if ( discountPercent !== 0 ) {
+            const percentage = discountPercent / 100;
+            const discountedPrice = totalPayment - ( totalPayment * percentage );
+            totalPayment = discountedPrice;
+        }
+        prices.total = totalPayment;
+
+        if ( firstPaymentPercentage !== 100 ) {
+            firstPayment = totalPayment - ( firstPaymentPercentage / 100 );
+        } else {
+            firstPayment = totalPayment;
+        }
+        prices.firstPayment = { ["amount"]: firstPayment };
+
+        setPrices( ( prevPrices ) => ( {
+            ...prevPrices,
+            total: { ["amount"]: totalPayment },
+            payment: {
+                name: prevPrices.payment.name,
+                firstPayment: prevPrices.payment.firstPayment,
+                fee: prevPrices.payment.fee,
+                discount: prevPrices.payment.discount,
+                discountedPrice: discountedPrice
+            },
+            firstPayment: { ["amount"]: firstPayment },
+        } ) );
+
+        console.log( prices );
     };
 
     const findPaymentPlan = ( plan: string ): PaymentPlan | null => {
@@ -179,10 +275,10 @@ export default function ContactForm() {
                     fee: payment.fee,
                     discount: payment.discounts,
                 },
+                total: { ["amount"]: prices.website.startingPrice + payment.fee }
             } ) );
             setValue( "payment", payment.name );
             prices.payment = { ["name"]: payment.name, ["firstPayment"]: payment.firstPayment, ["fee"]: payment.fee, ["discount"]: payment.discounts };
-            prices.total = prices.website.price + prices.payment.fee;
             updateTotal();
             return payment;
         }
@@ -198,10 +294,10 @@ export default function ContactForm() {
                 ...prevPrices,
                 website: {
                     name: site.name,
-                    price: site.startingPrice,
+                    startingPrice: site.startingPrice,
                 },
             } ) );
-            prices.website = { ["name"]: site.name, ["price"]: site.startingPrice };
+            prices.website = { ["name"]: site.name, ["startingPrice"]: site.startingPrice };
             prices.total = site.startingPrice;
             updateTotal();
             return site;
@@ -210,39 +306,6 @@ export default function ContactForm() {
         return null;
     };
 
-    const searchParams = useSearchParams();
-    const paymentPlan = searchParams.get( "paymentMethod" );
-    const websiteType = searchParams.get( "website" );
-
-    useEffect( () => {
-        if ( paymentPlan && websiteType ) {
-            const payment = decodeUrlSafeBase64( paymentPlan );
-            const tier = decodeUrlSafeBase64( websiteType );
-            console.log( payment, tier );
-
-            findPaymentPlan( payment );
-            findWebsite( tier );
-
-            const paymentContainer = document.querySelector( ".payment-selector" );
-            const paymentSelector = paymentContainer!.querySelector( "Select" );
-            console.log( paymentSelector );
-
-            const websiteContainer = document.querySelector( ".website-selector" );
-            const websiteSelector = websiteContainer!.querySelector( "Select" );
-            console.log( websiteSelector );
-
-            // const plan = paymentPlans.find( ( p ) => p.name === payment );
-            // const website = website_types.find( ( w ) => w.name === tier );
-
-            // if ( plan ) {
-            //     setValue( "payment", plan.name );
-            // }
-
-            // if ( website ) {
-            //     setValue( "website", website.name );
-            // }
-        }
-    }, [paymentPlan, websiteType] );
 
     const onSubmit = ( data: FormData ) => {
         console.log( {
@@ -267,37 +330,6 @@ export default function ContactForm() {
         return site_styles[styleIndex];
     };
 
-    const findPreset = ( preset: string ): Preset | null => {
-        const presetTime = presets.find( p => p.description === preset );
-        if ( presetTime ) {
-            const date = new Date();
-            const monthsAmount = parseInt( removeLetters( presetTime.description ) );
-            date.setMonth( date.getMonth() + monthsAmount );
-
-            const daysAmount = Math.trunc( monthsAmount / 30 );
-
-            const newDate = addDays( new Date(), daysAmount );
-            setDate( newDate );
-            setSelectedMonth( new Date( newDate.getFullYear(), newDate.getMonth(), 1 ) );
-
-            setPrices( ( prevPrices ) => ( {
-                ...prevPrices,
-                date: {
-                    months: presetTime.description,
-                    days: parseInt( removeLetters( presetTime.value ) ),
-                    date: formatDate( date ),
-                }
-            } ) );
-
-            prices.date = { ['months']: `${ monthsAmount } months`, ['days']: parseInt( removeLetters( presetTime.value ) ), ['date']: formatDate( date ) };
-
-            setValue( "dueDate", date );
-            updateTotal();
-            console.log( prices );
-            return presetTime;
-        }
-        return null;
-    };
 
     function removeLetters( value: string ) {
         return value.replace( /[^0-9]/g, "" );
@@ -834,16 +866,10 @@ export default function ContactForm() {
                             <p className="mt-1 text-sm text-softNeutral-600 dark:text-softNeutral-200">
                                 Review the estimated payments based on your selected website type, payment plan, and due dates.
                             </p>
-                            <p className="font-bold mt-5 text-sm text-softNeutral-600 dark:text-softNeutral-200">
-                                Note: This is only the estimated cost. You will be sent the actual quoted amount to your email address within 3-5 business days.
-                            </p>
                         </div>
                         <div className="md:col-span-2 space-y-6">
                             {/* Payment Summary */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
-                                    Payment Breakdown
-                                </label>
                                 <div className="border border-softNeutral-300 dark:border-softNeutral-700 rounded-lg p-4">
                                     <PricingDetails prices={prices} />
                                 </div>
@@ -851,25 +877,28 @@ export default function ContactForm() {
 
                             {/* Fees Information */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
                                     Additional Fees
                                 </label>
                                 <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
                                     <p>
-                                        Any applicable fees are calculated based on your payment plan and due dates. Please ensure timely payments to avoid late charges.
+                                        Applicable fees, if any, will be calculated based on the selected payment plan and due dates. Kindly adhere to the payment schedule to avoid potential late fees or additional charges.
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Total Payment */}
-                            <div className="flex justify-between items-center border-t border-softNeutral-300 dark:border-softNeutral-700 pt-4">
-                                <h4 className="text-lg font-medium text-deepTeal-700 dark:text-deepBlue-400">
-                                    Total Estimated Cost
-                                </h4>
-                                <p className="text-xl font-semibold text-softNeutral-900 dark:text-softNeutral-50">
-                                    {/* ${totalCost.toFixed(2)} */}
-                                </p>
+                            {/* Disclaimer Information */}
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium font-sans text-deepTeal-700 dark:text-deepBlue-400 md:tracking-widest">
+                                    Disclaimer
+                                </label>
+                                <div className="text-sm text-softNeutral-600 dark:text-softNeutral-400">
+                                    <p>
+                                        Please note that the displayed cost is an estimate. A detailed and finalized quote will be sent to your provided email address within 3–5 business days.
+                                    </p>
+                                </div>
                             </div>
+
                             {mounted && (
                                 <Button
                                     variant={isDarkMode ? "secondary" : "default"}
