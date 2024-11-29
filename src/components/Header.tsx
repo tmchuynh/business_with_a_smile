@@ -96,6 +96,13 @@ export default function Header() {
                     >
                         About
                     </Link>
+                    <Link
+                        href="/accessibility"
+                        className="hover:text-deepTeal-600 dark:hover:text-deepBlue-400"
+                    >
+                        Accessibility Statement
+                    </Link>
+
 
                     {/* About Dropdown */}
                     <div className="relative">
