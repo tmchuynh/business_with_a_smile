@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import { Eye, Lightbulb, PenTool, ShieldCheck, Star, Users } from "lucide-react";
 import { HeaderImage } from "@/components/ui/header-image";
 import HighlightedCard from "@/components/ui/highlight-card";
+import TextReveal from "@/components/ui/text-reveal";
+import { aboutImages } from "../../../types/constants";
+import BlurFade from "@/components/ui/blur-fade";
 
 export default function AboutPage() {
     const { theme } = useTheme();
@@ -24,8 +27,56 @@ export default function AboutPage() {
     }
 
     return (
-        <div className="text-softNeutral-800 dark:text-softNeutral-200">
+        <div className="">
             <HeaderImage url={'/images/mountain.jpg'} />
+
+            <div className="z-10 min-h-64 flex items-center justify-center rounded-lg relative">
+                <TextReveal text="We believe in your business because it is also ours." className="z-20 absolute" />
+                <div className="flex flex-wrap justify-around gap-5 opacity-50 relative">
+                    {aboutImages.map( ( image, index ) => (
+                        <div
+                            key={index}
+                            className={`flex gap-4 ${ index % 4 === 0 ? "flex-row" : "flex-row-reverse"
+                                }`}
+                        >
+                            {/* Left or Top Image */}
+                            <BlurFade delay={0.22 * index}>
+                                <Image
+                                    priority
+                                    src={image.src}
+                                    alt={image.alt}
+                                    width={300}
+                                    height={200}
+                                    className="object-cover rounded-lg h-56 w-56 shadow-lg bg-zinc-900"
+                                />
+                            </BlurFade>
+
+                            {/* Center Images (Checkerboard Style) */}
+                            <BlurFade delay={0.22 * index}>
+                                <div className="relative h-56 w-56">
+                                    <Image
+                                        priority
+                                        src={image.src}
+                                        alt={image.alt}
+                                        width={300}
+                                        height={300}
+                                        className="object-cover rounded-lg shadow-lg h-32 w-32 bg-teal-200 absolute top-0 left-0"
+                                    />
+                                    <Image
+                                        priority
+                                        src={image.src}
+                                        alt={image.alt}
+                                        width={300}
+                                        height={300}
+                                        className="object-cover rounded-lg shadow-lg h-32 w-32 bg-teal-200 absolute bottom-0 right-0"
+                                    />
+                                </div>
+                            </BlurFade>
+                        </div>
+                    ) )}
+
+                </div>
+            </div>
 
             {/* Background Story */}
             <section className="py-16 px-6">
