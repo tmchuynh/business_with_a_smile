@@ -22,6 +22,15 @@ export const formatPhoneNumber = ( value: string ) => {
     return value;
 };
 
+export function chunkArray<T>( array: T[], size: number ): T[][] {
+    const chunks: T[][] = [];
+    for ( let i = 0; i < array.length; i += size ) {
+        chunks.push( array.slice( i, i + size ) );
+    }
+    return chunks;
+}
+
+
 export function classNames( ...classes: string[] ) {
     return classes.filter( Boolean ).join( ' ' );
 }

@@ -70,18 +70,138 @@ export const presets: Preset[] = [
     },
 ];
 
+export const aboutImages = [
+    {
+        id: 1,
+        src: "/images/about-1.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 2,
+        src: "/images/about-2.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 3,
+        src: "/images/about-3.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 4,
+        src: "/images/about-4.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 5,
+        src: "/images/about-5.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 6,
+        src: "/images/about-6.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 7,
+        src: "/images/about-7.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 8,
+        src: "/images/about-8.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 9,
+        src: "/images/about-9.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 10,
+        src: "/images/about-10.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 11,
+        src: "/images/about-11.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 12,
+        src: "/images/about-12.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 13,
+        src: "/images/about-13.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 14,
+        src: "/images/about-14.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 15,
+        src: "/images/about-15.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 16,
+        src: "/images/about-16.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 17,
+        src: "/images/about-17.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 18,
+        src: "/images/about-18.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 19,
+        src: "/images/about-19.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 20,
+        src: "/images/about-20.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 21,
+        src: "/images/about-21.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 22,
+        src: "/images/about-22.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 23,
+        src: "/images/about-23.jpg",
+        alt: "Background image",
+    },
+    {
+        id: 24,
+        src: "/images/about-24.jpg",
+        alt: "Background image",
+    },
+];
+
 export const stats: Stats[] = [
-    { id: 16, name: "Maintenance contracts", value: 6, suffix: "contracts" },
+    { id: 15, name: "Average project duration", value: 8, suffix: "weeks" },
     {
         id: 1,
         name: "Websites designed and developed",
         value: 150,
         suffix: "websites",
     },
-    { id: 15, name: "Average project duration", value: 8, suffix: "weeks" },
-    { id: 3, name: "Websites launched per month", value: 7, suffix: "websites" },
-    { id: 8, name: "Customer satisfaction rate", value: 92, suffix: "%" },
-    { id: 2, name: "Clients served", value: 25, suffix: "clients" },
+    { id: 8, name: "Customer satisfaction rate", value: 95, suffix: "%" },
 ];
 
 export const projects: Project[] = [

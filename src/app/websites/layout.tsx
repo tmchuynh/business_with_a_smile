@@ -1,8 +1,5 @@
 export const metadata = {
-  title: {
-    template: '%s | Pricing',
-    default: 'Pricing',
-  },
+  title: "Pricing",
 };
 
 export default function PricingLayout( {

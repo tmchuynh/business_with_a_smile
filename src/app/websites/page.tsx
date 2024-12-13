@@ -21,8 +21,8 @@ export default function Pricing() {
 
     const isDarkMode = theme === 'dark';
 
-    function navigate( name: string ) {
-        router.push( `/websites/${ encodeUrlSafeBase64( name ) }/plans` );
+    function navigate( name: string, index: number ) {
+        router.push( `/websites/${ encodeUrlSafeBase64( name ) }/plans?index=${ encodeUrlSafeBase64( index.toString() ) }` );
     }
 
     return (
@@ -56,9 +56,9 @@ export default function Pricing() {
                         </p>
                     </div>
 
-                    {website_types.map( ( website, tierIdx ) => (
+                    {website_types.map( ( website, index ) => (
                         <div
-                            key={`${ website.id }_${ tierIdx }`}
+                            key={`${ website.id }_${ index }`}
                             className={classNames(
                                 website.popular
                                     ? "relative bg-gradient-to-tl from-deepTeal-500 to-deepBlue-900 shadow-2xl hover:scale-105"
@@ -159,7 +159,7 @@ export default function Pricing() {
                                                 : "outline"
                                     }
                                     className="mt-8"
-                                    onClick={() => navigate( website.name )}
+                                    onClick={() => navigate( website.name, index )}
                                 >
                                     Get Started Today
                                 </Button>

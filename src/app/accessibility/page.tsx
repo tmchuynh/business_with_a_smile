@@ -25,7 +25,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={0.44}>
-        <h2 className="text-2xl font-semibold mb-4">Our Accessibility Goals</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Our Accessibility Goals</h2>
       </BlurFade>
 
       <BlurFade delay={0.44}>
@@ -55,7 +55,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={0.99}>
-        <h2 className="text-2xl font-semibold mb-4">Designing for Everyone</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Designing for Everyone</h2>
       </BlurFade>
 
       <BlurFade delay={0.99}>
@@ -86,7 +86,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={1.6}>
-        <h2 className="text-2xl font-semibold mb-4">Enhancing Accessibility for Neurodivergent Users</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Enhancing Accessibility for Neurodivergent Users</h2>
       </BlurFade>
 
       <BlurFade delay={1.6}>
@@ -117,7 +117,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={2.1}>
-        <h2 className="text-2xl font-semibold mb-4">Testing and Validation</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Testing and Validation</h2>
       </BlurFade>
 
       <BlurFade delay={2.1}>
@@ -142,7 +142,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={2.4}>
-        <h2 className="text-2xl font-semibold mb-4">Continuous Improvement</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Continuous Improvement</h2>
       </BlurFade>
 
       <BlurFade delay={2.4}>
@@ -167,7 +167,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={2.8}>
-        <h2 className="text-2xl font-semibold mb-4">Feedback and Support</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Feedback and Support</h2>
       </BlurFade>
 
       <BlurFade delay={2.8}>
@@ -197,7 +197,7 @@ const AccessibilityPage = () => {
       <hr className="my-8" />
 
       <BlurFade delay={3.2}>
-        <h2 className="text-2xl font-semibold mb-4">Commitment to an Inclusive Future</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full">Commitment to an Inclusive Future</h2>
       </BlurFade>
 
       <BlurFade delay={3.3}>

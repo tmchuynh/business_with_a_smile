@@ -7,7 +7,7 @@ import BackToTopButton from "@/components/ui/backToTop";
 export const metadata: Metadata = {
     title: {
         template: '%s | TMCH',
-        default: 'TMCH',
+        default: 'Home | TMCH',
     },
     description: "",
 };
