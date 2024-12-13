@@ -222,11 +222,6 @@ export default function Header() {
                         ) : (
                             <Moon className="h-5 w-5" />
                         )}
-
-                        {/* Description on Hover */}
-                        <span className="absolute right-12 bottom-3 text-softNeutral-800 dark:text-softNeutral-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                            Toggle Dark Mode
-                        </span>
                     </Button>
                 )}
 
